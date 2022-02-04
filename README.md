@@ -2,14 +2,14 @@
 
 ## Open Roles
 
-- API Developer
-- Front End Developer
-- Database Administrator
-- Back End Developer
+- API Developer - 1 opening
+- Front End Developer - 2 openings
+- Database Administrator - 1 opening
+- Back End Developer - 2 openings
 
 ## Requirements
 
-- Use Node.js and Express.js to create RESTful APIs (GET and POST routes)
+- Use Node.js and Express.js to create RESTful APIs (GET and POST routes, API keys)
 - Templating Engine: Handlebars.js
 - Database: MySQL
 - ORM: Sequelize
