@@ -2,10 +2,14 @@
 
 ## Open Roles
 
-- API Developer - 1 opening
 - Front End Developer - 2 openings
+  - A Front End Developer is proficient in the following: semantic HTML; CSS and OOP frameworks; JavaScript logic, Promises, API fetch requests, and OOP.
+- API Developer - 1 opening
+  - For this project, an API developer will need to present the following: understanding of RESTful APIs; Sequelize Model methods (findAll(), findOne(), create(), destroy()) and their Promise structure; request and response objects (req, res).
 - Database Administrator - 1 opening
+  - A Database Administrator should be proficient in the following: creating databases and tables; associations between table data (one-to-many, many-to-many relationships); querying related data from multiple linked tables; and implementing JawsDB on Heroku;
 - Back End Developer - 2 openings
+  - A Back End Developer should be proficient in the following: setting up and configuring an Express web server; the Express Router; Express middleware; session management with Express; and user authentication;
 
 ## Requirements
 
