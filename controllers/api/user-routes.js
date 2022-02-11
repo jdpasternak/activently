@@ -5,7 +5,7 @@ const router = require("express").Router();
 router.post("/login", (req, res) => {
   // I assume we are logging in with email, if they don't have an account they will need to go sign up
 
-//   User.findOne({
+//  Profile.findOne({
 //     where: {
 //       email: req.body.email,
 //     },

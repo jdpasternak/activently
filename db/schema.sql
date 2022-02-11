@@ -1,0 +1,5 @@
+-- DROP DATABASE
+DROP DATABASE IF EXISTS activently_db;
+
+-- CREATE DATABASE
+CREATE DATABASE activently_db;
