@@ -13,12 +13,6 @@ router.get("/", (req, res) => {
       "created_at",
       [
         sequelize.literal(
-          "(SELECT COUNT(*) FROM interested WHERE activity.id = interested.activity_id)"
-        ),
-        "interested_count",
-      ],
-      [
-        sequelize.literal(
           "(SELECT COUNT(*) FROM attending WHERE activity.id = attending.activity_id)"
         ),
         "attending_count",
@@ -65,12 +59,6 @@ router.get("/:id", (req, res) => {
       "location",
       "occurrence",
       "created_at",
-      [
-        sequelize.literal(
-          "(SELECT COUNT(*) FROM interested WHERE activity.id = interested.activity_id)"
-        ),
-        "interested_count",
-      ],
       [
         sequelize.literal(
           "(SELECT COUNT(*) FROM attending WHERE activity.id = attending.activity_id)"
