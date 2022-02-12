@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 
 require('dotenv').config();
 
+// [ ] TODO - add conditional for JawsDB connection
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
     host: 'localhost',
     dialect: 'mysql',
