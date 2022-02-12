@@ -1,27 +1,24 @@
 {
   "name": "activently",
   "version": "1.0.0",
-  "description": "",
+  "description": "- Front End Developer - 2 openings\r   - A Front End Developer is proficient in the following: semantic HTML; CSS and OOP frameworks; JavaScript logic, Promises, API fetch requests, and OOP.\r - API Developer - 1 opening\r   - For this project, an API developer will need to present the following: understanding of RESTful APIs; Sequelize Model methods (findAll(), findOne(), create(), destroy()) and their Promise structure; request and response objects (req, res).\r - Database Administrator - 1 opening\r   - A Database Administrator should be proficient in the following: creating databases and tables; associations between table data (one-to-many, many-to-many relationships); querying related data from multiple linked tables; and implementing JawsDB on Heroku;\r - Back End Developer - 2 openings\r   - A Back End Developer should be proficient in the following: setting up and configuring an Express web server; the Express Router; Express middleware; session management with Express; and user authentication;",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "db": "mysql -u root -p < db/schema.sql"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/horsfalm/activently.git"
+    "url": "git+https://github.com/jdpasternak/activently.git"
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/horsfalm/activently/issues"
+    "url": "https://github.com/jdpasternak/activently/issues"
   },
-  "homepage": "https://github.com/horsfalm/activently#readme",
+  "homepage": "https://github.com/jdpasternak/activently#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "mysql2": "^2.3.3",
     "sequelize": "^6.16.1"

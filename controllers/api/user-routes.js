@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Activity, Comment, Attending } = require("../../models");
+const { User } = require("../../models");
 
 router.get("/", (req, res) => {
   User.findAll({
@@ -18,33 +18,33 @@ router.get("/:id", (req, res) => {
       id: req.params.id,
     },
     attributes: { exclude: ["password"] },
-    include: [
-      {
-        model: Activity,
-        attributes: [
-          "id",
-          "title",
-          "description",
-          "location",
-          "occurrence",
-          "created_at",
-        ],
-      },
-      {
-        model: Comment,
-        attributes: ["id", "comment_text", "created_at"],
-        include: {
-          model: Activity,
-          attributes: ["title", "location", "occurrence"],
-        },
-      },
-      {
-        model: Activity,
-        attributes: ["title"],
-        through: Attending,
-        as: "attending_activities",
-      },
-    ],
+    // include: [
+    //   {
+    //     model: Activity,
+    //     attributes: [
+    //       "id",
+    //       "title",
+    //       "description",
+    //       "location",
+    //       "occurrence",
+    //       "created_at",
+    //     ],
+    //   },
+    //   {
+    //     model: Comment,
+    //     attributes: ["id", "comment_text", "created_at"],
+    //     include: {
+    //       model: Activity,
+    //       attributes: ["title", "location", "occurrence"],
+    //     },
+    //   },
+    //   {
+    //     model: Activity,
+    //     attributes: ["title"],
+    //     through: Attending,
+    //     as: "attending_activities",
+    //   },
+    // ],
   })
     .then((dbUserData) => {
       if (!dbUserData) {
@@ -78,18 +78,23 @@ router.post("/login", (req, res) => {
     where: {
       email: req.body.email,
     },
-  }).then((dbUserData) => {
-    if (!dbUserData) {
-      res.status(400).json({ message: "No user with that email address!" });
-      return;
-    }
-    const validPassword = dbUserData.checkPassword(req.body.password);
-    if (!validPassword) {
-      res.status(400).json({ message: "Incorrect password!" });
-      return;
-    }
-    res.json({ user: dbUserData, message: "You are now logged in!" });
-  });
+  })
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(400).json({ message: "No user with that email address!" });
+        return;
+      }
+      const validPassword = dbUserData.checkPassword(req.body.password);
+      if (!validPassword) {
+        res.status(400).json({ message: "Incorrect password!" });
+        return;
+      }
+      res.json({ user: dbUserData, message: "You are now logged in!" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 router.put("/:id", (req, res) => {

@@ -1,6 +1,6 @@
 const sequelize = require("../../config/connection");
 const router = require("express").Router();
-const { Activity, User, Comment, Attending } = require("../../models");
+const { Activity, User, Comment } = require("../../models");
 
 router.get("/", (req, res) => {
   Activity.findAll({
@@ -116,37 +116,8 @@ router.post("/", (req, res) => {
 });
 
 // add attending parties to an activity
-router.put("/attending", (req, res) => {
-  Attending.create({
-    user_id: req.body.user_id,
-    activity_id: req.body.activity_id,
-  }).then(() => {
-    return Activity.findOne({
-      where: {
-        id: req.body.activity_id,
-      },
-      attributes: [
-        "id",
-        "title",
-        "description",
-        "location",
-        "occurrence",
-        "created_at",
-        [
-          sequelize.literal(
-            "(SELECT COUNT(*) FROM attending WHERE activity.id = attending.activity_id)"
-          ),
-          "attending_count",
-        ],
-      ],
-    })
-      .then((dbActivityData) => res.json(dbActivityData))
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(err);
-      });
-  });
-});
+// POST route for attending an activity
+// POST /api/activity/attend
 
 router.put("/:id", (req, res) => {
   Activity.update(req.body, {
