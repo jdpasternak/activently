@@ -1,11 +1,14 @@
 const User = require("./User");
-// const Activity = require("./Activity");
-// const Comment = require("./Comment");
-// const Attendance = require("./Attendance");
-// const Interest = require("./Interest");
-// const UserDietaryPref = require("./UserDietaryPref");
-// const UserInterest = require("./UserInterest");
+
+const Activity = require("./Activity");
+
+const Comment = require("./Comment");
+
+const Interest = require("./Interest");
 // const DietaryPref = require("./DietaryPref");
+// const UserDietaryPref = require("./UserDietaryPref");
+// const Attendance = require("./Attendance");
+// const UserInterest = require("./UserInterest");
 
 // User < UserDietaryPref
 // User.hasMany(UserDietaryPref, {
@@ -20,7 +23,7 @@ const User = require("./User");
 // User < Activity
 // User < Comment
 
-// DietaryPref < UserDietaryPref
+// DietaryPref < UserDietaryPref;
 // DietaryPref.hasMany(UserDietaryPref, {
 //   foreignKey: "dietary_pref_id",
 // });
