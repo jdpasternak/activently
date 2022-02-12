@@ -34,6 +34,23 @@ Activity.init(
         key: "id",
       },
     },
+    is_private: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    seats: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    rules: {
+      type: DataTypes.STRING,
+    },
+    price: {
+      type: DataTypes.DECIMAL,
+    },
+    req_dietary_pref: {
+      type: DataTypes.BOOLEAN,
+    },
   },
   {
     sequelize,
