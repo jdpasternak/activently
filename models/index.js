@@ -2,6 +2,10 @@ const User = require("./User");
 const Activity = require("./Activity");
 const Comment = require("./Comment");
 const Attendance = require("./Attendance");
+const Interest = require("./Interest");
+const UserDietaryPref = require("./UserDietaryPref");
+const UserInterest = require("./UserInterest");
+const DietaryPref = require("./DietaryPref");
 
 User.hasMany(Activity, {
   foreignKey: "organizer_id",
