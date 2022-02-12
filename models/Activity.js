@@ -51,6 +51,10 @@ Activity.init(
     req_dietary_pref: {
       type: DataTypes.BOOLEAN,
     },
+    interest_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     sequelize,
