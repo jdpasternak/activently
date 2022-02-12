@@ -1,7 +1,7 @@
 const User = require("./User");
 const Activity = require("./Activity");
 const Comment = require("./Comment");
-const Attending = require("./Attending");
+const Attendance = require("./Attendance");
 
 User.hasMany(Activity, {
   foreignKey: "organizer_id",
@@ -28,31 +28,31 @@ Activity.hasMany(Comment, {
 });
 
 User.belongsToMany(Activity, {
-  through: Attending,
-  as: "attending_activities",
+  through: Attendance,
+  as: "Attendance_activities",
   foreignKey: "user_id",
 });
 
 Activity.belongsToMany(User, {
-  through: Attending,
-  as: "attending_activities",
+  through: Attendance,
+  as: "Attendance_activities",
   foreignKey: "activity_id",
 });
 
-Attending.belongsTo(User, {
+Attendance.belongsTo(User, {
   foreignKey: "user_id",
 });
 
-Attending.belongsTo(Activity, {
+Attendance.belongsTo(Activity, {
   foreignKey: "activity_id",
 });
 
-User.hasMany(Attending, {
+User.hasMany(Attendance, {
   foreignKey: "user_id",
 });
 
-Activity.hasMany(Attending, {
+Activity.hasMany(Attendance, {
   foreignKey: "activity_id",
 });
 
-module.exports = { User, Activity, Comment, Attending };
+module.exports = { User, Activity, Comment, Attendance };
