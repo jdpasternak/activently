@@ -7,6 +7,41 @@ const UserDietaryPref = require("./UserDietaryPref");
 const UserInterest = require("./UserInterest");
 const DietaryPref = require("./DietaryPref");
 
+// User < UserDietaryPref
+User.hasMany(UserDietaryPref, {
+  foreignKey: "user_id",
+});
+
+UserDietaryPref.belongsTo(User, {
+  foreignKey: "user_id",
+});
+// User < UserInterest
+// User < Attendance
+// User < Activity
+// User < Comment
+
+// DietaryPref < UserDietaryPref
+DietaryPref.hasMany(UserDietaryPref, {
+  foreignKey: "dietary_pref_id",
+});
+
+UserDietaryPref.belongsTo(DietaryPref, {
+  foreignKey: "dietary_pref_id",
+});
+
+User.belongsToMany(DietaryPref, {
+  through: UserDietaryPref,
+  as: "dietary_preferences",
+  foreignKey: "user_id",
+});
+
+// Interest < UserInterest
+// Interest < Activity
+
+// Activity < Attendance
+// Activity < Comment
+
+// Activity.organizer_id > User.id
 User.hasMany(Activity, {
   foreignKey: "organizer_id",
 });
