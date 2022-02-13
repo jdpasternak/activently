@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User } = require("../../models");
+const { User, DietaryPref, UserDietaryPref } = require("../../models");
 
 router.get("/", (req, res) => {
   User.findAll({
@@ -18,6 +18,14 @@ router.get("/:id", (req, res) => {
       id: req.params.id,
     },
     attributes: { exclude: ["password"] },
+    include: [
+      {
+        model: DietaryPref,
+        attributes: ["name"],
+        through: UserDietaryPref,
+        as: "dietary_preferences",
+      },
+    ],
     // include: [
     //   {
     //     model: Activity,

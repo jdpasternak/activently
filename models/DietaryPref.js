@@ -24,6 +24,7 @@ DietaryPref.init(
     sequelize,
     freezeTableName: true,
     underscored: true,
+    timestamps: false,
     modelName: "dietary_pref",
   }
 );
