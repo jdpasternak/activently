@@ -7,6 +7,7 @@ const {
   UserInterest,
   Activity,
   Attendance,
+  Comment,
 } = require("../../models");
 
 router.get("/", (req, res) => {
@@ -44,6 +45,16 @@ router.get("/:id", (req, res) => {
         attributes: ["title"],
         through: Attendance,
         as: "attending",
+      },
+      {
+        model: Comment,
+        attributes: ["id", "comment_text", "created_at"],
+        include: [
+          {
+            model: Activity,
+            attributes: ["title"],
+          },
+        ],
       },
     ],
     // include: [
