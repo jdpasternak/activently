@@ -28,3 +28,22 @@ INSERT INTO user_dietary_pref (user_id, dietary_pref_id) VALUES
     (8, 5),
     (9, 1),
     (10, 1);
+
+INSERT INTO interest (name) VALUES
+    ("Hiking"),
+    ("Cycling"),
+    ("Knitting"),
+    ("Poker"),
+    ("Skiing");
+
+INSERT INTO user_interest (user_id, interest_id) VALUES
+    (1, 1),
+    (2, 3),
+    (3, 4),
+    (4, 2),
+    (5, 3),
+    (6, 3),
+    (7, 1),
+    (8, 4),
+    (9, 3),
+    (10, 4);

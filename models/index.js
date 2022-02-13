@@ -15,20 +15,9 @@ const Attendance = require("./Attendance");
 const UserInterest = require("./UserInterest");
 const { post } = require("../controllers");
 
-// User < UserDietaryPref
-// User.hasMany(UserDietaryPref, {
-//   foreignKey: "user_id",
-// });
-
-// UserDietaryPref.belongsTo(User, {
-//   foreignKey: "user_id",
-// });
-// User < UserInterest
-// User < Attendance
-// User < Activity
-// User < Comment
-
-// DietaryPref < UserDietaryPref;
+/* 
+    User - Dietary Preference
+*/
 User.belongsToMany(DietaryPref, {
   through: UserDietaryPref,
   as: "dietary_preferences",
@@ -54,6 +43,36 @@ User.hasMany(UserDietaryPref, {
 
 DietaryPref.hasMany(UserDietaryPref, {
   foreignKey: "dietary_pref_id",
+});
+
+/* 
+    User - Interest
+*/
+User.belongsToMany(Interest, {
+  through: UserInterest,
+  as: "interests",
+  foreignKey: "user_id",
+});
+Interest.belongsToMany(User, {
+  through: UserInterest,
+  as: "interests",
+  foreignKey: "interest_id",
+});
+
+UserInterest.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
+UserInterest.belongsTo(Interest, {
+  foreignKey: "interest_id",
+});
+
+User.hasMany(UserInterest, {
+  foreignKey: "user_id",
+});
+
+Interest.hasMany(UserInterest, {
+  foreignKey: "interest_id",
 });
 
 // Interest < UserInterest

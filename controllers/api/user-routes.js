@@ -1,5 +1,11 @@
 const router = require("express").Router();
-const { User, DietaryPref, UserDietaryPref } = require("../../models");
+const {
+  User,
+  DietaryPref,
+  UserDietaryPref,
+  Interest,
+  UserInterest,
+} = require("../../models");
 
 router.get("/", (req, res) => {
   User.findAll({
@@ -24,6 +30,12 @@ router.get("/:id", (req, res) => {
         attributes: ["name"],
         through: UserDietaryPref,
         as: "dietary_preferences",
+      },
+      {
+        model: Interest,
+        attributes: ["name"],
+        through: UserInterest,
+        as: "interests",
       },
     ],
     // include: [

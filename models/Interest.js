@@ -26,8 +26,9 @@ Interest.init(
   {
     sequelize,
     freezeTableName: true,
+    timestamps: false,
     underscored: true,
-    modelName: "user_dietary_pref",
+    modelName: "interest",
   }
 );
 
