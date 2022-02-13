@@ -120,12 +120,26 @@ Comment.belongsTo(User, {
   foreignKey: "user_id",
 });
 
+/* 
+    Activity - Comment
+*/
 Activity.hasMany(Comment, {
   foreignKey: "activity_id",
 });
 
 Comment.belongsTo(Activity, {
   foreignKey: "activity_id",
+});
+
+/* 
+    Interest - Activity
+*/
+Interest.hasMany(Activity, {
+  foreignKey: "interest_id",
+});
+
+Activity.belongsTo(Interest, {
+  foreignKey: "interest_id",
 });
 
 // Interest < UserInterest
