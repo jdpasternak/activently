@@ -1,7 +1,7 @@
 const { UserDietaryPref } = require("../../models");
 const router = require("express").Router();
 
-router.post("/userDietaryPref", (req, res) => {
+router.post("/userDietaryPrefs", (req, res) => {
   UserDietaryPref.create({
     user_id: req.body.user_id,
     dietary_pref_id: req.body.dietary_pref_id,
@@ -13,7 +13,7 @@ router.post("/userDietaryPref", (req, res) => {
     });
 });
 
-router.delete("/userDietaryPref/:id", (req, res) => {
+router.delete("/userDietaryPrefs/:id", (req, res) => {
   UserDietaryPref.destroy({
     where: {
       id: req.params.id,
