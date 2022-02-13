@@ -57,33 +57,6 @@ router.get("/:id", (req, res) => {
         ],
       },
     ],
-    // include: [
-    //   {
-    //     model: Activity,
-    //     attributes: [
-    //       "id",
-    //       "title",
-    //       "description",
-    //       "location",
-    //       "occurrence",
-    //       "created_at",
-    //     ],
-    //   },
-    //   {
-    //     model: Comment,
-    //     attributes: ["id", "comment_text", "created_at"],
-    //     include: {
-    //       model: Activity,
-    //       attributes: ["title", "location", "occurrence"],
-    //     },
-    //   },
-    //   {
-    //     model: Activity,
-    //     attributes: ["title"],
-    //     through: Attending,
-    //     as: "attending_activities",
-    //   },
-    // ],
   })
     .then((dbUserData) => {
       if (!dbUserData) {
