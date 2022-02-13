@@ -5,6 +5,8 @@ const {
   UserDietaryPref,
   Interest,
   UserInterest,
+  Activity,
+  Attendance,
 } = require("../../models");
 
 router.get("/", (req, res) => {
@@ -36,6 +38,12 @@ router.get("/:id", (req, res) => {
         attributes: ["name"],
         through: UserInterest,
         as: "interests",
+      },
+      {
+        model: Activity,
+        attributes: ["title"],
+        through: Attendance,
+        as: "attending",
       },
     ],
     // include: [

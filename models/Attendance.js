@@ -29,6 +29,7 @@ Attendance.init(
   {
     sequelize,
     freezeTableName: true,
+    timestamps: false,
     modelName: "attendance",
     underscored: true,
   }

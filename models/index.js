@@ -1,19 +1,11 @@
 const User = require("./User");
-
-const Activity = require("./Activity");
-
-const Comment = require("./Comment");
-
-const Interest = require("./Interest");
-
 const DietaryPref = require("./DietaryPref");
-
 const UserDietaryPref = require("./UserDietaryPref");
-
-const Attendance = require("./Attendance");
-
+const Interest = require("./Interest");
 const UserInterest = require("./UserInterest");
-const { post } = require("../controllers");
+const Activity = require("./Activity");
+const Attendance = require("./Attendance");
+const Comment = require("./Comment");
 
 /* 
     User - Dietary Preference
@@ -73,6 +65,48 @@ User.hasMany(UserInterest, {
 
 Interest.hasMany(UserInterest, {
   foreignKey: "interest_id",
+});
+
+/* 
+    User - Activity (organizer)
+*/
+User.hasMany(Activity, {
+  foreignKey: "organizer_id",
+});
+
+Activity.belongsTo(User, {
+  foreignKey: "organizer_id",
+});
+
+/* 
+    User - Activity (attendee)
+*/
+User.belongsToMany(Activity, {
+  through: Attendance,
+  as: "attending",
+  foreignKey: "user_id",
+});
+
+Activity.belongsToMany(User, {
+  through: Attendance,
+  as: "attending",
+  foreignKey: "activity_id",
+});
+
+Attendance.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
+Attendance.belongsTo(Activity, {
+  foreignKey: "activity_id",
+});
+
+User.hasMany(Attendance, {
+  foreignKey: "user_id",
+});
+
+Activity.hasMany(Attendance, {
+  foreignKey: "user_id",
 });
 
 // Interest < UserInterest

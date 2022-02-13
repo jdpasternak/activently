@@ -47,3 +47,21 @@ INSERT INTO user_interest (user_id, interest_id) VALUES
     (8, 4),
     (9, 3),
     (10, 4);
+
+INSERT INTO activity (title, description, location, occurrence, organizer_id, is_private, seats, interest_id) VALUES 
+    ("Activity 1","Act 1 Description","The Town",20220214, 1, false, 10, 1),
+    ("Activity 2","Act 2 Description","The Pier",20220216, 2, false, 10, 2),
+    ("Activity 3","Act 3 Description","The Mountains",20220218, 3, false, 10, 5),
+    ("Activity 4","Act 4 Description","The Beach",20220219, 4, false, 10, 4),
+    ("Activity 5","Act 5 Description","The Community Center",20220217, 5, false, 10, 3);
+
+INSERT INTO attendance (user_id, activity_id) VALUES 
+    (1, 2),
+    (1, 3),
+    (1, 5),
+    (2, 1),
+    (2, 4),
+    (2, 5),
+    (2, 3),
+    (3, 1),
+    (3, 2);
