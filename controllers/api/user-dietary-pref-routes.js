@@ -12,3 +12,23 @@ router.post("/userDietaryPref", (req, res) => {
       res.status(500).json(err);
     });
 });
+
+router.delete("/userDietaryPref/:id", (req, res) => {
+  UserDietaryPref.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((dbUserDietaryPrefData) => {
+      if (!dbUserDietaryPrefData) {
+        res
+          .status(404)
+          .json({ message: "No user-dietarypreference with that ID." });
+      }
+      res.json(dbUserDietaryPrefData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
