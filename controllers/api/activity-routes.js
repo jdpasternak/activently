@@ -1,6 +1,6 @@
 const sequelize = require("../../config/connection");
 const router = require("express").Router();
-// const { Activity, User, Comment } = require("../../models");
+const { Activity, User, Comment } = require("../../models");
 
 router.get("/", (req, res) => {
   Activity.findAll({
@@ -13,9 +13,9 @@ router.get("/", (req, res) => {
       "created_at",
       [
         sequelize.literal(
-          "(SELECT COUNT(*) FROM attending WHERE activity.id = attending.activity_id)"
+          "(SELECT COUNT(*) FROM attendance WHERE activity.id = attendance.activity_id)"
         ),
-        "attending_count",
+        "attendance_count",
       ],
     ],
     order: [["occurrence", "ASC"]],

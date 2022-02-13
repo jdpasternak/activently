@@ -59,7 +59,7 @@ Activity.init(
   {
     sequelize,
     freezeTableName: true,
-    timestamps: false,
+    // timestamps: false,
     underscored: true,
     modelName: "activity",
   }
