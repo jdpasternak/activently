@@ -127,10 +127,10 @@ router.post("/", (req, res) => {
 // add attending parties to an activity
 // POST route for attending an activity
 // POST /api/activity/attend
-router.post("/attend/:id", (req, res) => {
+router.post("/attend", (req, res) => {
   Attendance.create({
     user_id: req.session.user_id,
-    activity_id: req.params.id,
+    activity_id: req.body.activity_id,
   })
     .then((dbActivityData) => dbActivityData)
     .catch((err) => {
