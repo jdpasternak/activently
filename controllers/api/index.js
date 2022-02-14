@@ -1,10 +1,13 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
+const userRoutes = require("./user-routes");
 const activityRoutes = require("./activity-routes");
-const commentsRoutes = require("./comments-routes");
-const profileRoutes = require("./profile-routes");
-router.use("/activity", activityRoutes);
-router.use("/comments", commentsRoutes);
-router.use("/profile", profileRoutes);
+const commentRoutes = require("./comment-routes");
+const userDietaryPrefRoutes = require("./user-dietary-pref-routes");
+
+router.use("/users", userRoutes);
+router.use("/activities", activityRoutes);
+router.use("/comments", commentRoutes);
+router.use("/userDietaryPrefs", userDietaryPrefRoutes);
 
 module.exports = router;
