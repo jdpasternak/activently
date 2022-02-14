@@ -51,13 +51,6 @@ router.get("/", (req, res) => {
 
   Activity.findAll(options)
     .then((dbActivityData) => res.json(dbActivityData))
-    res.render('activity', {
-      name : dbUserData.username,
-      Email : dbUserData.email,
-      ZipCode : dbUserData.zip, 
-      Diet : dbUserData.dietary_preferences[0].name,
-      hobby : dbUserData.interests[0].name,
-    });
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
@@ -113,7 +106,13 @@ router.get("/:id", (req, res) => {
         return;
       }
       
-      res.json(dbActivityData);
+      // res.json(dbActivityData);
+      res.render('activity', {
+        title : dbActivityData.title,
+        description : dbActivityData.description,
+        location : dbActivityData.location,
+        creator : dbActivityData.user.username
+      })
 
     })
     .catch((err) => {
