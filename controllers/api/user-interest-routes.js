@@ -31,4 +31,24 @@ router.post("/", (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  UserInterest.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((dbUserInterestData) => {
+      if (!dbUserInterestData) {
+        res
+          .status(404)
+          .json({ message: "No user interest found with that ID." });
+      }
+      res.json(dbUserInterestData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;
