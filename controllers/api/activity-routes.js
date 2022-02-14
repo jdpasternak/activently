@@ -1,6 +1,6 @@
 const sequelize = require("../../config/connection");
 const router = require("express").Router();
-const { Activity, User, Comment } = require("../../models");
+const { Activity, User, Comment, Attendance } = require("../../models");
 
 /* 
     READ Activity (all)
@@ -127,6 +127,17 @@ router.post("/", (req, res) => {
 // add attending parties to an activity
 // POST route for attending an activity
 // POST /api/activity/attend
+router.post("/attend/:id", (req, res) => {
+  Attendance.create({
+    user_id: req.session.user_id,
+    activity_id: req.params.id,
+  })
+    .then((dbActivityData) => dbActivityData)
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
 /* 
     UPDATE Activity
