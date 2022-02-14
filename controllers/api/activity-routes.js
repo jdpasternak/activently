@@ -1,48 +1,187 @@
-const router = require('express').Router();
-//TODO: pull in the model for activities and profiles
-// TODO: at least one to get all the activities and one to get specific event 
-//get routes for the activity name, public or private, event details, comments and creator details
-router.get('/', (req,res)=>{
-    res.json({message:"No query configured"})
-    //Activity.findAll
-})
-router.get('/:id', (req,res)=>{
-    res.json({message:"No query configured"})
-    
-})
-//will need one handlebars page for all, and one handlebars page that will be a single activity
+const sequelize = require("../../config/connection");
+const router = require("express").Router();
+const { Activity, User, Comment, Attendance } = require("../../models");
 
-//TODO: post routes for signups
-router.post('/', (req,res)=>{
-    // Activity.create({
-    //     activity_title:
-    //     activity_time:
-    //     activity_day:
-    //     activity_details: 
-    //     profile_id:
-    // })
-    // .then (activityData => res.json(activityData))
-    res.json({message:"No query configured"})
-})
-//TODO: put routes for updating event informations
+/* 
+    READ Activity (all)
+*/
+router.get("/", (req, res) => {
+  console.log(req.query);
+  let options = {
+    attributes: [
+      "id",
+      "title",
+      "description",
+      "location",
+      "occurrence",
+      "created_at",
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM attendance WHERE activity.id = attendance.activity_id)"
+        ),
+        "attendance_count",
+      ],
+    ],
+    order: [["occurrence", "ASC"]],
+    include: [
+      {
+        model: Comment,
+        attributes: [
+          "id",
+          "comment_text",
+          "activity_id",
+          "user_id",
+          "created_at",
+        ],
+        include: {
+          model: User,
+          attributes: ["username"],
+        },
+      },
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  };
 
-//TODO:delete for deleting the event
-router.delete('/:id', (req, res) => {
-    res.json({message:"No query configured"})
-    // Activity.destroy({
-    //     where: {
-    //         id: req.params.id
-    //       }
-    //     })
-    //       .then(activityData => {
-    //         if (!activityData) {
-    //           res.status(404).json({ message: 'No activity found with this id' });
-    //           return;
-    //         }
-    //         res.json(activityData);
-    //       })
-    //       .catch(err => {
-    //         console.log(err);
-    //         res.status(500).json(err);
-    //       });
+  if (req.query.zip) {
+    options.where = { location: req.query.zip };
+  }
+
+  Activity.findAll(options)
+    .then((dbActivityData) => res.json(dbActivityData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+/* 
+    READ Activity (by ID)
+*/
+router.get("/:id", (req, res) => {
+  Activity.findOne({
+    where: {
+      id: req.params.id,
+    },
+    attributes: [
+      "id",
+      "title",
+      "description",
+      "location",
+      "occurrence",
+      "created_at",
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM attending WHERE activity.id = attending.activity_id)"
+        ),
+        "attending_count",
+      ],
+    ],
+    include: [
+      {
+        model: Comment,
+        attributes: [
+          "id",
+          "comment_text",
+          "activity_id",
+          "user_id",
+          "created_at",
+        ],
+        include: {
+          model: User,
+          attributes: ["username"],
+        },
+      },
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  })
+    .then((dbActivityData) => {
+      if (!dbActivityData) {
+        res.status(404).json({ message: "No activity found with this id" });
+        return;
+      }
+      res.json(dbActivityData);
     })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+/* 
+    CREATE Activity
+*/
+router.post("/", (req, res) => {
+  Activity.create(req.body)
+    .then((dbActivityData) => res.json(dbActivityData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+// add attending parties to an activity
+// POST route for attending an activity
+// POST /api/activity/attend
+router.post("/attend", (req, res) => {
+  Attendance.create({
+    user_id: req.session.user_id,
+    activity_id: req.body.activity_id,
+  })
+    .then((dbActivityData) => dbActivityData)
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+/* 
+    UPDATE Activity
+*/
+router.put("/:id", (req, res) => {
+  Activity.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((dbActivityData) => {
+      if (!dbActivityData[0]) {
+        res.status(404).json({ message: "No activity found with this id" });
+        return;
+      }
+      res.json(dbActivityData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+/* 
+    DELETE Activity
+*/
+router.delete("/:id", (req, res) => {
+  Activity.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((dbActivityData) => {
+      if (!dbActivityData) {
+        res.status(404).json({ message: "No activity found with this id" });
+        return;
+      }
+      res.json(dbActivityData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+module.exports = router;
