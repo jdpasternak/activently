@@ -6,7 +6,8 @@ const { Activity, User, Comment, Attendance } = require("../../models");
     READ Activity (all)
 */
 router.get("/", (req, res) => {
-  Activity.findAll({
+  console.log(req.query);
+  let options = {
     attributes: [
       "id",
       "title",
@@ -42,7 +43,13 @@ router.get("/", (req, res) => {
         attributes: ["username"],
       },
     ],
-  })
+  };
+
+  if (req.query.zip) {
+    options.where = { location: req.query.zip };
+  }
+
+  Activity.findAll(options)
     .then((dbActivityData) => res.json(dbActivityData))
     .catch((err) => {
       console.log(err);
@@ -116,6 +123,9 @@ router.post("/", (req, res) => {
     location: req.body.location,
     occurrence: req.body.occurrence,
     organizer_id: req.body.user_id,
+    is_private: req.body.is_private,
+    seats: req.body.seats,
+    interest_id: req.body.interest_id,
   })
     .then((dbActivityData) => res.json(dbActivityData))
     .catch((err) => {
