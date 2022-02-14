@@ -117,16 +117,7 @@ router.get("/:id", (req, res) => {
     CREATE Activity
 */
 router.post("/", (req, res) => {
-  Activity.create({
-    title: req.body.title,
-    description: req.body.description,
-    location: req.body.location,
-    occurrence: req.body.occurrence,
-    organizer_id: req.body.user_id,
-    is_private: req.body.is_private,
-    seats: req.body.seats,
-    interest_id: req.body.interest_id,
-  })
+  Activity.create(req.body)
     .then((dbActivityData) => res.json(dbActivityData))
     .catch((err) => {
       console.log(err);
