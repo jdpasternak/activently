@@ -58,7 +58,7 @@ router.get("/:id", async (req, res) => {
       },
     ],
   })
-    .then((dbUserData) => {
+    .then(async (dbUserData) => {
       if (!dbUserData) {
         res.status(404).json({ message: "No user found with this id" });
         return;
@@ -69,7 +69,8 @@ router.get("/:id", async (req, res) => {
         name : dbUserData.username,
         Email : dbUserData.email,
         ZipCode : dbUserData.zip, 
-        Diet : dbUserData.dietary_preferences.name
+        Diet : dbUserData.dietary_preferences[0].name,
+        hobby : dbUserData.interests[0].name,
       });
     })
     .catch((err) => {
