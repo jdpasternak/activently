@@ -21,12 +21,7 @@
 
   <body>
     <!-- Header/Nav Bar-->
-    <div>
       <header>
-        <h1>
-          <a href="/">ACTIVENTLY</a>
-        </h1>
-
         <!-- 初始化
   在包含button-collapse整行到你的导航条中时，将下面这段代码放到
   $( document ).ready(function(){})
@@ -35,58 +30,59 @@
         <div class="navbar-fixed">
           <nav>
             <div class="nav-wrapper">
-              <a href="#!" class="brand-logo">{{Logo}}</a>
-              <a href="#" data-activates="mobile-demo" class="button-collaps"><i
-                  class="material-icons"
-                >menu</i></a>
-              <ul class="right hide-on-med-and-down">
-                <li><a href="">ABOUT US</a></li>
-                <li><a href="">CONTACTS</a></li>
-                <li><a href="">LONIN</a></li>
-              </ul>
-              <ul class="side-nav" id="mobile-demo">
-                <li><a href="">ABOUT US</a></li>
-                <li><a href="">CONTACTS</a></li>
-                <li><a href="">LONIN</a></li>
-              </ul>
+              <a href="#!" class="brand-logo">ACTIVENTLY</a>
+              <a href="#" data-activates="mobile-demo" class="button-collaps">
+                <i class="material-icons">menu</i>
+
+                <ul class="right hide-on-med-and-down">
+                  <li><a href="">ABOUT US</a></li>
+                  <li><a href="">CONTACTS</a></li>
+                  <li><a href="">LONIN</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                  <li><a href="">ABOUT US</a></li>
+                  <li><a href="">CONTACTS</a></li>
+                  <li><a href="">LONIN</a></li>
+                </ul>
+              </a>
             </div>
           </nav>
         </div>
       </header>
     </div>
 
-    <main>
-      {{{body}}}
-    </main>
+<main>
+    {{body}}
+</main>
 
     <footer class="page-footer">
-
-      <div>
-        <h4>SERVICES</h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </p>
-      </div>
-      <!-- add border-->
-      <div>
-        <h4>CONTACTS</h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </p>
+      <div class="container">
+        <div class="row">
+          <div class="col s6">
+            <h4>SERVICES</h4>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+          <!-- add border-->
+          <div class="col s6">
+            <h4>CONTACTS</h4>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div class="footer-copyright">
-        <div class="container">
-          © 2014 Copyright | All rights reserved.
-        </div>
+        <div class="container">© 2022 Copyright | All rights reserved.</div>
       </div>
     </footer>
-
   </body>
 </html>
