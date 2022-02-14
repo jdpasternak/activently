@@ -1,0 +1,53 @@
+<article>
+  <a href="/homepage"> &larr; Back to homepage</a>
+  <h2>
+    Create an Activity
+  </h2>
+  <form class="new-activity-form">
+     <div>
+    <label for="activity-title">activity:</label>
+    <input type="text" id="activityTitle" />
+  </div>
+  <div>
+    <label for="description">description:</label>
+    <input type="text" id="description" />
+  </div>
+  <div>
+    <label for="zipCode">zip code:</label>
+    <input type="password" id="zipCode" />
+  </div>
+     <div>
+    <label for="dateOfEvent">date of event:</label>
+    <input type="text" id="dateOfEvent" />
+  </div>
+  <div>
+    <label for="organizerDetails">organizer: {{username}}</label>
+  </div>
+  <div>
+    <label for="isPrivate">Is this event private?:</label>
+    <input type="boolean" id="isPrivate" />
+  </div>
+   <div>
+    <label for="seats">number of seats:</label>
+    <input type="integer" id="seats" />
+  </div>
+
+    <button type="submit">Save post</button>
+    <button type="button" class="delete-post-btn">Delete post</button>
+  </form>
+</article>
+
+<form class="comment-form">
+  <div>
+    <textarea name="comment-body"></textarea>
+  </div>
+
+  <div>
+    <button type="submit">add comment</button>
+  </div>
+</form>
+
+{{ comments activity.comments}}
+
+<script src="/javascript/new-activity.js"></script>
+<script src="/javascript/comment.js"></script>
