@@ -2,6 +2,9 @@ const sequelize = require("../../config/connection");
 const router = require("express").Router();
 const { Activity, User, Comment } = require("../../models");
 
+/* 
+    READ Activity (all)
+*/
 router.get("/", (req, res) => {
   Activity.findAll({
     attributes: [
@@ -47,6 +50,9 @@ router.get("/", (req, res) => {
     });
 });
 
+/* 
+    READ Activity (by ID)
+*/
 router.get("/:id", (req, res) => {
   Activity.findOne({
     where: {
@@ -100,6 +106,9 @@ router.get("/:id", (req, res) => {
     });
 });
 
+/* 
+    CREATE Activity
+*/
 router.post("/", (req, res) => {
   Activity.create({
     title: req.body.title,
@@ -119,6 +128,9 @@ router.post("/", (req, res) => {
 // POST route for attending an activity
 // POST /api/activity/attend
 
+/* 
+    UPDATE Activity
+*/
 router.put("/:id", (req, res) => {
   Activity.update(req.body, {
     where: {
@@ -138,6 +150,9 @@ router.put("/:id", (req, res) => {
     });
 });
 
+/* 
+    DELETE Activity
+*/
 router.delete("/:id", (req, res) => {
   Activity.destroy({
     where: {
