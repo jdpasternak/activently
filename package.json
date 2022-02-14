@@ -9,15 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/horsfalm/activently.git"
+    "url": "git+https://github.com/jdpasternak/activently.git"
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/horsfalm/activently/issues"
+    "url": "https://github.com/jdpasternak/activently/issues"
   },
-  "homepage": "https://github.com/horsfalm/activently#readme",
+  "homepage": "https://github.com/jdpasternak/activently#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
