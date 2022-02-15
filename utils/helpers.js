@@ -1,3 +1,5 @@
+
+
 //function to procces the date and the plurals.
 module.exports = {
     format_date: date => {
@@ -11,5 +13,5 @@ module.exports = {
         }
     
         return word;
-    }
+    },
   }
