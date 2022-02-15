@@ -1,9 +1,13 @@
 const sequelize = require("../../config/connection");
 const router = require("express").Router();
-const { Activity, User, Comment } = require("../../models");
+const { Activity, User, Comment, Attendance } = require("../../models");
 
+/* 
+    READ Activity (all)
+*/
 router.get("/", (req, res) => {
-  Activity.findAll({
+  console.log(req.query);
+  let options = {
     attributes: [
       "id",
       "title",
@@ -39,7 +43,13 @@ router.get("/", (req, res) => {
         attributes: ["username"],
       },
     ],
-  })
+  };
+
+  if (req.query.zip) {
+    options.where = { location: req.query.zip };
+  }
+
+  Activity.findAll(options)
     .then((dbActivityData) => res.json(dbActivityData))
     .catch((err) => {
       console.log(err);
@@ -47,6 +57,9 @@ router.get("/", (req, res) => {
     });
 });
 
+/* 
+    READ Activity (by ID)
+*/
 router.get("/:id", (req, res) => {
   Activity.findOne({
     where: {
@@ -100,14 +113,11 @@ router.get("/:id", (req, res) => {
     });
 });
 
+/* 
+    CREATE Activity
+*/
 router.post("/", (req, res) => {
-  Activity.create({
-    title: req.body.title,
-    description: req.body.description,
-    location: req.body.location,
-    occurrence: req.body.occurrence,
-    organizer_id: req.body.user_id,
-  })
+  Activity.create(req.body)
     .then((dbActivityData) => res.json(dbActivityData))
     .catch((err) => {
       console.log(err);
@@ -118,7 +128,21 @@ router.post("/", (req, res) => {
 // add attending parties to an activity
 // POST route for attending an activity
 // POST /api/activity/attend
+router.post("/attend", (req, res) => {
+  Attendance.create({
+    user_id: req.session.user_id,
+    activity_id: req.body.activity_id,
+  })
+    .then((dbActivityData) => dbActivityData)
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
+/* 
+    UPDATE Activity
+*/
 router.put("/:id", (req, res) => {
   Activity.update(req.body, {
     where: {
@@ -138,6 +162,9 @@ router.put("/:id", (req, res) => {
     });
 });
 
+/* 
+    DELETE Activity
+*/
 router.delete("/:id", (req, res) => {
   Activity.destroy({
     where: {

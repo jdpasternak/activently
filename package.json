@@ -28,8 +28,10 @@
 >>>>>>> 7cb182a74ddadc4d2a27ccfee77562227bfb4db1
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "connect-session-sequelize": "^7.1.2",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
+    "express-session": "^1.17.2",
     "mysql2": "^2.3.3",
 <<<<<<< HEAD
 <<<<<<< HEAD
