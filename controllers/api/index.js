@@ -12,4 +12,8 @@ router.use("/comments", commentRoutes);
 router.use("/userDietaryPrefs", userDietaryPrefRoutes);
 router.use("/userInterests", userInterestRoutes);
 
+router.get("/", (req, res) => {
+    res.render("dashboard");
+  });
+
 module.exports = router;
