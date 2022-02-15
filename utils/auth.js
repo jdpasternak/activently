@@ -8,12 +8,13 @@ const withAuth = (req, res, next) => {
 module.exports = withAuth;
 
 const withOwned =  (req, res, next) => {
-    if (!req.session.user_id, req.session.activity_id === activity.organizer_id) {
+  if (withAuth)
+  if (!req.session.user_id, req.session.activity_id === activity.organizer_id) {
         res.redirect('/homepage');
     }   else {
         next()
     }
-   }
+  }
 
    module.exports= withOwned
 

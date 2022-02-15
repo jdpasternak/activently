@@ -1,7 +1,8 @@
 const router = require("express").Router();
+const { zip } = require("lodash");
 const { where } = require("sequelize/types");
 const sequelize = require("../../config/connection");
-const { User, Activity, Interest, DietaryPref } = require('../models')
+const { User, Activity, Interest, UserDietaryPref } = require('../models')
 const withAuth = require('../utils/auth')
 //need routes to navigate throughout the app
 //just get routes for events
@@ -49,11 +50,63 @@ router.get('/profile', withAuth, (req, res) => {
       where: {
         id: req.params.id
       },
-      attributes: {
-        user_id,
-        name,
-      }
-    })
+      attributes: [
+        'user_id',
+        'username',
+        'email',
+        'zip',
+      ],
+      include: [
+        {model: User,
+        attributes: [
+          'id',
+          'username',
+          'email',
+          'zip'
+        ]
+        }
+      ]
+    }
+)
+  Interest.findAll({
+    where: {
+      id: req.params.id
+    },
+    attributes: [
+      'id',
+      'name',
+    ],
+    include: [
+      {model: Interest,
+      attributes: [
+        'id',
+        'name',
+      ]}
+    ]
+  })
+  UserDietaryPref.findOne({
+    where: {
+      id:req.params.id
+    },
+    attributes: [
+      'id',
+      'user_id',
+      'dietary_pref_id'
+    ]
+  })
+  .then(dbUserData => {
+    const user = dbUserData.map(user => user.get({ plain: true }));
+    res.render('userprofile') ({ posts, loggedIn: true });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err)
+  })
+res.render('userprofile', {
+  User,
+  Interest,
+  loggedIn: req.session.loggedIn
+})
   }}
 })
 router.get("/", withAuth, (req, res) => {
