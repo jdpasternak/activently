@@ -15,8 +15,7 @@ async function updateActivities(event) {
         occurrence, 
         organizer_id,
         is_private,
-        seats,
-        interest_id,
+        seats
       }),
       headers: {
         'Content-Type': 'application/json'
