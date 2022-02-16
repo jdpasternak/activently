@@ -14,19 +14,15 @@ router.get("/", (req, res) => {
 // need routes to the users personal notifications
 //
 
-//home
-//login
-//profile
-//:id
-//activity/ 
-//id
-
+//homepage
 router.get('/homepage', (req, res) => {
   if (req.session.loggedIn) {
     res.render('homepage');
     return;
   } 
 })
+
+//login
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/');
@@ -36,6 +32,7 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+//signup
 router.get('/signup', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/');
@@ -45,8 +42,9 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+//login user profile
 router.get('/profile', withAuth, (req, res) => {
-  if (req.session.loggedIn) {router.get(User, Activity, Interest), (req, res) => {
+  if (req.session.loggedIn) {router.get(User, Activity, Interest, UserDietaryPref), (req, res) => {
     User.findOne({
       where: {
         id: req.params.id
@@ -60,7 +58,7 @@ router.get('/profile', withAuth, (req, res) => {
       include: [
         {model: User,
         attributes: [
-          'id',
+          'user_id',
           'username',
           'email',
           'zip'
@@ -117,9 +115,7 @@ res.render('userprofile', {
 })
   }}
 })
-router.get("/", withAuth, (req, res) => {
-  
-})
+
 router.get("/", withAuth, (req, res) => {
   Interest.findOne({
     where: {
@@ -184,30 +180,3 @@ router.get("/", withAuth, (req, res) => {
       res.status(500).json(err)
     })
 });
-/* organizer_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "user",
-        key: "id",
-      },
-    },
-    is_private: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    seats: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    rules: {
-      type: DataTypes.STRING,
-    },
-    price: {
-      type: DataTypes.DECIMAL,
-    },
-    req_dietary_pref: {
-      type: DataTypes.BOOLEAN,
-    },
-    interest_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,*/
