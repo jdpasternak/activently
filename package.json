@@ -1,13 +1,4 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 7cb182a74ddadc4d2a27ccfee77562227bfb4db1
-=======
-=======
->>>>>>> helpers
   "name": "activently",
   "version": "1.0.0",
   "description": "",
@@ -26,13 +17,6 @@
     "url": "https://github.com/jdpasternak/activently/issues"
   },
   "homepage": "https://github.com/jdpasternak/activently#readme",
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 7cb182a74ddadc4d2a27ccfee77562227bfb4db1
-=======
-=======
->>>>>>> helpers
->>>>>>> 7cb182a74ddadc4d2a27ccfee77562227bfb4db1
   "dependencies": {
     "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.2",
@@ -40,19 +24,7 @@
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "mysql2": "^2.3.3",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     "node": "^17.4.0",
-=======
->>>>>>> 7cb182a74ddadc4d2a27ccfee77562227bfb4db1
-=======
->>>>>>> 7cb182a74ddadc4d2a27ccfee77562227bfb4db1
-=======
-    "node": "^17.4.0",
-=======
->>>>>>> 7cb182a74ddadc4d2a27ccfee77562227bfb4db1
->>>>>>> helpers
     "sequelize": "^6.16.1"
   }
 }

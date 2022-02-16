@@ -138,6 +138,7 @@ router.get("/", withAuth, (req, res) => {
     ]
   })
 })
+
 router.get("/", withAuth, (req, res) => {
   Activity.findAll ({
   attribures: [
@@ -168,9 +169,8 @@ router.get("/", withAuth, (req, res) => {
     'price',
     'req_dietary_pref',
     'interest_id']
-  }
-  ]
-    })
+  }]
+    
     .then(dbactivityData => {
       const activity =dbactivityData.map(activity => activity.get({ plain: true }));
       res.render('activity') ({ posts, loggedIn: true });
@@ -179,4 +179,5 @@ router.get("/", withAuth, (req, res) => {
       console.log(err);
       res.status(500).json(err)
     })
-});
+})
+})
