@@ -1,12 +1,9 @@
 const router = require("express").Router();
-const { zip } = require("lodash");
-const { where } = require("sequelize/types");
 const sequelize = require("../../config/connection");
 const { User, Activity, Interest, UserDietaryPref } = require('../models')
 const withAuth = require('../utils/auth')
 //need routes to navigate throughout the app
 //just get routes for events
-//wait a minute Ive alread done this
 router.get("/", (req, res) => {
   console.log(req.session);
   res.json({ message: "Not a configured route" });
