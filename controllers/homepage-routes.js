@@ -1,158 +1,178 @@
-const sequelize = require("../../config/connection");
- const { User, Activity, Interest, UserDietaryPref } = require("../models");
- const withAuth = require("../utils/auth");
 
- //need routes to navigate throughout the app
- //just get routes for events
+const router = require("express").Router();
+const { User, Activity, Interest, UserDietaryPref } = require("../models");
+const { withAuth } = require("../utils/auth");
 
- router.get("/", (req, res) => {
-   console.log(req.session);
-   res.json({ message: "Not a configured route" });
-   res.render("landing-page");
- });
- // need routes to the users personal notifications
- // [ ] TODO add routes to the users personal notifications
-router.get("/notifications", withAuth, (req, res) => {
-  req
-})
- // GET /homepage
- router.get("/homepage", withAuth, (req, res) => {
-   // [ ] TODO add homepage data
-   
-   res.render("homepage");
- });
+//need routes to navigate throughout the app
+//just get routes for events
 
- // GET /login
- router.get("/login", withAuth, (req, res) => {
-   res.render("login");
- });
+router.get("/", (req, res) => {
+  console.log(req.session);
+  res.render("landing-page");
+});
 
- // GET /signup
- router.get("/signup", withAuth, (req, res) => {
-   res.render("signup");
- });
+// [ ] TODO add routes to the users personal notifications
 
- // GET /profile
- // a logged-in user's profile
- // FIXME nested route
-   router.get("/userprofile", User, Activity, Interest, UserDietaryPref),
-     (req, res) => {
-       // FIXME unhandled Promise return
-       User.findOne({
-         where: {
-           id: req.params.id,
-         },
-         attributes: ["user_id", "username", "email", "zip"],
-         include: [
-           {
-             model: User,
-             attributes: ["user_id", "username", "email", "zip"],
-           },
-       // FIXME unhandled Promise return
-         ]
+// GET /homepage
+router.get(
+  "/homepage",
+  /*withAuth,*/ (req, res) => {
+    // [ ] TODO add homepage data
+    res.render("homepage");
+  }
+);
+
+// GET /login
+router.get(
+  "/login",
+  /* withAuth, */ (req, res) => {
+    res.render("login");
+  }
+);
+
+// GET /signup
+router.get(
+  "/signup",
+  /* withAuth, */ (req, res) => {
+    res.render("signup");
+  }
+);
+
+// GET /profile
+// a logged-in user's profile
+// FIXME nested route
+router.get(
+  "/profile",
+  /* withAuth, */ (req, res) => {
+    router.get(User, Activity, Interest, UserDietaryPref),
+      (req, res) => {
+        // FIXME unhandled Promise return
+        User.findOne({
+          where: {
+            id: req.params.id,
+          },
+          attributes: ["user_id", "username", "email", "zip"],
+          include: [
+            {
+              model: User,
+              attributes: ["user_id", "username", "email", "zip"],
+            },
+          ],
+        });
+        // FIXME unhandled Promise return
+        Interest.findAll({
+          where: {
+            id: req.params.id,
+          },
+          attributes: ["id", "name"],
+          include: [{ model: Interest, attributes: ["id", "name"] }],
+        });
+
+        // FIXME unhandled Promise return
+        UserDietaryPref.findOne({
+          where: {
+            id: req.params.id,
+          },
+          attributes: ["id", "user_id", "dietary_pref_id"],
+          include: [
+            {
+              model: UserDietaryPref,
+              attributes: ["dietary_pref_id"],
+            },
+          ],
         })
-        .then
-       Interest.findAll({
-         where: {
-           id: req.params.id,
-         },
-         attributes: ["id", "name"],
-         include: [{ model: Interest, attributes: ["id", "name"] }],
-       });
+          .then((dbUserData) => {
+            const user = dbUserData.map((user) => user.get({ plain: true }));
+            // FIXME `posts` is not defined here
+            res.render("userprofile")({ user, loggedIn: true });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+          });
+        res.render("userprofile", {
+          // FIXME Modules are not table data. Must passed actual data
+          User,
+          Interest,
+          UserDietaryPref,
+          loggedIn: req.session.loggedIn,
+        });
+      };
+  }
+);
 
-       // FIXME unhandled Promise return
-       UserDietaryPref.findOne({
-         where: {
-           id: req.params.id,
-         },
-         attributes: ["id", "user_id", "dietary_pref_id"],
-         include: [
-           {
-             model: UserDietaryPref,
-             attributes: ["dietary_pref_id"],
-           }
-         ],
-       })
-
-         .catch((err) => {
-           console.log(err);
-           res.status(500).json(err);
-         });
-       };
-       res.render("userprofile", {
-        // FIXME Modules are not table data. Must passed actual data
-        User,
-        Interest,
-        UserDietaryPref,
-        loggedIn: req.session.loggedIn,
-      });
- // FIXME router.get("/"...) already defined
- // FIXME router.get("/"...) already defined
- router.get("/", withAuth, (req, res) => {
-  // FIXME unhandled Promise return
-  Interest.findOne({
-    where: {
-      id: req.params.id,
-   },
-   attributes: ["id", "name", "description"],
-   include: [
-     {
-       model: Interest,
-       attributes: ["id", "name", "description"],
-     },
-    ],
-  });
-});
- // FIXME router.get("/"...) already defined
- router.get("/Activity", withAuth, (req, res) => {
-   Activity.findAll({
-     attribures: []})})
 // FIXME router.get("/"...) already defined
-router.get("/", withAuth, (req, res) => {
-  Activity.findAll({
-    attribures: [
-     "id",
-     "title",
-     "description",
-     "location",
-     "occurence",
-     "organizer_id",
-     "is_private",
-     "seats",
-     "rules",
-     "price",
-     "req_dietary_pref",
-     "interest_id",
-   ],
-   include: [
-     {
-       model: "Activity",
-       attributes: [
-         "id",
-         "title",
-         "description",
-         "location",
-         "occurence",
-         "organizer_id",
-         "is_private",
-         "seats",
-         "rules",
-         "price",
-         "req_dietary_pref",
-         "interest_id",
-       ],
-     },
-   ],
- })
-   .then((dbactivityData) => {
-      const activity = dbactivityData.map((activity) =>
-        activity.get({ plain: true })
-      );
-      // FIXME `posts` is not defined here
-      res.render("activity")({ posts, loggedIn: true });
+router.get(
+  "/",
+  /* withAuth, */ (req, res) => {
+    // FIXME unhandled Promise return
+    Interest.findOne({
+      where: {
+        id: req.params.id,
+      },
+      attributes: ["id", "name", "description"],
+      include: [
+        {
+          model: Interest,
+          attributes: ["id", "name", "description"],
+        },
+      ],
+    });
+  }
+);
+
+// FIXME router.get("/"...) already defined
+router.get(
+  "/",
+  /* withAuth, */ (req, res) => {
+    Activity.findAll({
+      attribures: [
+        "id",
+        "title",
+        "description",
+        "location",
+        "occurence",
+        "organizer_id",
+        "is_private",
+        "seats",
+        "rules",
+        "price",
+        "req_dietary_pref",
+        "interest_id",
+      ],
+      include: [
+        {
+          model: "Activity",
+          attributes: [
+            "id",
+            "title",
+            "description",
+            "location",
+            "occurence",
+            "organizer_id",
+            "is_private",
+            "seats",
+            "rules",
+            "price",
+            "req_dietary_pref",
+            "interest_id",
+          ],
+        },
+      ],
     })
-    .catch((err) => {
-     console.log(err);
-     res.status(500).json(err);
-   });
-});
+      .then((dbactivityData) => {
+        const activity = dbactivityData.map((activity) =>
+          activity.get({ plain: true })
+        );
+        // FIXME `posts` is not defined here
+        res.render("activity")({ loggedIn: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  }
+);
+
+module.exports = router;
+

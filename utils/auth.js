@@ -1,39 +1,23 @@
 const withAuth = (req, res, next) => {
-<<<<<<< HEAD
-    if (!req.session.user_id) {
-      res.redirect('/login');
-    } else {
-      next();
-    }
-  };
-  
-  const withOwned = (req, res, next) => {
-      if (!req.user_id === user_id){
-          res.delete()
-          res.put()
-      }
-      }
-  module.exports = withAuth;
-=======
- if (!req.session.user.id) {
-     res.redirect('/login');
- }   else {
-     next()
- }
-}
-module.exports = withAuth;
-
-const withOwned =  (req, res, next) => {
-  if (withAuth)
-  if (!req.session.user_id, req.session.activity_id === activity.organizer_id) {
-        res.redirect('/homepage');
-    }   else {
-        next()
-    }
+  if (!req.session.user_id) {
+    res.redirect("/login");
+  } else {
+    next();
   }
+};
 
-   module.exports= withOwned
+// [ ] TODO - This function will not do what it should because req.session.activity_id and activity.organizer_id are not defined.  req.session will not hold data about the activity_id since the user may visit and make changes to many activity pages.
+/* const withOwned = (req, res, next) => {
+  if (
+    (!req.session.user_id, req.session.activity_id === activity.organizer_id)
+  ) {
+    res.redirect("/homepage");
+  } else {
+    next();
+  }
+}; */
 
-   //we may need the organizer id and sql to get data from the activity
-   //Key question: 
->>>>>>> helpers
+module.exports = { withAuth };
+
+//we may need the organizer id and sql to get data from the activity
+//Key question:
