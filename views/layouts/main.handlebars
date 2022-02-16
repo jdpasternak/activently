@@ -46,6 +46,9 @@
           {{/if}}
           <a href="/" class="brand-logo center">ACTIVENTLY</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {{#if loggedIn}}
+            <li><a href="/profile">Profile</a>
+            {{/if}}
             <li><a href="#AboutUs">About Us</a></li>
             <li><a href="#Contacts">Contacts</a></li>
           </ul>
