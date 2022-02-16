@@ -14,22 +14,13 @@ router.get("/", (req, res) => {
 // need routes to the users personal notifications
 //
 
-//homepage
-router.get('/homepage', (req, res) => {
+router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
-    res.render('homepage');
-    return;
-  } 
-})
-
-//login
-router.get('/login', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect("/");
     return;
   }
 
-  res.render('login');
+  res.render("login");
 });
 
 //signup
@@ -193,3 +184,4 @@ router.get("/", withAuth, (req, res) => {
       res.status(500).json(err)
     })
 });
+module.exports = router;

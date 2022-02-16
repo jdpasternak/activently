@@ -79,7 +79,15 @@ router.get("/:id", (req, res) => {
         res.status(404).json({ message: "No user found with this id" });
         return;
       }
-      res.json(dbUserData);
+
+      // res.json(dbUserData);
+      res.render('userprofile', {
+        name : dbUserData.username,
+        Email : dbUserData.email,
+        ZipCode : dbUserData.zip, 
+        Diet : dbUserData.dietary_preferences[0].name,
+        hobby : dbUserData.interests[0].name,
+      });
     })
     .catch((err) => {
       console.log(err);
