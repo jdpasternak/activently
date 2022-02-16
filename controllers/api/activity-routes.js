@@ -105,15 +105,7 @@ router.get("/:id", (req, res) => {
         res.status(404).json({ message: "No activity found with this id" });
         return;
       }
-      
-      // res.json(dbActivityData);
-      res.render('activity', {
-        title : dbActivityData.title,
-        description : dbActivityData.description,
-        location : dbActivityData.location,
-        creator : dbActivityData.user.username
-      })
-
+      res.json(dbActivityData);
     })
     .catch((err) => {
       console.log(err);

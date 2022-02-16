@@ -9,7 +9,6 @@ const seedAttendance = require("./attendanceData");
 const seedComments = require("./commentData");
 
 const seedAll = async () => {
-  console.log("htrghdgfdghgfdhfghfdghfd");
   await sequelize.sync({ force: true });
 
   await seedUsers();
