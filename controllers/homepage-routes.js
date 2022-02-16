@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const { User, Activity, Interest, UserDietaryPref } = require("../models");
-const { withAuth } = require("../utils/auth");
+const withAuth = require("../utils/auth");
 
 //need routes to navigate throughout the app
 //just get routes for events
 
-// Get all events_activitys for homepage
+// Get all events_activities for homepage
 router.get("/", async (req, res) => {
-  try {
+    try {
     const dbactivityData = await Activity.findAll({});
 
     const activitys = dbactivityData.map((activity) =>
@@ -19,6 +19,7 @@ router.get("/", async (req, res) => {
     // res.json(activitys);
     res.render('homepage', {
       activitys,
+      // loggedIn: req.session.loggedIn,
     });
 
   } catch (err) {
@@ -41,8 +42,13 @@ router.get("/", async (req, res) => {
 // });
 
 // GET /login
-router.get("/login", withAuth, (req, res) => {
-  res.render("login");
+router.get('/login', (req, res) => {
+  // if (req.session.loggedIn) {
+  //   res.redirect('/');
+  //   return;
+  // }
+
+  res.render('login');
 });
 
 // GET /signup

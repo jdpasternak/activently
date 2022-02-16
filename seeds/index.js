@@ -9,7 +9,7 @@ const seedAttendance = require("./attendanceData");
 const seedComments = require("./commentData");
 
 const seedAll = async () => {
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ alter:true });
 
   await seedUsers();
   await seedDietaryPref();

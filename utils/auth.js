@@ -1,6 +1,6 @@
 const withAuth = (req, res, next) => {
   if (!req.session.loggedIn) {
-    res.redirect("/api");
+    res.redirect("/login");
   } else {
     next();
   }
@@ -17,7 +17,7 @@ const withAuth = (req, res, next) => {
   }
 }; */
 
-module.exports = { withAuth };
+module.exports =  withAuth;
 
 //we may need the organizer id and sql to get data from the activity
 //Key question:

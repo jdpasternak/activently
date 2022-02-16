@@ -1,8 +1,9 @@
 // Dependencies
 const express = require("express");
 const exphbs = require("express-handlebars");
-const controllers = require("./controllers");
+
 const sequelize = require("./config/connection");
+const controllers = require("./controllers");
 
 const hbs = exphbs.create({});
 

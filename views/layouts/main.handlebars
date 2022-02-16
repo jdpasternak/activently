@@ -29,11 +29,15 @@
     <header class="d-flex flex-row">
       <nav>
         <div class="nav-wrapper">
-          <a class="m-1  waves-effect waves-light btn align-middle">Log In</a>
-          <a class="m-1  waves-effect waves-light btn align-middle">Sign Up</a>
-          <a href="#" class="brand-logo center">ACTIVENTLY</a>
+          {{#if loggedIn}}
+          <a href="/" class="m-1  waves-effect waves-light btn align-middle">Logout</a>
+          {{else}}
+          <a href="/login" class="m-1  waves-effect waves-light btn align-middle">Log in</a>
+          <a href="/signup" class="m-1  waves-effect waves-light btn align-middle">Sign Up</a>
+          {{/if}}
+          <a href="/" class="brand-logo center">ACTIVENTLY</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#Home">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#AboutUs">About Us</a></li>
             <li><a href="#Contacts">Contacts</a></li>
           </ul>
@@ -45,9 +49,6 @@
       <section>
         {{{body}}}
       </section>
-      <section>
-
-      </section>
     </main>
 
     <footer class="page-footer">
@@ -58,6 +59,10 @@
 
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="../../node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    
+    {{#if loggedIn}}
+    <script src="../../public/javascript/"></script>
+    {{/if}}
 
   </body>
 
