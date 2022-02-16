@@ -42,7 +42,7 @@ router.get(
 // a logged-in user's profile
 // FIXME nested route
 router.get(
-  "/profile",
+  "/profile/:id",
   /* withAuth, */ (req, res) => {
     router.get(User, Activity, Interest, UserDietaryPref),
       (req, res) => {
@@ -58,7 +58,29 @@ router.get(
               attributes: ["user_id", "username", "email", "zip"],
             },
           ],
-        });
+        })
+        .then(dbUserData => {
+       
+        if (!dbUserData) {
+          res.status(404).json({ message: 'incorrect user'})
+          return;
+        }
+        //serialize data
+        const user = dbUserData.map((user) => user.get({ plain: true }));
+          res.render("userprofile", { user, loggedIn: true });
+        })
+      res.render("userprofile", {
+        // FIXME Modules are not table data. Must passed actual data
+        user,
+        loggedIn: req.session.loggedIn,
+      }
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      }
+      ));
+    };
+})
         // FIXME unhandled Promise return
         Interest.findAll({
           where: {
@@ -80,26 +102,18 @@ router.get(
               attributes: ["dietary_pref_id"],
             },
           ],
+        }).then((dbUserDietPrefData) => {
+          if (!dbUserDietPrefData){
+            res.status(404).json ({ message: 'no user found with this dietary preference'})
+          }
+          const userDietPref = dbUserDietPrefData.get({ plain: true });
+          // FIXME `posts` is not defined here
+          res.render('userprofile', { userDietPref, loggedIn: true });
         })
-          .then((dbUserData) => {
-            const user = dbUserData.map((user) => user.get({ plain: true }));
-            // FIXME `posts` is not defined here
-            res.render("userprofile")({ user, loggedIn: true });
-          })
-          .catch((err) => {
-            console.log(err);
-            res.status(500).json(err);
-          });
-        res.render("userprofile", {
-          // FIXME Modules are not table data. Must passed actual data
-          User,
-          Interest,
-          UserDietaryPref,
-          loggedIn: req.session.loggedIn,
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json(err);
         });
-      };
-  }
-);
 
 // FIXME router.get("/"...) already defined
 router.get(
@@ -123,7 +137,7 @@ router.get(
 
 // FIXME router.get("/"...) already defined
 router.get(
-  "/",
+  "/Activity",
   /* withAuth, */ (req, res) => {
     Activity.findAll({
       attribures: [
@@ -165,7 +179,7 @@ router.get(
           activity.get({ plain: true })
         );
         // FIXME `posts` is not defined here
-        res.render("activity")({ loggedIn: true });
+        res.render('activity')({ activity, loggedIn: true });
       })
       .catch((err) => {
         console.log(err);
