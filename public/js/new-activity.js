@@ -34,8 +34,10 @@ async function newActivity(event) {
   });
 
   if (response.ok) {
+    // COMMENT do we want to redirect to /browsing or to the new Activity's page or to the user's profile?
     document.location.replace("/browsing");
   } else {
+    // [ ] TODO use modal instead of traditional browser alert
     alert(response.statusText);
   }
 }
