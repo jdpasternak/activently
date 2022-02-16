@@ -9,6 +9,7 @@ const hbs = exphbs.create({});
 // Sets up the Express App
 const app = express();
 const PORT = process.env.PORT || 3001;
+const path = require("path");
 
 // Set Handlebars as the default template engine.
 app.engine("handlebars", hbs.engine);
@@ -16,7 +17,7 @@ app.set("view engine", "handlebars");
 const session = require("express-session");
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(controllers);
 
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -32,6 +33,8 @@ const sess = {
     expiration: 1000 * 60 * 30, // will expire after 30 minutes
   }),
 };
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(session(sess));
 

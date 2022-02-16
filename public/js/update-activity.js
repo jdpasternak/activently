@@ -26,20 +26,9 @@ async function updateActivities(event) {
     .querySelector('input[name="activity-title"]')
     .value.trim();
 
-    // [ ] TODO remove the commented code below before submitting a PR
-  // formData.append('title', `${title}`);
-  // formData.append('description', `${description}`);
-  // formData.append('location', `${location}`);
-  // formData.append('occurrence', `${}`);
-  // formData.append('organizer_id',`${}` );
-  // formData.append('is_private', `${}`);
-  // formData.append('seats', );
-
-  //so i dont really understand this code but it seems to work in the
   // COMMENT this can be made to get the ID from req.session.user_id since only logged in users should be able to make changes and only to their own profiles.
-  const id = window.location.toString().split("/")[
-    window.location.toString().split("/").length - 1
-  ];
+  const id = window.sessionStorage.user_id
+  
   const response = await fetch(`/api/activities/${id}`, {
     method: "PUT",
     body: JSON.stringify({

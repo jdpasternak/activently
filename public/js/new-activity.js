@@ -1,3 +1,5 @@
+const { get } = require("../../controllers/homepage-routes");
+
 async function newActivity(event) {
   event.preventDefault();
 
@@ -32,10 +34,14 @@ async function newActivity(event) {
       "Content-Type": "application/json",
     },
   });
+const getId = fetch("/api/activities",{
+  method:"GET",
+  where: {location: location}
 
+})
   if (response.ok) {
     // COMMENT do we want to redirect to /browsing or to the new Activity's page or to the user's profile?
-    document.location.replace("/browsing");
+    document.location.replace(`/activity/${req.params.id}`);
   } else {
     // [ ] TODO use modal instead of traditional browser alert
     alert(response.statusText);

@@ -1,5 +1,6 @@
 <!-- Hero Section-->
 <!-- TODO: add backgroud pic-->
+<div>
 <main>
   <div class="container">
     <div>
@@ -24,7 +25,9 @@
         </blockquote>
       </p>
       <!-- sign up button-->
-        <button id="signup" class="btn-no-style"><a href="/signup">Logout</a></button>
+      <button id="signup" class="btn-no-style"><a
+          href="/signup"
+        >Logout</a></button>
       <a class="waves-effect waves-light btn-large" href="#modal1">
         EXPLORE!
       </a>
@@ -33,27 +36,32 @@
 </main>
 
 <!-- TODO: create demo activities -->
+
 <div class="container">
+  
   <div class="row">
     <div class="col s12">
       <h6>See what is happening around you...</h6>
-        <div>
-            <label for="zipcode">Enter your zipcode</label>
-            <input type="text" id="zipcode" class ="zipCode"/>
-          </div>
-          <button
-              class="zipCodeBtn btn waves-effect waves-light"
-              type="submit"
-              name="zipCodeBtn"
-            >Find activities!
-            </button>
+      <div>
+        <label for="zipcode">Enter your zipcode</label>
+        <input type="text" id="zipcode" class="zipCode" />
+      </div>
+      <button
+        class="zipCodeBtn btn waves-effect waves-light"
+        type="submit"
+        name="zipCodeBtn"
+      >Find activities!
+      </button>
     </div>
   </div>
   <div class="row">
     <ul>
       <div class="col s4">
+        {{#each activity as |act|}}
+        <h2>{{location}}</h2>
+        {{/each}}
         <li>
-          <figure>
+          <figure></figure>
             <a>
               <img src="loading.png" alt="" />
             </a>
@@ -84,5 +92,8 @@
     </ul>
   </div>
 </div>
-<script src = "/js/landing"></script>
-<script src = "/js/homepage"></script>
+</div>
+
+<script src="/js/landing.js"></script>
+
+{{!-- <script src="/js/homepage.js"></script> --}}
