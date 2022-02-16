@@ -45,41 +45,38 @@ router.get(
 
 // GET /profile
 // a logged-in user's profile
-router.get(
-  "/profile/:id",
-  /* withAuth, */
-  (req, res) => {
-    User.findOne({
-      where: {
-        id: req.params.id,
+router.get("/profile", withAuth, (req, res) => {
+  User.findOne({
+    where: {
+      id: req.session.user_id,
+    },
+    attributes: ["id", "username", "email", "zip"],
+    include: [
+      {
+        model: Interest,
+        attributes: ["id", "name"],
+        through: UserInterest,
+        as: "interests",
       },
-      attributes: ["id", "username", "email", "zip"],
-      include: [
-        {
-          model: Interest,
-          attributes: ["id", "name"],
-          through: UserInterest,
-          as: "interests",
-        },
-      ],
-    })
-      .then((dbUserData) => {
-        if (!dbUserData) {
-          res.status(404).json({ message: "No user found with that ID." });
-          return;
-        }
-        const user = dbUserData.get({ plain: true });
-        res.render("userprofile", {
-          user,
-          loggedIn: req.session.loggedIn,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
+    ],
+  })
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(404).json({ message: "No user found with that ID." });
+        return;
+      }
+      const user = dbUserData.get({ plain: true });
+      console.log(user);
+      res.render("userprofile", {
+        user,
+        loggedIn: req.session.loggedIn,
       });
-  }
-);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
 router.get(
   "/activity/:id",
@@ -95,7 +92,7 @@ router.get(
         const activity = dbactivityData.get({ plain: true });
         res.render("activity", {
           activity,
-          loggedIn: req.session.loggedIn
+          loggedIn: req.session.loggedIn,
         });
       })
       .catch((err) => {
