@@ -1,0 +1,66 @@
+{{! Need to format with Materialize once code is more advanced }}
+
+<section>
+  <h2>Create New Activity</h2>
+
+  <form class="new-activity-form">
+    <div>
+      <label for="activity-title">Title</label>
+      <input type="text" id="activity-title" name="activity-title" />
+    </div>
+    <div>
+      <label for="activity-description">Description</label>
+      <input id="activity-description" name="activity-description" />
+    </div>
+    <div>
+      <label for="activity-location">Location</label>
+      <input id="activity-location" name="activity-location" />
+    </div>
+    <div>
+      <label for="activity-occurrence">Occurrence</label>
+      <input type="datetime-local" id="activity-occurrence" name="activity-occurrence" />
+    </div>
+    <div>
+      <label for="activity-privacy">Do attendees have to be invited privately?</label>
+      <input type="checkbox" id="activity-privacty" name="activity-privacy" value="Private" />
+    </div>
+    <div>
+      <label for="activity-seats">What is the maximum capacity of your event?</label>
+      <input id="activity-seats" name="activity-seats" />
+    </div>
+    <div>
+      <label for="activity-rules">What are the rules of your event?</label>
+      <input id="activity-rules" name="activity-rules" />
+    </div>
+    <div>
+      <label for="activity-price">What is the cost (per attendee) of your event?</label>
+      <input id="activity-price" name="activity-price" />
+    </div>
+    <div>
+      <label for="activity-diet">Please indicate any dietary preferences</label>
+      <input id="activity-diet" name="activity-diet" />
+    </div>
+    <div>
+      <label for="activity-interest">What interest category applies to your event? </label>
+      <input id="activity-interest" name="activity-interest" />
+    </div>
+
+    <button type="submit" class="btn">Create</button>
+  </form>
+</section>
+
+{{#if activities.length}}
+<section>
+  <h2>Your Activities</h2>
+  <ol>
+    {{#each activities as |activity|}}
+    <li>
+      {{> activity-info activity}}
+      <a href="/dashboard/edit/{{activity.id}}" class="edit-link">Edit Activity</a>
+    </li>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}
+
+<script src="/javascript/add-activity.js"></script>
