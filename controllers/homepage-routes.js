@@ -136,6 +136,18 @@ router.get("/", withAuth, (req, res) => {
       ]
       }
     ]
+    .then(dbInterestData => {
+      const Interest = dbInterestData.map(Interest => Interest.get({ plain: true }));
+      res.render('Activity') ({ posts, loggedIn: true });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err)
+    })
+  })
+    res.render('Activity', {
+    Interest,
+    loggedIn: req.session.loggedIn
   })
 })
 
@@ -169,8 +181,9 @@ router.get("/", withAuth, (req, res) => {
     'price',
     'req_dietary_pref',
     'interest_id']
-  }]
-    
+  }
+  ]
+    })
     .then(dbactivityData => {
       const activity =dbactivityData.map(activity => activity.get({ plain: true }));
       res.render('activity') ({ posts, loggedIn: true });
@@ -179,5 +192,4 @@ router.get("/", withAuth, (req, res) => {
       console.log(err);
       res.status(500).json(err)
     })
-})
-})
+});
