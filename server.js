@@ -6,11 +6,10 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const sess = {
-  secret: process.env.DB_SECRET,
+  secret: "process.env.DB_SECRET",
   cookie: {},
   resave: false,
   saveUnitialized: true,
@@ -20,6 +19,14 @@ const sess = {
     expiration: 1000 * 60 * 30, // will expire after 30 minutes
   }),
 };
+// Dependencies
+
+const exphbs = require('express-handlebars');
+const hbs = exphbs.create({});
+
+// Set Handlebars as the default template engine.
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +35,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(session(sess));
 
+// Starts the server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log("Server now listening on port 3001"));
+  app.listen(PORT, () => console.log(`Server now listening on: http://localhost:${PORT}`));
 });

@@ -1,4 +1,4 @@
-const { UserDietaryPref, User, DietaryPref } = require("../../models");
+const{ UserDietaryPref, User, DietaryPref } = require("../../models");
 const router = require("express").Router();
 
 router.get("/", (req, res) => {

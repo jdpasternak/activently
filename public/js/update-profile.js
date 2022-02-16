@@ -1,6 +1,6 @@
 async function updateProfiles(event) {
     event.preventDefault();
-  
+  //I don't actually don't know where dietary preferences is
     const title = document.querySelector('input[name="username"]').value.trim();
     const id = window.location.toString().split('/')[
       window.location.toString().split('/').length - 1
@@ -8,7 +8,10 @@ async function updateProfiles(event) {
     const response = await fetch(`/api/users/${id}`, {
       method: 'PUT',
       body: JSON.stringify({
-        username
+        username,
+        zip
+
+
       }),
       headers: {
         'Content-Type': 'application/json'

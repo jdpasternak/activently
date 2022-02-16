@@ -1,4 +1,4 @@
-const zipCodeInputEl =document.querySelector(input).value
+const zipCodeInputEl =document.querySelector("#zipcode").value
 function getLocation(){
     zipCodeInputEl.innerHTML = "";
     const requestUrl = `https://service.zipapi.us/zipcode/${zipCodeInputEl}/?X-API-KEY=978c0688a92271d0820408efd9d332be`
@@ -17,5 +17,5 @@ function getCityFromZip(zipCodeData){
     cityEl.innerHTML = `${data.name}`
 
 }
-const zipCodeSearch = document.querySelector(#zipCodeBtn)
+const zipCodeSearch = document.querySelector("#zipCodeBtn")
 zipCodeSearch.addEventListener("submit", getLocation);

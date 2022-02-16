@@ -11,7 +11,11 @@ async function newActivity(event) {
     const is_private = document.querySelector('checkbox[name="is-private"]').value;
 
     const seats = document.querySelector('input[name="seats"]')
-
+    function interests() { 
+      for (const option of document.getElementById('interests')) {
+      console.log(option);
+}
+    }
     const response = await fetch(`/api/activities`, {
       method: 'POST',
       body: JSON.stringify({
@@ -21,8 +25,7 @@ async function newActivity(event) {
         occurrence, 
         organizer_id,
         is_private,
-        seats,
-        interest_id,
+        seats
        
       }),
       headers: {
@@ -36,5 +39,18 @@ async function newActivity(event) {
       alert(response.statusText);
     }
   }
+  // const interests = await fetch("api/interest",{
+  //   method: "GET",
+  //   body: JSON.stringify({
+  //    interest.name,
+
+  //   }),
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // })
+  // if (response.ok){
+  //   document.location()
+  // }
   
   document.querySelector('.new-Activity').addEventListener('submit', newActivity);
