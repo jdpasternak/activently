@@ -12,7 +12,7 @@ async function updateProfiles(event) {
     .value.trim();
 
   const password = document
-    .querySelector('input[id="password.edit"]')
+    .querySelector('input[id="password-edit"]')
     .value.trim();
 
 
