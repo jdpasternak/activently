@@ -29,7 +29,7 @@ User.init(
       },
     },
     zip: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [5],
