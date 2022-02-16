@@ -29,6 +29,7 @@ async function signupFormHandler(event) {
     }
   }
 }
+const getInterests
 
 document
   .querySelector(".signup-form")

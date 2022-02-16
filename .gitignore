@@ -105,3 +105,4 @@ dist
 
 DS_Store
 .history
+node_modules

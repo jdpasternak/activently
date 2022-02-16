@@ -1,52 +1,6 @@
 async function newActivity(event) {
   event.preventDefault();
 
-<<<<<<< HEAD
-    const seats = document.querySelector('input[name="seats"]')
-    function interests() { 
-      for (const option of document.getElementById('interests')) {
-      console.log(option);
-}
-    }
-    const response = await fetch(`/api/activities`, {
-      method: 'POST',
-      body: JSON.stringify({
-        title,
-        description,
-        location,
-        occurrence, 
-        organizer_id,
-        is_private,
-        seats
-       
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  
-    if (response.ok) {
-      document.location.replace('/browsing');
-    } else {
-      alert(response.statusText);
-    }
-  }
-  // const interests = await fetch("api/interest",{
-  //   method: "GET",
-  //   body: JSON.stringify({
-  //    interest.name,
-
-  //   }),
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   }
-  // })
-  // if (response.ok){
-  //   document.location()
-  // }
-  
-  document.querySelector('.new-Activity').addEventListener('submit', newActivity);
-=======
   const title = document.querySelector('input[name="activity_title"]').value;
   const description = document.querySelector('input[name="description"]').value;
   const location = document.querySelector('input[name="zip"]').value;
@@ -89,4 +43,3 @@ async function newActivity(event) {
 }
 
 document.querySelector(".new-Activity").addEventListener("submit", newActivity);
->>>>>>> 7bcb3b4a6e682f28311f2d8a5aa3ec5375ccef73

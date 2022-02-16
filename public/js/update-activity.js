@@ -50,6 +50,7 @@ async function updateActivities(event) {
       organizer_id,
       is_private,
       seats,
+      
     }),
     headers: {
       "Content-Type": "application/json",
