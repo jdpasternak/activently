@@ -12,7 +12,7 @@ const sess = {
   secret: process.env.DB_SECRET,
   cookie: {},
   resave: false,
-  saveUnitialized: true,
+  saveUninitialized: true,
   store: new SequelizeStore({
     db: sequelize,
     checkExpirationInterval: 1000 * 60 * 10, // will check every 10 min
