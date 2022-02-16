@@ -11,9 +11,3 @@ span {
     opacity: 0;
   }
 }
-
-@for $item from 1 through 21 {
-  span:nth-of-type(#{$item}) {
-    animation-delay: #{(($item/10))}s;
-  }
-}
