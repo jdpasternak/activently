@@ -38,8 +38,12 @@
     <header class="d-flex flex-row">
       <nav>
         <div class="nav-wrapper">
-          <a href="/login" class="m-1  waves-effect waves-light btn align-middle">Log In</a>
-          <a href="/signup" class="m-1  waves-effect waves-light btn align-middle">Sign Up</a>
+          {{#if loggedIn}}
+            <a href="#" class="m-1 waves-effect waves-light btn align-middle">Logout</a>
+          {{else}}
+          <a href="/login" class="m-1 waves-effect waves-light btn align-middle">Log In</a>
+          <a href="/signup" class="m-1 waves-effect waves-light btn align-middle">Sign Up</a>
+          {{/if}}
           <a href="/" class="brand-logo center">ACTIVENTLY</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="#AboutUs">About Us</a></li>
