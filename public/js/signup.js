@@ -7,6 +7,8 @@ async function signupFormHandler(event) {
   const userDietaryPrefs = document.querySelector("#UserDietaryPrefs");
   const interests = document.querySelector();
 
+  // [ ] TODO add API call to /api/userDietaryPrefs to add association record
+  // [ ] TODO add API call to /api/userInterests to add association record
   if (username && email && password && userDietaryPrefs && interests) {
     const response = await fetch("/api/users", {
       method: "post",
@@ -27,6 +29,7 @@ async function signupFormHandler(event) {
     }
   }
 }
+
 document
   .querySelector(".signup-form")
   .addEventListener("submit", signupFormHandler);
