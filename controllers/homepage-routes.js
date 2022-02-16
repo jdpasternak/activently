@@ -93,6 +93,12 @@ router.get('/profile', withAuth, (req, res) => {
       'id',
       'user_id',
       'dietary_pref_id'
+    ],
+    include: [{
+      model: UserDietaryPref,
+    attributes: [
+      'dietary_pref_id'
+    ]}
     ]
   })
   .then(dbUserData => {
@@ -106,6 +112,7 @@ router.get('/profile', withAuth, (req, res) => {
 res.render('userprofile', {
   User,
   Interest,
+  UserDietaryPref,
   loggedIn: req.session.loggedIn
 })
   }}
