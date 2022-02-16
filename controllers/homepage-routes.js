@@ -1,7 +1,6 @@
 const router = require("express").Router();
-const sequelize = require("../../config/connection");
 const { User, Activity, Interest, UserDietaryPref } = require("../models");
-const withAuth = require("../utils/auth");
+const { withAuth } = require("../utils/auth");
 
 //need routes to navigate throughout the app
 //just get routes for events
