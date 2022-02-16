@@ -1,10 +1,23 @@
+// Dependencies
 const express = require("express");
+const exphbs = require("express-handlebars");
 const controllers = require("./controllers");
 const sequelize = require("./config/connection");
-const session = require("express-session");
 
+const hbs = exphbs.create({});
+
+// Sets up the Express App
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Set Handlebars as the default template engine.
+app.engine("handlebars", hbs.engine);
+app.set("view engine", "handlebars");
+const session = require("express-session");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(controllers);
 
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
@@ -20,12 +33,11 @@ const sess = {
   }),
 };
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(controllers);
-
 app.use(session(sess));
 
+// Starts the server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log("Server now listening on port 3001"));
+  app.listen(PORT, () =>
+    console.log(`Server now listening on: http://localhost:${PORT}`)
+  );
 });
