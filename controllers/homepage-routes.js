@@ -45,12 +45,10 @@ router.get(
 
 // GET /profile
 // a logged-in user's profile
-// FIXME nested route
 router.get(
   "/profile/:id",
   /* withAuth, */
   (req, res) => {
-    // FIXME unhandled Promise return
     User.findOne({
       where: {
         id: req.params.id,
