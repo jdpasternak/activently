@@ -43,9 +43,7 @@ router.get(
 // FIXME nested route
 router.get(
   "/profile/:id",
-  /* withAuth, */ (req, res) => {
-    router.get(User, Activity, Interest, UserDietaryPref),
-      (req, res) => {
+  /* withAuth, */  User, Activity, Interest, UserDietaryPref, (req, res) => {
         // FIXME unhandled Promise return
         User.findOne({
           where: {
@@ -67,9 +65,9 @@ router.get(
         }
         //serialize data
         const user = dbUserData.map((user) => user.get({ plain: true }));
-          res.render("userprofile", { user, loggedIn: true });
+          res.render('userprofile', { user, loggedIn: true });
         })
-      res.render("userprofile", {
+      res.render('userprofile', {
         // FIXME Modules are not table data. Must passed actual data
         user,
         loggedIn: req.session.loggedIn,
@@ -79,8 +77,7 @@ router.get(
         res.status(500).json(err);
       }
       ));
-    };
-})
+    });
         // FIXME unhandled Promise return
         Interest.findAll({
           where: {
@@ -88,8 +85,19 @@ router.get(
           },
           attributes: ["id", "name"],
           include: [{ model: Interest, attributes: ["id", "name"] }],
+        })
+        .then((dbInterestData) => {
+          if (!dbInterestData){
+            res.status(404).json ({ message: 'no user found with this interest'})
+          }
+          const interest = dbInterestData.get({ plain: true });
+          // FIXME `posts` is not defined here
+          res.render('userprofile', { interest, loggedIn: true });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json(err);
         });
-
         // FIXME unhandled Promise return
         UserDietaryPref.findOne({
           where: {
@@ -117,7 +125,7 @@ router.get(
 
 // FIXME router.get("/"...) already defined
 router.get(
-  "/",
+  "/Activity/:id",
   /* withAuth, */ (req, res) => {
     // FIXME unhandled Promise return
     Interest.findOne({
@@ -131,13 +139,24 @@ router.get(
           attributes: ["id", "name", "description"],
         },
       ],
+    })
+    .then((dbInterestData) => {
+      const interest = dbInterestData.get({ plain : true })
+        activity.get({ plain: true })
     });
-  }
-);
+      // FIXME `posts` is not defined here
+      res.render('activity')({ activity, loggedIn: true });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+
+;
 
 // FIXME router.get("/"...) already defined
 router.get(
-  "/Activity",
+  "/Activity/:id",
   /* withAuth, */ (req, res) => {
     Activity.findAll({
       attribures: [
