@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const { UserInterest } = require("../models");
 
 const userInterestData = [
@@ -17,7 +17,7 @@ const userInterestData = [
 const seedUserInterests = () => UserInterest.bulkCreate(userInterestData);
 
 module.exports = seedUserInterests;
-=======
+
 const { UserInterest } = require("../models");
 
 const userInterestData = [
@@ -36,4 +36,4 @@ const userInterestData = [
 const seedUserInterests = () => UserInterest.bulkCreate(userInterestData);
 
 module.exports = seedUserInterests;
->>>>>>> feature/frontend
+

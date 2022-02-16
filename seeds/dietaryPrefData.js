@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const { DietaryPref } = require("../models");
 
 const dietaryPrefData = [
@@ -12,7 +12,7 @@ const dietaryPrefData = [
 const seedDietaryPref = () => DietaryPref.bulkCreate(dietaryPrefData);
 
 module.exports = seedDietaryPref;
-=======
+
 const { DietaryPref } = require("../models");
 
 const dietaryPrefData = [
@@ -26,4 +26,4 @@ const dietaryPrefData = [
 const seedDietaryPref = () => DietaryPref.bulkCreate(dietaryPrefData);
 
 module.exports = seedDietaryPref;
->>>>>>> feature/frontend
+

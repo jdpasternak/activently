@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const { Activity } = require("../models");
 
 const activityData = [
@@ -57,7 +57,7 @@ const activityData = [
 const seedActivities = () => Activity.bulkCreate(activityData);
 
 module.exports = seedActivities;
-=======
+
 const { Activity } = require("../models");
 
 const activityData = [
@@ -116,4 +116,3 @@ const activityData = [
 const seedActivities = () => Activity.bulkCreate(activityData);
 
 module.exports = seedActivities;
->>>>>>> feature/frontend

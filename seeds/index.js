@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const sequelize = require("../config/connection");
 const seedUsers = require("./userData");
 const seedDietaryPref = require("./dietaryPrefData");
@@ -25,7 +25,7 @@ const seedAll = async () => {
 };
 
 seedAll();
-=======
+
 const sequelize = require("../config/connection");
 const seedUsers = require("./userData");
 const seedDietaryPref = require("./dietaryPrefData");
@@ -37,7 +37,6 @@ const seedAttendance = require("./attendanceData");
 const seedComments = require("./commentData");
 
 const seedAll = async () => {
-  console.log("htrghdgfdghgfdhfghfdghfd");
   await sequelize.sync({ force: true });
 
   await seedUsers();
@@ -53,4 +52,4 @@ const seedAll = async () => {
 };
 
 seedAll();
->>>>>>> feature/frontend
+

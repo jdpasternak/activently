@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const { Attendance } = require("../models");
 
 const attendanceData = [
@@ -16,7 +16,7 @@ const attendanceData = [
 const seedAttendance = () => Attendance.bulkCreate(attendanceData);
 
 module.exports = seedAttendance;
-=======
+
 const { Attendance } = require("../models");
 
 const attendanceData = [
@@ -34,4 +34,4 @@ const attendanceData = [
 const seedAttendance = () => Attendance.bulkCreate(attendanceData);
 
 module.exports = seedAttendance;
->>>>>>> feature/frontend
+
