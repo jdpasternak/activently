@@ -1,11 +1,31 @@
-{{! Format with Materialize once code is more advanced }}
+<!-- add edit feature-->
 
+<div class="container">
+  <img />
+  <h3>{{title}}</h3>
+  <p>{{description}}</p>
+  <p>{{location}}</p>
+  <p>{{creator}}</p>
+  <button>
+    <a class="waves-effect waves-light btn-large" href="#modal1">Attend</a>
+  </button>
 
-<div class="activity-list">
-{{#each activities as |activity|}}
-    <div>
-        {{> activity-info activity }}
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>
+        {{! confirm attendance }}
+      </h4>
+      <p></p>
     </div>
-{{/each}}
+    <div class="modal-footer">
+      <a
+        href="#!"
+        class="modal-action modal-close waves-effect waves-green btn-flat"
+      >Attend</a>
+    </div>
+  </div>
 </div>
-
+<!-- TODO: add attendee-->
+<div class="container">
+</div>

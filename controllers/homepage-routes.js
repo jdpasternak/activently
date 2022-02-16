@@ -10,11 +10,13 @@ router.get("/", (req, res) => {
 // need routes to the users personal notifications
 //
 
-router.get('/login', (req, res) => {
+router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect("/");
     return;
   }
 
-  res.render('login');
+  res.render("login");
 });
+
+module.exports = router;

@@ -72,6 +72,7 @@ Interest.hasMany(UserInterest, {
 */
 User.hasMany(Activity, {
   foreignKey: "organizer_id",
+  as: "organizing"
 });
 
 Activity.belongsTo(User, {
