@@ -1,7 +1,13 @@
 {{! Need to format with Materialize once code is more advanced }}
 
-<section>
+<div class="container">
   <h2>Create New Activity</h2>
+
+</div>
+
+<div><h2>
+  
+</h2></div>
 
   <form class="new-activity-form">
     <div>
@@ -33,7 +39,7 @@
       <input id="activity-rules" name="activity-rules" />
     </div>
     <div>
-      <label for="activity-price">What is the cost (per attendee) of your event?</label>
+      <label for="activity-price">What is the cost/price range (per attendee) of your event?</label>
       <input id="activity-price" name="activity-price" />
     </div>
     <div>
@@ -47,7 +53,9 @@
 
     <button type="submit" class="btn">Create</button>
   </form>
-</section>
+</div>
+
+
 
 {{#if activities.length}}
 <section>
