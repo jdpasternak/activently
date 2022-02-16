@@ -5,6 +5,7 @@ const {
   Interest,
   UserDietaryPref,
   UserInterest,
+  DietaryPref,
 } = require("../models");
 const { withAuth } = require("../utils/auth");
 
@@ -57,6 +58,12 @@ router.get("/profile", withAuth, (req, res) => {
         attributes: ["id", "name"],
         through: UserInterest,
         as: "interests",
+      },
+      {
+        model: DietaryPref,
+        attributes: ["id", "name"],
+        through: UserDietaryPref,
+        as: "dietary_preferences",
       },
     ],
   })
