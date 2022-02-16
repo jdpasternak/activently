@@ -82,83 +82,30 @@ router.get(
       });
   }
 );
-// FIXME unhandled Promise return
-/* Interest.findAll({
-  where: {
-    id: req.params.id,
-  },
-  attributes: ["id", "name"],
-  include: [{ model: Interest, attributes: ["id", "name"] }],
-})
-  .then((dbInterestData) => {
-    if (!dbInterestData) {
-      res.status(404).json({ message: "no user found with this interest" });
-    }
-    const interest = dbInterestData.get({ plain: true });
-    // FIXME `posts` is not defined here
-    res.render("userprofile", { interest, loggedIn: true });
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).json(err);
-  });
-// FIXME unhandled Promise return
-UserDietaryPref.findOne({
-  where: {
-    id: req.params.id,
-  },
-  attributes: ["id", "user_id", "dietary_pref_id"],
-  include: [
-    {
-      model: UserDietaryPref,
-      attributes: ["dietary_pref_id"],
-    },
-  ],
-})
-  .then((dbUserDietPrefData) => {
-    if (!dbUserDietPrefData) {
-      res
-        .status(404)
-        .json({ message: "no user found with this dietary preference" });
-    }
-    const userDietPref = dbUserDietPrefData.get({ plain: true });
-    // FIXME `posts` is not defined here
-    res.render("userprofile", { userDietPref, loggedIn: true });
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).json(err);
-  }); */
 
-// FIXME router.get("/"...) already defined
-// router
-//   .get(
-//     "/Activity/:id",
-//     /* withAuth, */ (req, res) => {
-//       // FIXME unhandled Promise return
-//       Interest.findOne({
-//         where: {
-//           id: req.params.id,
-//         },
-//         attributes: ["id", "name", "description"],
-//         include: [
-//           {
-//             model: Interest,
-//             attributes: ["id", "name", "description"],
-//           },
-//         ],
-//       }).then((dbInterestData) => {
-//         const interest = dbInterestData.get({ plain: true });
-//         activity.get({ plain: true });
-//       });
-//       // FIXME `posts` is not defined here
-//       res.render("activity")({ activity, loggedIn: true });
-//     }
-//   )
-//   .catch((err) => {
-//     console.log(err);
-//     res.status(500).json(err);
-//   });
+router.get(
+  "/activity/:id",
+  /* withAuth, */ (req, res) => {
+    Activity.findOne({
+      where: {
+        id: req.params.id,
+      },
+      attributes: ["id", "title", "description"],
+      include: [{ model: User, attribures: ["username"] }],
+    })
+      .then((dbactivityData) => {
+        const activity = dbactivityData.get({ plain: true });
+        res.render("activity", {
+          activity,
+          // loggedIn: req.session.loggedIn
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  }
+);
 
 // FIXME router.get("/"...) already defined
 router.get(
