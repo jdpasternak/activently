@@ -5,18 +5,40 @@ const { withAuth } = require("../utils/auth");
 //need routes to navigate throughout the app
 //just get routes for events
 
-router.get("/", (req, res) => {
-  console.log(req.session);
-  res.render("landing-page");
+// Get all events_activitys for homepage
+router.get("/", async (req, res) => {
+  try {
+    const dbactivityData = await Activity.findAll({});
+
+    const activitys = dbactivityData.map((activity) =>
+      activity.get({ plain: true })
+    );
+    
+    // console.log(req.session.loggedIn);
+
+    // res.json(activitys);
+    res.render('homepage', {
+      activitys,
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
+
+
+
+
+
 
 // [ ] TODO add routes to the users personal notifications
 
-// GET /homepage
-router.get("/homepage", withAuth, (req, res) => {
-  // [ ] TODO add homepage data
-  res.render("homepage");
-});
+// // GET /homepage
+// router.get("/homepage", withAuth, (req, res) => {
+//   // [ ] TODO add homepage data
+//   res.render("homepage");
+// });
 
 // GET /login
 router.get("/login", withAuth, (req, res) => {
@@ -105,54 +127,54 @@ router.get("/", withAuth, (req, res) => {
   });
 });
 
-// FIXME router.get("/"...) already defined
-router.get("/", withAuth, (req, res) => {
-  Activity.findAll({
-    attribures: [
-      "id",
-      "title",
-      "description",
-      "location",
-      "occurence",
-      "organizer_id",
-      "is_private",
-      "seats",
-      "rules",
-      "price",
-      "req_dietary_pref",
-      "interest_id",
-    ],
-    include: [
-      {
-        model: "Activity",
-        attributes: [
-          "id",
-          "title",
-          "description",
-          "location",
-          "occurence",
-          "organizer_id",
-          "is_private",
-          "seats",
-          "rules",
-          "price",
-          "req_dietary_pref",
-          "interest_id",
-        ],
-      },
-    ],
-  })
-    .then((dbactivityData) => {
-      const activity = dbactivityData.map((activity) =>
-        activity.get({ plain: true })
-      );
-      // FIXME `posts` is not defined here
-      res.render("activity")({ posts, loggedIn: true });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+// // FIXME router.get("/"...) already defined
+// router.get("/", withAuth, (req, res) => {
+//   Activity.findAll({
+//     attribures: [
+//       "id",
+//       "title",
+//       "description",
+//       "location",
+//       "occurence",
+//       "organizer_id",
+//       "is_private",
+//       "seats",
+//       "rules",
+//       "price",
+//       "req_dietary_pref",
+//       "interest_id",
+//     ],
+//     include: [
+//       {
+//         model: "Activity",
+//         attributes: [
+//           "id",
+//           "title",
+//           "description",
+//           "location",
+//           "occurence",
+//           "organizer_id",
+//           "is_private",
+//           "seats",
+//           "rules",
+//           "price",
+//           "req_dietary_pref",
+//           "interest_id",
+//         ],
+//       },
+//     ],
+//   })
+//     .then((dbactivityData) => {
+//       const activity = dbactivityData.map((activity) =>
+//         activity.get({ plain: true })
+//       );
+//       // FIXME `posts` is not defined here
+//       res.render("activity")({ posts, loggedIn: true });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json(err);
+//     });
+// });
 
 module.exports = router;
