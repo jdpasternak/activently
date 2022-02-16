@@ -6,7 +6,9 @@ const withAuth = (req, res, next) => {
   }
 };
 
-const withOwned = (req, res, next) => {
+
+// [ ] TODO - This function will not do what it should because req.session.activity_id and activity.organizer_id are not defined.  req.session will not hold data about the activity_id since the user may visit and make changes to many activity pages.
+/* const withOwned = (req, res, next) => {
   if (
     (!req.session.user_id, req.session.activity_id === activity.organizer_id)
   ) {
@@ -14,7 +16,7 @@ const withOwned = (req, res, next) => {
   } else {
     next();
   }
-};
+}; */
 
 module.exports = { withAuth, withOwned };
 
