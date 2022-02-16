@@ -44,7 +44,7 @@ router.get('/signup', (req, res) => {
 
 //login user profile
 router.get('/profile', withAuth, (req, res) => {
-  if (req.session.loggedIn) {router.get(User, Activity, Interest, UserDietaryPref), (req, res) => {
+  if (req.session.loggedIn) {router.get(User, Interest, UserDietaryPref), (req, res) => {
     User.findOne({
       where: {
         id: req.params.id
