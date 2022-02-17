@@ -54,7 +54,6 @@ async function updateActivities(event) {
   }
 }
 
-//I dont know what this button will be called but maybe the class will be edit activity form
 document
   .querySelector(".edit-activity-form")
   .addEventListener("submit", updateActivities);
