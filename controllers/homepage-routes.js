@@ -76,6 +76,27 @@ router.get("/profile", withAuth, (req, res) => {
     });
 });
 
+/* 
+    GET /activity/edit/:id
+    Renders a view allowing a user to edit an activity
+*/
+router.get("/activity/:id/edit", withAuth, (req, res) => {
+  Activity.findOne({
+    where: { id: req.params.id },
+    include: [{ model: User, attributes: ["id", "username"] }],
+  })
+    .then((dbActivityData) => {
+      res.render("edit-activity", {
+        activity: dbActivityData.get({ plain: true }),
+        loggedIn: req.session.loggedIn,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 router.get("/activity/new", withAuth, (req, res) => {
   res.render("newActivity", { loggedIn: req.session.loggedIn });
 });
