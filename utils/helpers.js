@@ -12,7 +12,7 @@ module.exports = {
 
     return word;
   },
-  is_owner: (user_id, activity_id) => {
+  is_organizer: (user_id, activity_id) => {
     return user_id === activity_id;
   },
 };
