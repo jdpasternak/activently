@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const $interestSelect = document.querySelector("#interestSelect");
+
   const elems = document.querySelectorAll(".datepicker");
   const instances = M.Datepicker.init(elems, {
     format: "mm/dd/yyyy",
@@ -8,8 +10,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const timepickers = document.querySelectorAll(".timepicker");
   const timepickerInst = M.Timepicker.init(timepickers, {});
 
-  const interestSelect = document.querySelectorAll("select");
-  const selectInst = M.FormSelect.init(interestSelect);
+  fetch("/api/interests")
+    .then((response) => response.json())
+    .then((apiInterestData) => {
+      console.log(apiInterestData);
+      apiInterestData.forEach((interest) => {
+        let $option = document.createElement("option");
+        $option.value = interest.id;
+        $option.textContent = interest.name;
+        $interestSelect.appendChild($option);
+      });
+    })
+    .then(() => {
+      const interestSelect = document.querySelectorAll("select");
+      const selectInst = M.FormSelect.init(interestSelect);
+    });
 });
 
 async function newActivity(event) {
@@ -67,7 +82,8 @@ function interest() {
     .then((data) => {
       const interestData = data.map();
     });
-  console.log(data);
 }
-interest();
-document.querySelector(".new-Activity").addEventListener("submit", newActivity);
+// interest();
+document
+  .querySelector(".new-activity-form")
+  .addEventListener("submit", newActivity);
