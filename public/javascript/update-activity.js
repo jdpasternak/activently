@@ -1,4 +1,7 @@
-const { Activity } = require("../../models");
+document.addEventListener("DOMContentLoaded", () => {
+  const $interestSelect = document.querySelector("#interestSelect");
+  const insterstSelectInst = M.FormSelect.init($interestSelect);
+});
 
 async function updateActivities(event) {
   event.preventDefault();
@@ -27,8 +30,8 @@ async function updateActivities(event) {
     .value.trim();
 
   // COMMENT this can be made to get the ID from req.session.user_id since only logged in users should be able to make changes and only to their own profiles.
-  const id = window.sessionStorage.user_id
-  
+  const id = window.sessionStorage.user_id;
+
   const response = await fetch(`/api/activities/${id}`, {
     method: "PUT",
     body: JSON.stringify({
@@ -39,7 +42,6 @@ async function updateActivities(event) {
       organizer_id,
       is_private,
       seats,
-      
     }),
     headers: {
       "Content-Type": "application/json",
