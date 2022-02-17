@@ -132,7 +132,7 @@ router.delete("/dietaryPrefs", (req, res) => {
 });
 
 router.delete("/interests", (req, res) => {
-  Interest.destroy({
+  UserInterest.destroy({
     where: {
       user_id: req.session.user_id,
     },

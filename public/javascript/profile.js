@@ -10,10 +10,15 @@ const $saveEditDietaryPreferencesButton = document.querySelector(
   "#save-edit-dietary-prefs-button"
 );
 
+const $saveEditInterestsButton = document.querySelector(
+  "#save-edit-interests-button"
+);
+
 const $usernameInput = document.querySelector("#edit-username");
 const $zipCodeInput = document.querySelector("#edit-zip");
 
 let $dietaryPrefSelectInstance;
+let $interestSelectInstance;
 
 /* 
     Handle button on edit basic info modal to save info
@@ -68,6 +73,31 @@ const saveEditDietaryPreferencesHandler = (event) => {
     .then(() => {
       location.replace("/profile");
     });
+};
+
+const saveEditInterstsHandler = (event) => {
+  event.preventDefault();
+
+  const values = $interestSelectInstance.getSelectedValues();
+
+  fetch("/api/users/interests", {
+    method: "DELETE",
+  })
+    .then(() => {
+      values.forEach((value) => {
+        fetch("/api/userInterests", {
+          method: "POST",
+          body: JSON.stringify({
+            user_id:
+              document.querySelector("#user-id").attributes["data-user-id"]
+                .value,
+            interest_id: value,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+      });
+    })
+    .then(() => location.replace("/profile"));
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -129,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
             $interestsSelect.appendChild($option);
           });
         });
-      M.FormSelect.init($interestsSelect);
+      $interestSelectInstance = M.FormSelect.init($interestsSelect);
     },
   });
 
@@ -138,4 +168,5 @@ document.addEventListener("DOMContentLoaded", () => {
     "click",
     saveEditDietaryPreferencesHandler
   );
+  $saveEditInterestsButton.addEventListener("click", saveEditInterstsHandler);
 });
