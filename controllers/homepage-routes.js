@@ -13,7 +13,7 @@ const { withAuth } = require("../utils/auth");
 
 router.get("/", (req, res) => {
   console.log(req.session);
-  res.render("landing-page");
+  res.render("landing-page", { loggedIn: req.session.loggedIn });
 });
 
 // [ ] TODO add routes to the users personal notifications
@@ -23,7 +23,7 @@ router.get(
   "/homepage",
   /* withAuth, */ (req, res) => {
     // [ ] TODO add homepage data
-    res.render("homepage");
+    res.render("homepage", { loggedIn: req.session.loggedIn });
   }
 );
 
@@ -31,7 +31,7 @@ router.get(
 router.get(
   "/login",
   /* withAuth, */ (req, res) => {
-    res.render("login");
+    res.render("login", { loggedIn: req.session.loggedIn });
   }
 );
 
@@ -39,7 +39,7 @@ router.get(
 router.get(
   "/signup",
   /* withAuth, */ (req, res) => {
-    res.render("signup");
+    res.render("signup", { loggedIn: req.session.loggedIn });
   }
 );
 
@@ -71,7 +71,7 @@ router.get(
         const user = dbUserData.get({ plain: true });
         res.render("userprofile", {
           user,
-          // loggedIn: req.session.loggedIn,
+          loggedIn: req.session.loggedIn,
         });
       })
       .catch((err) => {
@@ -95,7 +95,7 @@ router.get(
         );
         res.render("homepage", {
           activity,
-          // loggedIn: req.session.loggedIn
+          loggedIn: req.session.loggedIn
         });
       })
       .catch((err) => {
