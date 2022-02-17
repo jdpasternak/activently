@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const elems = document.querySelectorAll(".datepicker");
   const instances = M.Datepicker.init(elems, {
-    autoClose: true,
     format: "mm/dd/yyyy",
     minDate: new Date(),
-
   });
+
+  const timepickers = document.querySelectorAll(".timepicker");
+  const timepickerInst = M.Timepicker.init(timepickers, {});
 });
 
 async function newActivity(event) {
