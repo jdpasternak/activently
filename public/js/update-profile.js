@@ -15,9 +15,8 @@ async function updateProfiles(event) {
     .querySelector('input[id="password-edit"]')
     .value.trim();
 
-
   // FIXME for this, we can grab the profile (or user) ID from req.session.user_id
-  const id = await fetch(`/api/users/${window.session.user_id}`, {
+  const id = await fetch(`/api/users/${req.session.user_id}`, {
     method: "GET",
   });
 
@@ -36,22 +35,24 @@ async function updateProfiles(event) {
     document.location.replace("/userprofile");
   } else {
     // [ ] TODO use a modal instead of browser alert
-    alert(response.statusText);
+    instances.open("That doesn't look like the right data");
   }
 }
 
-  function getDataToUpdate() {
-    const data = {};
-    if (password && password.length > 0) {
-      data.password = bcrypt(password);
-    }
-    if (username && username.length > 0) {
-      data.username = username;
-    }
-    return data;
+function getDataToUpdate() {
+  const data = {};
+  if (password && password.length > 0) {
+    data.password = bcrypt(password);
   }
-//I dont know what this button will be called but maybe the class will be edit post form
-// FIXME edit-post-form is would not describe a form to edit a user's profile. Please update this class name.
+  if (username && username.length > 0) {
+    data.username = username;
+  }
+  return data;
+}
+document.addEventListener("DOMContentLoaded", function () {
+  var elems = document.querySelectorAll(".modal");
+  var instances = M.Modal.init(elems, options);
+});
 document
   .querySelector(".edit-profile-form")
   .addEventListener("submit", updateProfiles);

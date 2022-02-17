@@ -16,4 +16,6 @@ async function searchZipEvents() {
 }
 
 // [ ] TODO  "button" could be ambiguous. Best practice: use a unique ID unless applying action to multiple elements (class)
-document.querySelector("getZipBtn").addEventListener("submit", searchZipEvents);
+document
+  .querySelector("#zipCodeBtn")
+  .addEventListener("submit", searchZipEvents);

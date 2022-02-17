@@ -34,11 +34,10 @@ async function newActivity(event) {
       "Content-Type": "application/json",
     },
   });
-const getId = fetch("/api/activities",{
-  method:"GET",
-  where: {location: location}
-
-})
+  const getId = fetch("/api/activities", {
+    method: "GET",
+    where: { location: location },
+  });
   if (response.ok) {
     // COMMENT do we want to redirect to /browsing or to the new Activity's page or to the user's profile?
     document.location.replace(`/activity/${req.params.id}`);
@@ -48,4 +47,15 @@ const getId = fetch("/api/activities",{
   }
 }
 
+function interest() {
+  const response = fetch(`/api/interest`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const interestData = data.map();
+    });
+  console.log(data);
+}
+interest()
 document.querySelector(".new-Activity").addEventListener("submit", newActivity);
