@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const $editDietaryPreferencesModal = document.querySelector(
     "#edit-dietary-preferences-modal"
   );
+  const $editInterestsModal = document.querySelector("#edit-interests-modal");
 
   M.Modal.init($editBasicInfoModal, {
     onOpenStart: () => {
@@ -100,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
   M.Modal.init($editDietaryPreferencesModal, {
     onOpenStart: async () => {
       const response = await fetch("/api/dietaryPrefs")
-        .then((apiInterestData) => apiInterestData.json())
+        .then((apiDietaryPrefData) => apiDietaryPrefData.json())
         .then((data) => {
           data.forEach((i) => {
             console.log(i);
@@ -111,6 +112,24 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         });
       $dietaryPrefSelectInstance = M.FormSelect.init($dietaryPrefSelect);
+    },
+  });
+
+  const $interestsSelect = document.querySelector("#interests-select");
+
+  M.Modal.init($editInterestsModal, {
+    onOpenStart: async () => {
+      const response = await fetch("/api/interests")
+        .then((apiInterestData) => apiInterestData.json())
+        .then((data) => {
+          data.forEach((interest) => {
+            let $option = document.createElement("option");
+            $option.value = interest.id;
+            $option.textContent = interest.name;
+            $interestsSelect.appendChild($option);
+          });
+        });
+      M.FormSelect.init($interestsSelect);
     },
   });
 

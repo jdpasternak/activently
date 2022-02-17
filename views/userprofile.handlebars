@@ -63,8 +63,11 @@
                     </div>
                   </div>
                   <div class="card-action">
-                    <button class="btn right" id="edit-interests-button">Edit
-                      Interests</button>
+                    <button
+                      data-target="edit-interests-modal"
+                      class="btn right modal-trigger"
+                      id="edit-interests-button"
+                    >Edit Interests</button>
                   </div>
                 </div>
               </div>
@@ -116,6 +119,28 @@
     <a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
     <a
       id="save-edit-dietary-prefs-button"
+      class="waves-effect waves-green btn-flat"
+    >Save</a>
+  </div>
+</div>
+
+<div id="edit-interests-modal" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>Edit Interests</h4>
+    <form id="edit-interests-form">
+      <div class="input-field col s12">
+        <select multiple id="interests-select">
+          <option value="" disabled selected>Select your interests</option>
+
+        </select>
+        <label>Interests</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-close waves-effect waves-green btn-flat">Close</a>
+    <a
+      id="saveEditInterestsButton"
       class="waves-effect waves-green btn-flat"
     >Save</a>
   </div>
