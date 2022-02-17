@@ -1,15 +1,15 @@
 const router = require("express").Router();
-const { Interest } = require("../../models");
+const { DietaryPref } = require("../../models");
 
 /* 
-    GET all interests
+    GET all dietary preferences
 */
 router.get("/", (req, res) => {
-  Interest.findAll({
+  DietaryPref.findAll({
     attributes: ["id", "name", "description"],
   })
-    .then((dbInterestData) => {
-      res.json(dbInterestData);
+    .then((dbDietaryPrefData) => {
+      res.json(dbDietaryPrefData);
     })
     .catch((err) => {
       console.log(err);

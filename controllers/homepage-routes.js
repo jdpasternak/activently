@@ -5,6 +5,7 @@ const {
   Interest,
   UserDietaryPref,
   UserInterest,
+  DietaryPref,
 } = require("../models");
 const { withAuth } = require("../utils/auth");
 
@@ -45,41 +46,44 @@ router.get(
 
 // GET /profile
 // a logged-in user's profile
-router.get(
-  "/profile/:id",
-  /* withAuth, */
-  (req, res) => {
-    User.findOne({
-      where: {
-        id: req.params.id,
+router.get("/profile", withAuth, (req, res) => {
+  User.findOne({
+    where: {
+      id: req.session.user_id,
+    },
+    attributes: ["id", "username", "email", "zip"],
+    include: [
+      {
+        model: Interest,
+        attributes: ["id", "name"],
+        through: UserInterest,
+        as: "interests",
       },
-      attributes: ["id", "username", "email", "zip"],
-      include: [
-        {
-          model: Interest,
-          attributes: ["id", "name"],
-          through: UserInterest,
-          as: "interests",
-        },
-      ],
-    })
-      .then((dbUserData) => {
-        if (!dbUserData) {
-          res.status(404).json({ message: "No user found with that ID." });
-          return;
-        }
-        const user = dbUserData.get({ plain: true });
-        res.render("userprofile", {
-          user,
-          loggedIn: req.session.loggedIn,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
+      {
+        model: DietaryPref,
+        attributes: ["id", "name"],
+        through: UserDietaryPref,
+        as: "dietary_preferences",
+      },
+    ],
+  })
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(404).json({ message: "No user found with that ID." });
+        return;
+      }
+      const user = dbUserData.get({ plain: true });
+      console.log(user);
+      res.render("userprofile", {
+        user,
+        loggedIn: req.session.loggedIn,
       });
-  }
-);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
 router.get("/activity/new", withAuth, (req, res) => {
   res.render("newActivity", { loggedIn: req.session.loggedIn });
