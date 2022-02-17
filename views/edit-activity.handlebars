@@ -1,0 +1,81 @@
+<section class="container">
+  <h2>Edit Activity</h2>
+  <form id="edit-activity-form">
+    <div class="input-field">
+      <label for="activityTitle">Title</label>
+      <input type="text" name="activity-title" id="activityTitle" required />
+    </div>
+    <div class="input-field">
+      <label for="description">Description</label>
+      <textarea
+        name="description"
+        id="description"
+        class="materialize-textarea"
+      ></textarea>
+    </div>
+    <div class="input-field">
+      <select id="interestSelect" required>
+        <option value="" disabled selected>Select a related interest</option>
+      </select>
+      <label>Related Interest</label>
+    </div>
+    <div class="input-field">
+      <label for="zipCode">Zip Code</label>
+      <input type="text" name="location" id="zipCode" required required />
+    </div>
+    <div class="input-field">
+      <label for="dateOfEvent">Date of Event</label>
+      <input
+        type="text"
+        name="date-of-event"
+        id="dateOfEvent"
+        class="datepicker"
+        required
+      />
+    </div>
+    <div class="input-field">
+      <label for="timeOfEvent">Time of Event</label>
+      <input
+        type="text"
+        name="time-of-event"
+        id="timeOfEvent"
+        class="timepicker"
+        required
+      />
+    </div>
+    <div class="input-field">
+      <label for="seats">Number of Seats</label>
+      <input type="number" name="seats" id="seats" required />
+    </div>
+    <p>
+      <label>
+        <input type="checkbox" name="is-private" id="isPrivate" />
+        <span>Private activity</span>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input
+          type="checkbox"
+          name="dietary-pref-req"
+          id="dietaryPrefRequired"
+        />
+        <span>Dietary preferences required</span>
+      </label>
+    </p>
+    <div class="input-field">
+      <textarea id="rules" name="rules" class="materialize-textarea"></textarea>
+      <label for="rules">Rules</label>
+      <span class="helper-text">House rules, guidelines, housekeeping, etc.</span>
+    </div>
+    <div class="input-field">
+      <label for="pricePerSeat">Price per Seat</label>
+      <input type="number" id="pricePerSeat" required />
+    </div>
+    <div class="input-field">
+      <input type="submit" class="btn" value="Create Event" required />
+    </div>
+  </form>
+</section>
+
+<script src="/javascript/update-activity.js"></script>
