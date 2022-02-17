@@ -81,8 +81,8 @@ router.get(
   }
 );
 
-router.get("/activity/new", (req, res) => {
-  res.render("newActivity");
+router.get("/activity/new", withAuth, (req, res) => {
+  res.render("newActivity", { loggedIn: req.session.loggedIn });
 });
 
 router.get(
