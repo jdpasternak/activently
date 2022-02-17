@@ -61,29 +61,14 @@ const createActivity = async (event) => {
     },
   });
 
-  // const getId = fetch("/api/activities", {
-  //   method: "GET",
-  //   where: { location: location },
-  // });
-
   if (response.ok) {
-    location.replace("/homepage");
+    window.location.replace("/homepage");
   } else {
     response.json().then((data) => console.log(data));
     alert(response.statusText);
   }
 };
 
-function interest() {
-  const response = fetch(`/api/interest`, {
-    method: "GET",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const interestData = data.map();
-    });
-}
-// interest();
 document
   .querySelector(".new-activity-form")
   .addEventListener("submit", createActivity);
