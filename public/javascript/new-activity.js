@@ -37,9 +37,13 @@ const createActivity = async (event) => {
   const interest_id = $interestSelect.value;
   const location = document.querySelector("#zipCode").value;
   const occurrence = document.querySelector("#dateOfEvent").value;
+  const seats = document.querySelector("#seats").value;
   const is_private = document.querySelector('input[name="is-private"]').checked;
-
-  const seats = document.querySelector('input[name="seats"]').value;
+  const req_dietary_pref = document.querySelector(
+    "#dietaryPrefRequired"
+  ).checked;
+  const rules = document.querySelector("#rules").value;
+  const price = document.querySelector("#pricePerSeat").value;
 
   const body = {
     title,
@@ -47,8 +51,11 @@ const createActivity = async (event) => {
     interest_id,
     location,
     occurrence,
-    is_private,
     seats,
+    is_private,
+    req_dietary_pref,
+    rules,
+    price,
   };
 
   console.log(body);
