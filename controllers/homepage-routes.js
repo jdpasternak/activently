@@ -27,6 +27,24 @@ router.get(
     res.render("homepage", { loggedIn: req.session.loggedIn });
   }
 );
+router.get("/browsing", withAuth, (req, res) => {
+  Activity.findAll({
+    attributes: ["id", "title", "description"],
+  })
+    .then((dbActivityData) => {
+      const activities = dbActivityData.map((activity) =>
+        activity.get({ plain: true })
+      );
+      res.render("browsing", {
+        activities,
+        loggedIn: req.session.loggedIn,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
 // GET /login
 router.get(
@@ -84,7 +102,6 @@ router.get("/profile", withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
-
 
 router.get(
   "/activity/:location",
