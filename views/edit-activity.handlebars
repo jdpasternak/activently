@@ -3,7 +3,13 @@
   <form id="edit-activity-form">
     <div class="input-field">
       <label for="activityTitle">Title</label>
-      <input type="text" name="activity-title" id="activityTitle" required />
+      <input
+        type="text"
+        name="activity-title"
+        id="activityTitle"
+        required
+        value="{{activity.title}}"
+      />
     </div>
     <div class="input-field">
       <label for="description">Description</label>
@@ -11,7 +17,7 @@
         name="description"
         id="description"
         class="materialize-textarea"
-      ></textarea>
+      >{{activity.description}}</textarea>
     </div>
     <div class="input-field">
       <select id="interestSelect" required>
@@ -21,7 +27,13 @@
     </div>
     <div class="input-field">
       <label for="zipCode">Zip Code</label>
-      <input type="text" name="location" id="zipCode" required required />
+      <input
+        type="text"
+        name="location"
+        id="zipCode"
+        required
+        value="{{activity.location}}"
+      />
     </div>
     <div class="input-field">
       <label for="dateOfEvent">Date of Event</label>
@@ -31,6 +43,7 @@
         id="dateOfEvent"
         class="datepicker"
         required
+        {{activity.occurrence}}
       />
     </div>
     <div class="input-field">
@@ -45,11 +58,17 @@
     </div>
     <div class="input-field">
       <label for="seats">Number of Seats</label>
-      <input type="number" name="seats" id="seats" required />
+      <input
+        type="number"
+        name="seats"
+        id="seats"
+        required
+        value="{{activity.seats}}"
+      />
     </div>
     <p>
       <label>
-        <input type="checkbox" name="is-private" id="isPrivate" />
+        <input type="checkbox" name="is-private" id="isPrivate" {{#if activity.is_private}}checked{{/if}} />
         <span>Private activity</span>
       </label>
     </p>
@@ -59,21 +78,24 @@
           type="checkbox"
           name="dietary-pref-req"
           id="dietaryPrefRequired"
+          {{#if activity.req_dietary_pref}}
+          checked
+          {{/if}}
         />
         <span>Dietary preferences required</span>
       </label>
     </p>
     <div class="input-field">
-      <textarea id="rules" name="rules" class="materialize-textarea"></textarea>
+      <textarea id="rules" name="rules" class="materialize-textarea">{{activity.rules}}</textarea>
       <label for="rules">Rules</label>
       <span class="helper-text">House rules, guidelines, housekeeping, etc.</span>
     </div>
     <div class="input-field">
       <label for="pricePerSeat">Price per Seat</label>
-      <input type="number" id="pricePerSeat" required />
+      <input type="number" id="pricePerSeat" required value={{activity.price}} />
     </div>
     <div class="input-field">
-      <input type="submit" class="btn" value="Create Event" required />
+      <input type="submit" class="btn" value="Update Activity" required />
     </div>
   </form>
 </section>
