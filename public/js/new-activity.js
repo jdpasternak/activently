@@ -1,5 +1,3 @@
-const { get } = require("../../controllers/homepage-routes");
-
 async function newActivity(event) {
   event.preventDefault();
 
