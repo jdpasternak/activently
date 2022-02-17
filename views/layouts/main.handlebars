@@ -43,6 +43,9 @@
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="#AboutUs">About Us</a></li>
             <li><a href="#Contacts">Contacts</a></li>
+            {{#if loggedIn}}
+              <li><a href="/activity/new">New Activity</a></li>
+            {{/if}}
           </ul>
         </div>
       </nav>
