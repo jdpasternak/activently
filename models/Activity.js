@@ -37,6 +37,7 @@ Activity.init(
     is_private: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
     seats: {
       type: DataTypes.INTEGER,
