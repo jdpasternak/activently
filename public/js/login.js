@@ -1,5 +1,5 @@
 // [ ] TODO add some comments to describe what's going on here
-//this is to login 
+//this is to login
 //get the email aaaaaand password from the input
 async function loginFormHandler(event) {
   event.preventDefault();
@@ -18,14 +18,13 @@ async function loginFormHandler(event) {
     });
 
     if (response.ok) {
-      document.location.replace("/dashboard/");
+      document.location.replace("/dashboard");
     } else {
       // [ ] TODO make this a modal instead of a standard browser alert
       alert(response.statusText);
     }
   }
 }
-
 
 document
   .querySelector(".login-form")
