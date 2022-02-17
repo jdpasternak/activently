@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const $interestSelect = document.querySelector("#interestSelect");
+const $interestSelect = document.querySelector("#interestSelect");
 
+document.addEventListener("DOMContentLoaded", () => {
   const elems = document.querySelectorAll(".datepicker");
   const instances = M.Datepicker.init(elems, {
     format: "mm/dd/yyyy",
@@ -22,57 +22,57 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     })
     .then(() => {
-      const interestSelect = document.querySelectorAll("select");
+      const interestSelect = document.querySelector("select");
       const selectInst = M.FormSelect.init(interestSelect);
     });
 });
 
-async function newActivity(event) {
+const createActivity = async (event) => {
   event.preventDefault();
 
-  const title = document.querySelector('input[name="activity_title"]').value;
-  const description = document.querySelector('input[name="description"]').value;
-  const location = document.querySelector('input[name="zip"]').value;
-  const occurrence = document.querySelector('input[name="date"]').value;
-  // need to grab the id and I will look it up tomorrow
-  const organizer_id = document.querySelector(
-    'label[class="organizer-id"]'
-  ).value;
-  //how do I do a boolean
-  const is_private = document.querySelector(
-    'checkbox[name="is-private"]'
-  ).value;
+  const title = document
+    .querySelector('input[name="activity-title"]')
+    .value.trim();
+  const description = document.querySelector("#description").value;
+  const interest_id = $interestSelect.value;
+  const location = document.querySelector("#zipCode").value;
+  const occurrence = document.querySelector("#dateOfEvent").value;
+  const is_private = document.querySelector('input[name="is-private"]').checked;
 
-  const seats = document.querySelector('input[name="seats"]');
+  const seats = document.querySelector('input[name="seats"]').value;
+
+  const body = {
+    title,
+    description,
+    interest_id,
+    location,
+    occurrence,
+    is_private,
+    seats,
+  };
+
+  console.log(body);
 
   const response = await fetch(`/api/activities`, {
     method: "POST",
-    body: JSON.stringify({
-      title,
-      description,
-      location,
-      occurrence,
-      organizer_id,
-      is_private,
-      seats,
-      interest_id,
-    }),
+    body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  const getId = fetch("/api/activities", {
-    method: "GET",
-    where: { location: location },
-  });
+
+  // const getId = fetch("/api/activities", {
+  //   method: "GET",
+  //   where: { location: location },
+  // });
+
   if (response.ok) {
-    // COMMENT do we want to redirect to /browsing or to the new Activity's page or to the user's profile?
-    document.location.replace(`/activity/${req.params.id}`);
+    location.replace("/homepage");
   } else {
-    // [ ] TODO use modal instead of traditional browser alert
+    response.json().then((data) => console.log(data));
     alert(response.statusText);
   }
-}
+};
 
 function interest() {
   const response = fetch(`/api/interest`, {
@@ -86,4 +86,4 @@ function interest() {
 // interest();
 document
   .querySelector(".new-activity-form")
-  .addEventListener("submit", newActivity);
+  .addEventListener("submit", createActivity);
