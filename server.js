@@ -11,7 +11,7 @@ const hbs = exphbs.create({});
 
 // Session configuration
 const sess = {
-  secret: process.env.DB_SECRET,
+  secret: "process.env.DB_SECRET",
   cookie: {},
   resave: false,
   saveUninitialized: true,

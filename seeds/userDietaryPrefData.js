@@ -1,3 +1,4 @@
+
 const { UserDietaryPref } = require("../models");
 
 const userDietaryPrefData = [
@@ -17,3 +18,4 @@ const seedUserDietaryPref = () =>
   UserDietaryPref.bulkCreate(userDietaryPrefData);
 
 module.exports = seedUserDietaryPref;
+
