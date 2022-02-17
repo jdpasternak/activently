@@ -5,7 +5,7 @@ const { DietaryPref } = require("../../models");
     GET all dietary preferences
 */
 router.get("/", (req, res) => {
-  Interest.findAll({
+  DietaryPref.findAll({
     attributes: ["id", "name", "description"],
   })
     .then((dbDietaryPrefData) => {
