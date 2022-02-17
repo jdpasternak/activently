@@ -80,6 +80,11 @@ router.get(
       });
   }
 );
+
+router.get("/activity/new", (req, res) => {
+  res.render("newActivity");
+});
+
 router.get(
   "/activity/:location",
   /* withAuth, */ (req, res) => {
@@ -95,7 +100,7 @@ router.get(
         );
         res.render("homepage", {
           activity,
-          loggedIn: req.session.loggedIn
+          loggedIn: req.session.loggedIn,
         });
       })
       .catch((err) => {
