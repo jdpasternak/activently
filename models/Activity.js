@@ -51,6 +51,7 @@ Activity.init(
     },
     req_dietary_pref: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     interest_id: {
       type: DataTypes.INTEGER,
