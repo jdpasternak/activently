@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const elems = document.querySelectorAll(".datepicker");
+  const instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    format: "mm/dd/yyyy",
+    minDate: new Date(),
+
+  });
+});
+
 async function newActivity(event) {
   event.preventDefault();
 
@@ -55,5 +65,5 @@ function interest() {
     });
   console.log(data);
 }
-interest()
+interest();
 document.querySelector(".new-Activity").addEventListener("submit", newActivity);
