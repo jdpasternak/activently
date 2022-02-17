@@ -12,7 +12,7 @@
         </div>
         <div class="card-action">
           {{#if (is_organizer user_id activity.user.id)}}
-            <a id="editButton" class="btn">Edit</a>
+            <a id="editButton" href="/activity/edit/{{activity.id}}" class="btn">Edit</a>
             <a id="deleteButton" class="btn">Delete</a>
           {{else}}
             <a class="btn" href="#">Attend</a>
