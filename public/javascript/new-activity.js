@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const timepickers = document.querySelectorAll(".timepicker");
   const timepickerInst = M.Timepicker.init(timepickers, {});
+
+  const interestSelect = document.querySelectorAll("select");
+  const selectInst = M.FormSelect.init(interestSelect);
 });
 
 async function newActivity(event) {
