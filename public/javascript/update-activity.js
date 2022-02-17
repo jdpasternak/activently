@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const insterstSelectInst = M.FormSelect.init($interestSelect);
 });
 
-async function updateActivities(event) {
+const updateActivity = async (event) => {
   event.preventDefault();
   // COMMENT formData is declared but never used. What is it for?
   const formData = new FormData();
@@ -54,7 +54,7 @@ async function updateActivities(event) {
     // [ ] TODO change browser alert to modal
     alert(response.statusText);
   }
-}
+};
 
 document
   .querySelector(".edit-activity-form")
