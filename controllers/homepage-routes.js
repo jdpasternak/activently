@@ -85,19 +85,21 @@ router.get("/profile", withAuth, (req, res) => {
     });
 });
 
+
 router.get(
-  "/activity/:id",
+  "/activity/:location",
   /* withAuth, */ (req, res) => {
-    Activity.findOne({
+    Activity.findAll({
       where: {
-        id: req.params.id,
+        location: req.params.location,
       },
       attributes: ["id", "title", "description"],
-      include: [{ model: User, attribures: ["username"] }],
     })
       .then((dbactivityData) => {
-        const activity = dbactivityData.get({ plain: true });
-        res.render("activity", {
+        const activity = dbactivityData.map((zipActivity) =>
+          zipActivity.get({ plain: true })
+        );
+        res.render("homepage", {
           activity,
           loggedIn: req.session.loggedIn,
         });
@@ -108,5 +110,28 @@ router.get(
       });
   }
 );
+// router.get(
+//   "/activity/:id",
+//   /* withAuth, */ (req, res) => {
+//     Activity.findOne({
+//       where: {
+//         id: req.params.id,
+//       },
+//       attributes: ["id", "title", "description"],
+//       include: [{ model: User, attribures: ["username"] }],
+//     })
+//       .then((dbactivityData) => {
+//         const activity = dbactivityData.get({ plain: true });
+//         res.render("activity", {
+//           activity,
+//           // loggedIn: req.session.loggedIn
+//         });
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         res.status(500).json(err);
+//       });
+//   }
+// );
 
 module.exports = router;
