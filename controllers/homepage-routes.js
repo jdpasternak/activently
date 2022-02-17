@@ -1,6 +1,6 @@
 
 const router = require("express").Router();
-const { User, Activity, Interest, UserDietaryPref } = require("../models");
+const { User, Activity, Interest, UserDietaryPref, UserInterest } = require("../models");
 const { withAuth } = require("../utils/auth");
 
 //need routes to navigate throughout the app
@@ -12,6 +12,34 @@ router.get("/", (req, res) => {
 });
 
 // [ ] TODO add routes to the users personal notifications
+router.get('activity/edit/:id', 'userprofile/edit:id', withAuth, (req, res)=> {
+  Activity.findAll({
+  where: {id: req.params.id},
+  attributes: [
+    'title',
+    'description',
+    'location',
+    'occurence',
+    'isprivate',
+    'seats'
+  ],
+  include: [
+    {
+      model: Activity,
+      attributes: ['title',
+      'description',
+      'location',
+      'occurence',
+      'isprivate',
+      'seats']
+    }
+  ].then()
+})
+User.findAll
+})
+router.get("/homepage", (req,res) => {
+
+})
 
 // GET /homepage
 router.get(
@@ -52,13 +80,13 @@ router.get(
           attributes: ["user_id", "username", "email", "zip"],
           include: [
             {
-              model: User,
-              attributes: ["user_id", "username", "email", "zip"],
+              model: Interest,
+              attributes: ["id", "name"],
+              through: UserInterest,
+              as: "interests"
             },
-          ],
-        })
+          ]
         .then(dbUserData => {
-       
         if (!dbUserData) {
           res.status(404).json({ message: 'incorrect user'})
           return;
@@ -67,17 +95,11 @@ router.get(
         const user = dbUserData.map((user) => user.get({ plain: true }));
           res.render('userprofile', { user, loggedIn: true });
         })
-      res.render('userprofile', {
-        // FIXME Modules are not table data. Must passed actual data
-        user,
-        loggedIn: req.session.loggedIn,
-      }
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      }
-      ));
-    });
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json(err);
+        })
+      });
         // FIXME unhandled Promise return
         Interest.findAll({
           where: {
@@ -122,6 +144,7 @@ router.get(
           console.log(err);
           res.status(500).json(err);
         });
+      })
 
 // FIXME router.get("/"...) already defined
 router.get(
@@ -142,10 +165,10 @@ router.get(
     })
     .then((dbInterestData) => {
       const interest = dbInterestData.get({ plain : true })
-        activity.get({ plain: true })
+        interest.get({ plain: true })
     });
       // FIXME `posts` is not defined here
-      res.render('activity')({ activity, loggedIn: true });
+      res.render('activity')({ interest, loggedIn: true });
     })
     .catch((err) => {
       console.log(err);
@@ -193,8 +216,8 @@ router.get(
         },
       ],
     })
-      .then((dbactivityData) => {
-        const activity = dbactivityData.map((activity) =>
+      .then((dbInterestData) => {
+        const activity = dbactivityData.get((activity) =>
           activity.get({ plain: true })
         );
         // FIXME `posts` is not defined here
