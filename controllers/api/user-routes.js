@@ -131,6 +131,21 @@ router.delete("/dietaryPrefs", (req, res) => {
     });
 });
 
+router.delete("/interests", (req, res) => {
+  Interest.destroy({
+    where: {
+      user_id: req.session.user_id,
+    },
+  })
+    .then((dbUserInterestData) => {
+      res.json(dbUserInterestData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 router.post("/login", (req, res) => {
   User.findOne({
     where: {
