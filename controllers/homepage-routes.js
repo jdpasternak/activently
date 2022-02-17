@@ -83,7 +83,7 @@ router.get("/activity/new", withAuth, (req, res) => {
 router.get("/activity/:id", withAuth, (req, res) => {
   Activity.findOne({ where: { id: req.params.id } })
     .then((dbActivityData) =>
-      res.render("activity", dbActivityData.get({ plain: true }))
+      res.render("activity", { activity: dbActivityData.get({ plain: true }) })
     )
     .catch((err) => {
       console.log(err);
