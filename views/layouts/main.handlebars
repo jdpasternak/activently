@@ -57,9 +57,15 @@
           {{/if}}
           <a href="/" class="brand-logo center">ACTIVENTLY</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <!-- Navbar links here -->
+
+            {{#if loggedIn}}
+            <li><a href="/profile">Profile</a>
+            {{/if}}
+            <li><a href="#AboutUs">About Us</a></li>
+            <li><a href="#Contacts">Contacts</a></li>
           </ul>
         </div>
+
 
     <main class="d-flex m-1">
         {{{body}}}

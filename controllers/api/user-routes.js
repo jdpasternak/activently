@@ -116,6 +116,36 @@ router.post("/", (req, res) => {
     });
 });
 
+router.delete("/dietaryPrefs", (req, res) => {
+  UserDietaryPref.destroy({
+    where: {
+      user_id: req.session.user_id,
+    },
+  })
+    .then((dbUserDietaryPrefData) => {
+      res.json(dbUserDietaryPrefData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.delete("/interests", (req, res) => {
+  UserInterest.destroy({
+    where: {
+      user_id: req.session.user_id,
+    },
+  })
+    .then((dbUserInterestData) => {
+      res.json(dbUserInterestData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 router.post("/login", (req, res) => {
   User.findOne({
     where: {
