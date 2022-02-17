@@ -1,55 +1,82 @@
-<article>
+<section class="container">
   <a href="/homepage"> &larr; Back to homepage</a>
   <h2>
     Create an Activity
   </h2>
   <form class="new-activity-form">
-     <div>
-    <label for="activity-title">activity:</label>
-    <input type="text" name ="activity-title" id="activityTitle" />
-  </div>
-  <div>
-    <label for="description">description:</label>
-    <input type="text" name ="description" id="description" />
-  </div>
-  <div>
-    <label for="location">zip code:</label>
-    <input type="password" name = "location" id="zipCode" />
-  </div>
-     <div>
-    <label for="date-of-event">date of event:</label>
-    <input type="text" name ="date-of-event" id="dateOfEvent" />
-  </div>
-  <div>
-    <label class ="organizer-details"for="organizer-details">organizer: {{username}}</label>
-  </div>
-  <div>
-    <label for="is-private">Is this event private?:</label>
-    <input type="checkbox" name ="is-private" id="isPrivate" />
-  </div>
-   <div>
-    <label for="seats">number of seats:</label>
-    <input type="number" name = "seats" id="seats" />
-  </div>
-
-    <button type="submit">Save post</button>
-    <button type="button" class="delete-post-btn">Delete post</button>
+    <div class="input-field">
+      <label for="activityTitle">Title</label>
+      <input type="text" name="activity-title" id="activityTitle" />
+    </div>
+    <div class="input-field">
+      <label for="description">Description</label>
+      <textarea
+        name="description"
+        id="description"
+        class="materialize-textarea"
+      ></textarea>
+    </div>
+    <div class="input-field">
+      <select multiple>
+        <option value="" disabled selected>Select a related interest</option>
+      </select>
+      <label>Related Interest</label>
+    </div>
+    <div class="input-field">
+      <label for="zipCode">Zip Code</label>
+      <input type="text" name="location" id="zipCode" />
+    </div>
+    <div class="input-field">
+      <label for="dateOfEvent">Date of Event</label>
+      <input
+        type="text"
+        name="date-of-event"
+        id="dateOfEvent"
+        class="datepicker"
+      />
+    </div>
+    <div class="input-field">
+      <label for="timeOfEvent">Time of Event</label>
+      <input
+        type="text"
+        name="time-of-event"
+        id="timeOfEvent"
+        class="timepicker"
+      />
+    </div>
+    <div class="input-field">
+      <label for="seats">Number of Seats</label>
+      <input type="number" name="seats" id="seats" />
+    </div>
+    <p>
+      <label>
+        <input type="checkbox" name="is-private" id="isPrivate" />
+        <span>Private activity</span>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input
+          type="checkbox"
+          name="dietary-pref-req"
+          id="dietaryPrefRequired"
+        />
+        <span>Dietary preferences required</span>
+      </label>
+    </p>
+    <div class="input-field">
+      <textarea id="rules" class="materialize-textarea"></textarea>
+      <label for="rules">Rules</label>
+      <span class="helper-text">House rules, guidelines, housekeeping, etc.</span>
+    </div>
+    <div class="input-field">
+      <label for="pricePerSeat">Price per Seat</label>
+      <input type="number" id="pricePerSeat" />
+    </div>
+    <div class="input-field">
+      <input type="submit" class="btn" value="Create Event" />
+    </div>
   </form>
-</article>
+</section>
 
-<form class="comment-form">
-  <div>
-    <textarea name="comment-body"></textarea>
-  </div>
-
-  <div>
-    <button type="submit">add comment</button>
-  </div>
-</form>
-
-{{ #each comments}}
-
-{{/each }}
-
-<script src="/js/new-activity.js"></script>
-<script src="/js/comment.js"></script>
+<script src="/javascript/new-activity.js"></script>
