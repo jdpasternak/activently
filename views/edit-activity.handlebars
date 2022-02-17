@@ -43,7 +43,7 @@
         id="dateOfEvent"
         class="datepicker"
         required
-        {{activity.occurrence}}
+        value="{{format_date activity.occurrence}}"
       />
     </div>
     <div class="input-field">
@@ -53,6 +53,7 @@
         name="time-of-event"
         id="timeOfEvent"
         class="timepicker"
+        value="{{format_time activity.occurrence}}"
         required
       />
     </div>
