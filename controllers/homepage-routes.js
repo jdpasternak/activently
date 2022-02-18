@@ -23,7 +23,8 @@ router.get("/", (req, res) => {
 router.get("/homepage", withAuth, (req, res) => {
   // [ ] TODO add homepage data
   res.render("homepage", { loggedIn: req.session.loggedIn });
-  
+});
+
 router.get("/browsing", withAuth, (req, res) => {
   Activity.findAll({
     attributes: ["id", "title", "description"],
@@ -41,7 +42,6 @@ router.get("/browsing", withAuth, (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-
 });
 
 // GET /login
@@ -115,7 +115,7 @@ router.get("/activity/:id/edit", withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
-  
+
 router.get(
   "/activity/:location",
   /* withAuth, */ (req, res) => {
@@ -124,6 +124,9 @@ router.get(
         location: req.params.location,
       },
       attributes: ["id", "title", "description"],
+    });
+  }
+);
 
 router.get("/activity/new", withAuth, (req, res) => {
   res.render("newActivity", { loggedIn: req.session.loggedIn });
@@ -146,53 +149,5 @@ router.get("/activity/:id", withAuth, (req, res) => {
       console.log(err);
     });
 });
-
-// router.get(
-//   "/activity/:location",
-//   /* withAuth, */ (req, res) => {
-//     Activity.findAll({
-//       where: {
-//         location: req.params.location,
-//       },
-//       attributes: ["id", "title", "description"],
-//     })
-//       .then((dbactivityData) => {
-//         const activity = dbactivityData.map((zipActivity) =>
-//           zipActivity.get({ plain: true })
-//         );
-//         res.render("homepage", {
-//           activity,
-//           loggedIn: req.session.loggedIn,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         res.status(500).json(err);
-//       });
-//   }
-// );
-// router.get(
-//   "/activity/:id",
-//   /* withAuth, */ (req, res) => {
-//     Activity.findOne({
-//       where: {
-//         id: req.params.id,
-//       },
-//       attributes: ["id", "title", "description"],
-//       include: [{ model: User, attribures: ["username"] }],
-//     })
-//       .then((dbactivityData) => {
-//         const activity = dbactivityData.get({ plain: true });
-//         res.render("activity", {
-//           activity,
-//           // loggedIn: req.session.loggedIn
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         res.status(500).json(err);
-//       });
-//   }
-// );
 
 module.exports = router;
