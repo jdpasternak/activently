@@ -22,6 +22,11 @@
               class="btn modal-trigger"
               data-target="confirm-delete-modal"
             >Delete</button>
+            <button
+              id="inviteButton"
+              class="btn modal-trigger"
+              data-target="inviteModal"
+            >Invite</button>
           {{else}}
             <a class="btn" href="#">Attend</a>
           {{/if}}
@@ -45,6 +50,28 @@
     </div>
   </div>
 
+  <!-- Invite Modal -->
+  <div id="inviteModal" class="modal">
+    <div class="modal-content" style="min-height: 50vh;">
+      <h4>Invite Friends</h4>
+      <form id="inviteForm">
+        <div class="input-field col s12">
+          <select id="inviteSelect" multiple>
+            <option value="" disabled selected>Select people to invite</option>
+          </select>
+          <label>Invitees</label>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a
+        id="sendInvitationsButton"
+        class="modal-close waves-effect waves-green btn-flat"
+      >Send</a>
+      <a class="modal-close waves-effect red white-text btn-flat">Cancel</a>
+    </div>
+  </div>
+
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
@@ -65,4 +92,7 @@
 <div class="container">
 </div>
 
-<script src="/javascript/delete-activity.js"></script>
+{{#if (is_organizer user_id activity.user.id)}}
+  <script src="/javascript/delete-activity.js"></script>
+  <script src="/javascript/invite.js"></script>
+{{/if}}
