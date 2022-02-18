@@ -17,12 +17,31 @@
               href="/activity/{{activity.id}}/edit"
               class="btn"
             >Edit</a>
-            <a id="deleteButton" class="btn">Delete</a>
+            <button
+              id="deleteButton"
+              class="btn modal-trigger"
+              data-target="confirm-delete-modal"
+            >Delete</button>
           {{else}}
             <a class="btn" href="#">Attend</a>
           {{/if}}
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Modal -->
+  <div id="confirm-delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Confirm Deleting Activity</h4>
+      <p>Are you sure you want to delete activity "{{activity.title}}"?</p>
+    </div>
+    <div class="modal-footer">
+      <a
+        id="confirmDeleteButton"
+        class="modal-close waves-effect waves-red btn red"
+      >Delete</a>
+      <a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
     </div>
   </div>
 
@@ -45,3 +64,5 @@
 <!-- TODO: add attendee-->
 <div class="container">
 </div>
+
+<script src="/javascript/delete-activity.js"></script>
