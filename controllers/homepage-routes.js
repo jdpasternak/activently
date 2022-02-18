@@ -117,14 +117,31 @@ router.get("/activity/:id/edit", withAuth, (req, res) => {
 });
 
 router.get(
-  "/activity/:location",
+  "/activity/zip/:location",
   /* withAuth, */ (req, res) => {
     Activity.findAll({
       where: {
         location: req.params.location,
       },
       attributes: ["id", "title", "description"],
-    });
+    })
+      .then((dbActivityData) => {
+        if (dbActivityData.length < 1) {
+          res.render("browsing", {
+            activities: [{ title: "No activities found" }],
+            loggedIn: req.session.loggedIn,
+          });
+          return;
+        }
+        const activities = dbActivityData.map((activity) =>
+          activity.get({ plain: true })
+        );
+        res.render("browsing", { activities, loggedIn: req.session.loggedIn });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   }
 );
 

@@ -1,73 +1,80 @@
 <!-- TODO: top: put demo user pic-->
 <div class="container">
-  <div class="col s12 m1">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <div class="row">
-          <div>
-            <span class="card-title" id="user-username">{{user.username}}</span>
+  <div class="row">
+    <div class="col s12">
+      <div class="card blue-grey darken-1">
+        <div class="card-content">
+
+          <div class="row">
+
+            <span
+              class="card-title white-text"
+              id="user-username"
+            >{{user.username}}</span>
             <span id="user-id" data-user-id="{{user.id}}"></span>
+
             <div class="row">
+
               <div class="col s12">
                 <div class="card">
-                  <div class="card-content text-black">
+                  <div class="card-content">
                     <span class="card-title">Basic Info</span>
                     <p id="user-email">Email: {{user.email}}</p>
                     <p id="user-zip">Zip Code : {{user.zip}}</p>
                   </div>
                   <div class="card-action">
-                    <button
-                      class="btn waves-effect waves-light right modal-trigger"
+                    <a
+                      class="btn waves-effect waves-light modal-trigger"
                       data-target="edit-basic-info-modal"
-                      type="submit"
                       id="edit-basic-info-button"
                     >Edit Basic Info
-                      <i class="material-icons right"></i>
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
+
             <div class="row">
+
               <div class="col s12 m6">
                 <div class="card">
                   <div class="card-content">
-                    <span class="card-title text-black">Dietary Preferences</span>
+                    <span class="card-title black-text">Dietary Preferences</span>
                     <div>
                       {{#each user.dietary_preferences as |df|}}
                         <span
-                          class="badge green text-white left"
+                          class="badge green white-text left"
                         >{{df.name}}</span>
                       {{/each}}
                     </div>
                   </div>
                   <div class="card-action">
-                    <button
+                    <a
                       data-target="edit-dietary-preferences-modal"
-                      class="btn right modal-trigger"
+                      class="btn modal-trigger"
                       id="edit-dietary-pref-button"
-                    >Edit Dietary Preferences</button>
+                    >Edit Dietary Preferences</a>
                   </div>
                 </div>
               </div>
               <div class="col s12 m6">
                 <div class="card">
                   <div class="card-content">
-                    <span class="card-title text-black">Interests</span>
+                    <span class="card-title black-text">Interests</span>
                     <div>
                       {{#each user.interests as |interest|}}
                         <span
-                          class="green badge left text-white"
+                          class="badge green white-text left"
                         >{{interest.name}}</span>
                       {{/each}}
                     </div>
                   </div>
                   <div class="card-action">
-                    <button
+                    <a
                       data-target="edit-interests-modal"
-                      class="btn right modal-trigger"
+                      class="btn modal-trigger"
                       id="edit-interests-button"
-                    >Edit Interests</button>
+                    >Edit Interests</a>
                   </div>
                 </div>
               </div>
