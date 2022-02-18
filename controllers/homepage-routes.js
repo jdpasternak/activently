@@ -20,29 +20,20 @@ router.get("/", (req, res) => {
 // [ ] TODO add routes to the users personal notifications
 
 // GET /homepage
-router.get(
-  "/homepage",
-  /* withAuth, */ (req, res) => {
-    // [ ] TODO add homepage data
-    res.render("homepage", { loggedIn: req.session.loggedIn });
-  }
-);
+router.get("/homepage", withAuth, (req, res) => {
+  // [ ] TODO add homepage data
+  res.render("homepage", { loggedIn: req.session.loggedIn });
+});
 
 // GET /login
-router.get(
-  "/login",
-  /* withAuth, */ (req, res) => {
-    res.render("login", { loggedIn: req.session.loggedIn });
-  }
-);
+router.get("/login", (req, res) => {
+  res.render("login", { loggedIn: req.session.loggedIn });
+});
 
 // GET /signup
-router.get(
-  "/signup",
-  /* withAuth, */ (req, res) => {
-    res.render("signup", { loggedIn: req.session.loggedIn });
-  }
-);
+router.get("/signup", (req, res) => {
+  res.render("signup", { loggedIn: req.session.loggedIn });
+});
 
 // GET /profile
 // a logged-in user's profile
@@ -85,32 +76,73 @@ router.get("/profile", withAuth, (req, res) => {
     });
 });
 
-router.get(
-  "/:location",
-  /* withAuth, */ (req, res) => {
-    console.log("starting request");
-    Activity.findAll({
-      where: {
-        location: req.params.location,
-      },
-      attributes: ["id", "title", "description"],
-    })
-      .then((dbactivityData) => {
-        const activities = dbactivityData.map((zipActivity) =>
-          zipActivity.get({ plain: true })
-        );
-        console.log("before render");
-        res.render("landing-page", {
-          activities,
-          loggedIn: req.session.loggedIn,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
+/* 
+    GET /activity/edit/:id
+    Renders a view allowing a user to edit an activity
+*/
+router.get("/activity/:id/edit", withAuth, (req, res) => {
+  Activity.findOne({
+    where: { id: req.params.id },
+    include: [{ model: User, attributes: ["id", "username"] }],
+  })
+    .then((dbActivityData) => {
+      res.render("edit-activity", {
+        activity: dbActivityData.get({ plain: true }),
+        loggedIn: req.session.loggedIn,
       });
-  }
-);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.get("/activity/new", withAuth, (req, res) => {
+  res.render("newActivity", { loggedIn: req.session.loggedIn });
+});
+
+router.get("/activity/:id", withAuth, (req, res) => {
+  Activity.findOne({
+    where: { id: req.params.id },
+    include: [{ model: User, attributes: ["id", "username"] }],
+  })
+    .then((dbActivityData) => {
+      console.log(dbActivityData.get({ plain: true }));
+      res.render("activity", {
+        activity: dbActivityData.get({ plain: true }),
+        user_id: req.session.user_id,
+        loggedIn: req.session.loggedIn,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// router.get(
+//   "/activity/:location",
+//   /* withAuth, */ (req, res) => {
+//     Activity.findAll({
+//       where: {
+//         location: req.params.location,
+//       },
+//       attributes: ["id", "title", "description"],
+//     })
+//       .then((dbactivityData) => {
+//         const activity = dbactivityData.map((zipActivity) =>
+//           zipActivity.get({ plain: true })
+//         );
+//         res.render("homepage", {
+//           activity,
+//           loggedIn: req.session.loggedIn,
+//         });
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         res.status(500).json(err);
+//       });
+//   }
+// );
 // router.get(
 //   "/activity/:id",
 //   /* withAuth, */ (req, res) => {
