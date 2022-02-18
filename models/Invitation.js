@@ -35,3 +35,5 @@ Invitation.init(
     modelName: "invitation",
   }
 );
+
+module.exports = Invitation;
