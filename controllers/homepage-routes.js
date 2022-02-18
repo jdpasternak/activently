@@ -23,6 +23,25 @@ router.get("/", (req, res) => {
 router.get("/homepage", withAuth, (req, res) => {
   // [ ] TODO add homepage data
   res.render("homepage", { loggedIn: req.session.loggedIn });
+  
+router.get("/browsing", withAuth, (req, res) => {
+  Activity.findAll({
+    attributes: ["id", "title", "description"],
+  })
+    .then((dbActivityData) => {
+      const activities = dbActivityData.map((activity) =>
+        activity.get({ plain: true })
+      );
+      res.render("browsing", {
+        activities,
+        loggedIn: req.session.loggedIn,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+
 });
 
 // GET /login
@@ -96,6 +115,15 @@ router.get("/activity/:id/edit", withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
+  
+router.get(
+  "/activity/:location",
+  /* withAuth, */ (req, res) => {
+    Activity.findAll({
+      where: {
+        location: req.params.location,
+      },
+      attributes: ["id", "title", "description"],
 
 router.get("/activity/new", withAuth, (req, res) => {
   res.render("newActivity", { loggedIn: req.session.loggedIn });
