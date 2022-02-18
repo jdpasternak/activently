@@ -1,6 +1,7 @@
 const sequelize = require("../../config/connection");
 const router = require("express").Router();
 const { Activity, User, Comment, Attendance } = require("../../models");
+const { withAuth } = require("../../utils/auth");
 
 /* 
     READ Activity (all)
@@ -40,7 +41,7 @@ router.get("/", (req, res) => {
       },
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["id", "username"],
       },
     ],
   };
@@ -117,7 +118,7 @@ router.get("/:id", (req, res) => {
     CREATE Activity
 */
 router.post("/", (req, res) => {
-  Activity.create(req.body)
+  Activity.create({ ...req.body, organizer_id: req.session.user_id })
     .then((dbActivityData) => res.json(dbActivityData))
     .catch((err) => {
       console.log(err);

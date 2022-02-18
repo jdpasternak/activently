@@ -37,6 +37,7 @@ Activity.init(
     is_private: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
     seats: {
       type: DataTypes.INTEGER,
@@ -50,6 +51,7 @@ Activity.init(
     },
     req_dietary_pref: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     interest_id: {
       type: DataTypes.INTEGER,
