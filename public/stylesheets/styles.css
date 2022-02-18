@@ -21,6 +21,9 @@ body {
 main {
   flex: 1 0 auto;
 }
-.card {
-  float: left;
+
+div.scroll {
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
