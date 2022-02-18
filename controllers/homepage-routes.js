@@ -85,10 +85,10 @@ router.get("/profile", withAuth, (req, res) => {
     });
 });
 
-
 router.get(
-  "/activity/:location",
+  "/:location",
   /* withAuth, */ (req, res) => {
+    console.log("starting request");
     Activity.findAll({
       where: {
         location: req.params.location,
@@ -96,11 +96,12 @@ router.get(
       attributes: ["id", "title", "description"],
     })
       .then((dbactivityData) => {
-        const activity = dbactivityData.map((zipActivity) =>
+        const activities = dbactivityData.map((zipActivity) =>
           zipActivity.get({ plain: true })
         );
-        res.render("homepage", {
-          activity,
+        console.log("before render");
+        res.render("landing-page", {
+          activities,
           loggedIn: req.session.loggedIn,
         });
       })
