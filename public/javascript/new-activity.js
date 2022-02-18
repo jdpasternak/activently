@@ -1,59 +1,81 @@
-async function newActivity(event) {
+const $interestSelect = document.querySelector("#interestSelect");
+
+document.addEventListener("DOMContentLoaded", () => {
+  const elems = document.querySelectorAll(".datepicker");
+  const instances = M.Datepicker.init(elems, {
+    format: "mm/dd/yyyy",
+    minDate: new Date(),
+  });
+
+  const timepickers = document.querySelectorAll(".timepicker");
+  const timepickerInst = M.Timepicker.init(timepickers, {});
+
+  fetch("/api/interests")
+    .then((response) => response.json())
+    .then((apiInterestData) => {
+      console.log(apiInterestData);
+      apiInterestData.forEach((interest) => {
+        let $option = document.createElement("option");
+        $option.value = interest.id;
+        $option.textContent = interest.name;
+        $interestSelect.appendChild($option);
+      });
+    })
+    .then(() => {
+      const interestSelect = document.querySelector("select");
+      const selectInst = M.FormSelect.init(interestSelect);
+    });
+});
+
+const createActivity = async (event) => {
   event.preventDefault();
 
-  const title = document.querySelector('input[name="activity_title"]').value;
-  const description = document.querySelector('input[name="description"]').value;
-  const location = document.querySelector('input[name="zip"]').value;
-  const occurrence = document.querySelector('input[name="date"]').value;
-  // need to grab the id and I will look it up tomorrow
-  const organizer_id = document.querySelector(
-    'label[class="organizer-id"]'
-  ).value;
-  //how do I do a boolean
-  const is_private = document.querySelector(
-    'checkbox[name="is-private"]'
-  ).value;
+  const title = document
+    .querySelector('input[name="activity-title"]')
+    .value.trim();
+  const description = document.querySelector("#description").value;
+  const interest_id = $interestSelect.value;
+  const location = document.querySelector("#zipCode").value;
+  const occurrence = document.querySelector("#dateOfEvent").value;
+  const seats = document.querySelector("#seats").value;
+  const is_private = document.querySelector('input[name="is-private"]').checked;
+  const req_dietary_pref = document.querySelector(
+    "#dietaryPrefRequired"
+  ).checked;
+  const rules = document.querySelector("#rules").value;
+  const price = document.querySelector("#pricePerSeat").value;
 
-  const seats = document.querySelector('input[name="seats"]');
+  const body = {
+    title,
+    description,
+    interest_id,
+    location,
+    occurrence,
+    seats,
+    is_private,
+    req_dietary_pref,
+    rules,
+    price,
+  };
+
+  console.log(body);
 
   const response = await fetch(`/api/activities`, {
     method: "POST",
-    body: JSON.stringify({
-      title,
-      description,
-      location,
-      occurrence,
-      organizer_id,
-      is_private,
-      seats,
-      interest_id,
-    }),
+    body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  const getId = fetch("/api/activities", {
-    method: "GET",
-    where: { location: location },
-  });
+
   if (response.ok) {
-    // COMMENT do we want to redirect to /browsing or to the new Activity's page or to the user's profile?
-    document.location.replace(`/activity/${req.params.id}`);
+    window.location.replace("/homepage");
   } else {
-    // [ ] TODO use modal instead of traditional browser alert
+    response.json().then((data) => console.log(data));
     alert(response.statusText);
   }
-}
+};
 
-function interest() {
-  const response = fetch(`/api/interest`, {
-    method: "GET",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const interestData = data.map();
-    });
-  console.log(data);
-}
-interest()
-document.querySelector(".new-Activity").addEventListener("submit", newActivity);
+document
+  .querySelector(".new-activity-form")
+  .addEventListener("submit", createActivity);
