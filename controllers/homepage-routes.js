@@ -7,6 +7,7 @@ const {
   UserInterest,
   DietaryPref,
   Attendance,
+  Invitation,
 } = require("../models");
 const { sequelize } = require("../models/User");
 const { withAuth } = require("../utils/auth");
@@ -175,8 +176,27 @@ router.get("/activity/new", withAuth, (req, res) => {
 
 router.get("/activity/:id", withAuth, (req, res) => {
   Activity.findOne({
-    where: { id: req.params.id },
-    include: [{ model: User, attributes: ["id", "username"] }],
+    where: {
+      id: req.params.id,
+    },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "username"],
+      },
+      {
+        model: User,
+        through: Invitation,
+        attributes: ["id", "username"],
+        as: "invited",
+      },
+      {
+        model: User,
+        through: Attendance,
+        attributes: ["id", "username"],
+        as: "attending",
+      },
+    ],
   })
     .then((dbActivityData) => {
       console.log(dbActivityData.get({ plain: true }));
