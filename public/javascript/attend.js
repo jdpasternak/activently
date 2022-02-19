@@ -13,15 +13,16 @@ const confirmAttendButtonHandler = async (event) => {
 
   const userId = window.sessionStorage.user_id;
 
-  const response = await fetch("/api/activity/attend", {
+  const response = await fetch("/api/activities/attend", {
     method: "POST",
     body: JSON.stringify({
+      user_id: userId,
       activity_id: activityId,
     }),
   });
 
   if (response.ok) {
-    location.reload(`/activity/${activityId}`);
+    location.replace(`/activity/${activityId}`);
   } else {
     alert(response.statusText);
   }

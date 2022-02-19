@@ -39,13 +39,13 @@
                 {{#if (is_attending user_id activity.attending)}}
                   <a class="btn" href="#">Decline</a>
                 {{else}}
-                  <a class="btn" href="#">Attend</a>
+                  <a class="btn" id="attendButton" href="#">Attend</a>
                   <span class="">{{count}} attending</span>
                 {{/if}}
               {{/if}}
             {{else}}
               {{#if (is_attending user_id activity.attending)}}
-                <a class="btn" id="attendButton" href="#">Decline</a>
+                <a class="btn"  href="#">Decline</a>
               {{else}}
                 <a class="btn" id="attendButton" href="#">Attend</a>
                 <span class="">{{count}} attending</span>
