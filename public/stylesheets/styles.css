@@ -21,3 +21,9 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+div.scroll {
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
