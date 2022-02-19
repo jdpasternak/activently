@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "#edit-dietary-preferences-modal"
   );
   const $editInterestsModal = document.querySelector("#edit-interests-modal");
+  const $changePasswordModal = document.querySelector("#changePasswordModal");
 
   M.Modal.init($editBasicInfoModal, {
     onOpenStart: () => {
@@ -162,6 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
       $interestSelectInstance = M.FormSelect.init($interestsSelect);
     },
   });
+
+  M.Modal.init($changePasswordModal);
 
   $saveEditBasicInfoButton.addEventListener("click", saveEditBasicInfoHandler);
   $saveEditDietaryPreferencesButton.addEventListener(
