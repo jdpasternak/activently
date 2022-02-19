@@ -153,7 +153,9 @@ router.post("/attend", (req, res) => {
     user_id: req.session.user_id,
     activity_id: req.body.activity_id,
   })
-    .then((dbActivityData) => dbActivityData)
+    .then(() => {
+      res.render("activity");
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);

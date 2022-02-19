@@ -199,7 +199,7 @@ router.get("/activity/:id", withAuth, (req, res) => {
     ],
   })
     .then((dbActivityData) => {
-      console.log(dbActivityData.get({ plain: true }));
+      console.log(dbActivityData.get({ plain: true }), "HEY HO");
       res.render("activity", {
         activity: dbActivityData.get({ plain: true }),
         user_id: req.session.user_id,
@@ -261,26 +261,5 @@ router.get(
       });
   }
 );
-
-// router.get("/activity/:id", withAuth, async (req, res) => {
-//   try {
-//     const dbActivityData = await Activity.findOne({
-//       where: { id: req.params.id },
-//       include: [{ model: User, attributes: ["id", "username"] }],
-//     });
-//     const attendances = await Attendance.findAndCountAll({
-//       where: [{ activity_id: req.params.id }],
-//     });
-//     console.log(dbActivityData.get({ plain: true }));
-//     res.render("activity", {
-//       activity: dbActivityData.get({ plain: true }),
-//       user_id: req.session.user_id,
-//       loggedIn: req.session.loggedIn,
-//       attendances: attendances.count,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
 
 module.exports = router;

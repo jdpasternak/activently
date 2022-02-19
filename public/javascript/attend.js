@@ -12,22 +12,24 @@ const confirmAttendButtonHandler = async (event) => {
     ];
 
   const userId = window.sessionStorage.user_id;
-
   const response = await fetch("/api/activities/attend", {
     method: "POST",
     body: JSON.stringify({
       user_id: userId,
       activity_id: activityId,
     }),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 
   if (response.ok) {
-    location.replace(`/activity/${activityId}`);
+    window.location.replace(`/activity/${activityId}`);
   } else {
     alert(response.statusText);
   }
 };
-
-document
-  .querySelector("#attendButton")
-  .addEventListener("click", confirmAttendButtonHandler);
+const attendButton = document.querySelector("#attendButton");
+if (attendButton) {
+  attendButton.addEventListener("click", confirmAttendButtonHandler);
+}
