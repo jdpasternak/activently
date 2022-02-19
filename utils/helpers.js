@@ -16,4 +16,7 @@ module.exports = {
   is_organizer: (user_id, activity_id) => {
     return user_id === activity_id;
   },
+  is_invited: (user_id, attending) => {
+    return attending.find((i) => i.id === user_id);
+  },
 };
