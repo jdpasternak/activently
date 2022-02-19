@@ -1,52 +1,50 @@
-<div class="">
+<section>
   <h2 class="center">Your Activities</h2>
-
-  <div class="container"><h3>Organizing</h3></div>
-
+  <div class="container">
+    <h3>Organizing</h3>
+  </div>
   <div class="row">
     <div class="col s12 m6">
       <div class="card">
         <div class="card-content">
           <span class="card-title">Past</span>
-          {{#if pastOrgActivities}}
-          <div class="scroll">
-            {{#each pastOrgActivities as |activity|}}
-              {{> activity-card activity}}
-            {{/each}}
-          </div>
-          {{else}}
+            {{#if pastOrgActivities}}
+            <div class="scroll">
+              {{#each pastOrgActivities as |activity|}}
+                {{> activity-card activity}}
+              {{/each}}
+            </div>
+        </div>
+            {{else}}
           <p>You haven't organized any events in the past.</p>
         </div>
         <div class="card-action">
           <a href="/activity/new" class="btn">Create one now!</a>
         </div>
           {{/if}}
-          </div>
-        </div>
       </div>
+    </div>
     <div class="col s12 m6">
       <div class="card">
         <div class="card-content">
           <span class="card-title">Upcoming</span>
             {{#if upcomingOrgActivities}}
-            <div class="scroll">
-              {{#each upcomingOrgActivities as |activity|}}
-                {{> activity-card activity}}
-              {{/each}}
-            {{else}}
-              <p>You aren't organizing any events in the future.</p>
-            </div>
-            <div class="card-action">
-              <a href="/activity/new" class="btn">Create one now!</a>
-            </div>
-            {{/if}}
-          </div>
+              <div class="scroll">
+                {{#each upcomingOrgActivities as |activity|}}
+                  {{> activity-card activity}}
+                {{/each}}
+              </div>
+              {{else}}
+          <p>You aren't organizing any events in the future.</p>
         </div>
+        <div class="card-action">
+          <a href="/activity/new" class="btn">Create one now!</a>
+        </div>
+              {{/if}}
       </div>
     </div>
   </div>
 
-  
   <div class="container"><h3>Attending</h3></div>
 
   <div class="row">
@@ -90,4 +88,5 @@
       </div>
     </div>
   </div>
-</div>
+</section> 
+  
