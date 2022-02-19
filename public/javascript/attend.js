@@ -17,6 +17,7 @@ const confirmAttendButtonHandler = async (event) => {
     method: "POST",
     body: JSON.stringify({
       activity_id: activityId,
+      
     }),
   });
 

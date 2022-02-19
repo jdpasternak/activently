@@ -43,6 +43,11 @@ router.get("/", (req, res) => {
         model: User,
         attributes: ["id", "username"],
       },
+      {
+        model: User,
+        through: Attendance,
+        as: "attending",
+      },
     ],
   };
 

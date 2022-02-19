@@ -8,6 +8,7 @@ const {
   DietaryPref,
   Attendance,
 } = require("../models");
+const { sequelize } = require("../models/User");
 const { withAuth } = require("../utils/auth");
 
 //need routes to navigate throughout the app
@@ -23,7 +24,79 @@ router.get("/", (req, res) => {
 // GET /homepage
 router.get("/homepage", withAuth, (req, res) => {
   // [ ] TODO add homepage data
-  res.render("homepage", { loggedIn: req.session.loggedIn });
+  Activity.findAll({
+    attributes: [
+      "id",
+      "title",
+      "location",
+      "occurrence",
+      "organizer_id",
+      "seats",
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM attendance WHERE activity.id = attendance.activity_id)"
+        ),
+        "attendance_count",
+      ],
+    ],
+    include: [
+      {
+        model: User,
+        through: Attendance,
+        as: "attending",
+      },
+    ],
+  })
+    .then((dbActivityData) => {
+      // console.log(
+      //   dbActivityData.map((activity) => activity.get({ plain: true }))
+      // );
+      const activities = dbActivityData.map((activity) =>
+        activity.get({ plain: true })
+      );
+
+      const pastOrgActivities = activities.filter((i) => {
+        return (
+          i.organizer_id === req.session.user_id &&
+          new Date(i.occurrence) < new Date()
+        );
+      });
+
+      const upcomingOrgActivities = activities.filter((i) => {
+        return (
+          i.organizer_id === req.session.user_id &&
+          new Date(i.occurrence) > new Date()
+        );
+      });
+
+      const pastAttendingActivities = activities.filter((i) => {
+        return (
+          i.attending.find((a) => a.id === req.session.user_id) &&
+          new Date(i.occurrence) < new Date()
+        );
+      });
+
+      const upcomingAttendingActivities = activities.filter((i) => {
+        return (
+          i.attending.find((a) => a.id === req.session.user_id) &&
+          new Date(i.occurrence) > new Date()
+        );
+      });
+
+      res.render("homepage", {
+        activities: activities,
+        pastOrgActivities: pastOrgActivities,
+        upcomingOrgActivities: upcomingOrgActivities,
+        pastAttendingActivities: pastAttendingActivities,
+        upcomingAttendingActivities: upcomingAttendingActivities,
+        loggedIn: req.session.loggedIn,
+        user_id: req.session.user_id,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.get("/browsing", withAuth, (req, res) => {
@@ -96,6 +169,28 @@ router.get("/profile", withAuth, (req, res) => {
     });
 });
 
+router.get("/activity/new", withAuth, (req, res) => {
+  res.render("newActivity", { loggedIn: req.session.loggedIn });
+});
+
+// router.get("/activity/:id", withAuth, (req, res) => {
+//   Activity.findOne({
+//     where: { id: req.params.id },
+//     include: [{ model: User, attributes: ["id", "username"] }],
+//   })
+//     .then((dbActivityData) => {
+//       console.log(dbActivityData.get({ plain: true }));
+//       res.render("activity", {
+//         activity: dbActivityData.get({ plain: true }),
+//         user_id: req.session.user_id,
+//         loggedIn: req.session.loggedIn,
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
+
 /* 
     GET /activity/edit/:id
     Renders a view allowing a user to edit an activity
@@ -146,10 +241,6 @@ router.get(
   }
 );
 
-router.get("/activity/new", withAuth, (req, res) => {
-  res.render("newActivity", { loggedIn: req.session.loggedIn });
-});
-
 router.get("/activity/:id", withAuth, async (req, res) => {
   try {
     const dbActivityData = await Activity.findOne({
@@ -157,7 +248,7 @@ router.get("/activity/:id", withAuth, async (req, res) => {
       include: [{ model: User, attributes: ["id", "username"] }],
     });
     const attendances = await Attendance.findAndCountAll({
-      where: { activity_id: req.params.id },
+      where: [{ activity_id: req.params.id }],
     });
     console.log(dbActivityData.get({ plain: true }));
     res.render("activity", {
