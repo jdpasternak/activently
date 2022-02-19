@@ -27,28 +27,28 @@
   <body class="d-flex flex-column">
     <!-- Header/Nav Bar-->
     <header class="navbar-fixed">
-      <nav>
+      <nav class="teal lighten-1">
         <div class="nav-wrapper">
           {{#if loggedIn}}
-            <a href="#" id="logout" class="m-1 waves-effect waves-light btn align-middle">Logout</a>
+            <a href="#" id="logout" class="waves-effect waves-light align-middle btn-flat">Logout</a>
           {{else}}
             <a
               href="/login"
-              class="waves-effect waves-light align-middle btn-flat"
+              class="waves-effect waves-light align-middle btn-flat right"
             >Log In</a>
             <!-- add padding in between these two button-->
             <a
               href="/signup"
-              class="waves-effect waves-light align-middle btn-flat"
+              class="waves-effect waves-light align-middle btn-flat right"
             >Sign Up</a>
           {{/if}}
-          <a href="/" class="brand-logo">ACTIVENTLY</a>
+          <a href="/" class="brand-logo left">ACTIVENTLY</a>
         <!-- BUG: initialize is not working -->
-          <!-- <a href="#" class="right sidenav-trigger show-on-medium-and-up" data-target="side-nav">
+        {{#if loggedIn}}
+          <a href="#" class="right sidenav-trigger show-on-medium-and-up" data-target="side-nav">
             <i class="material-icons">menu</i>
-          </a>-->
+          </a>
           <ul class="sidenav grey lighten-1" id="side-nav">
-            {{#if loggedIn}}
             <li><a class="sidenav-close grey-text text-darken-3 waves-effect" href="/homepage">Home</a></li>
             <li><a class="sidenav-close grey-text text-darken-3 waves-effect" href="/profile">Profile</a>
             <li><a class="sidenav-close grey-text text-darken-3 waves-effect" href="/browsing">Browse Events</a>
@@ -64,22 +64,20 @@
       {{{body}}}
     </main>
 
-    <footer class="page-footer">
+    <footer class="page-footer  teal lighten-1">
       <div class="container">
         <div class="row">
           <div class="col s6">
             <h6 id="AboutUs">About Us</h6>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Lorem ipsum dolor sit amet.
             </p>
           </div>
           <!-- TODO: Ladd border line-->
           <div class="col s6">
             <h6 id="Contacts">Contacts</h6>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Lorem ipsum dolor sit amet, consectetur adipiscing.
             </p>
           </div>
         </div>
