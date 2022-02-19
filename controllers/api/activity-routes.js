@@ -1,6 +1,12 @@
 const sequelize = require("../../config/connection");
 const router = require("express").Router();
-const { Activity, User, Comment, Attendance } = require("../../models");
+const {
+  Activity,
+  User,
+  Comment,
+  Attendance,
+  Invitation,
+} = require("../../models");
 const { withAuth } = require("../../utils/auth");
 
 /* 
@@ -47,6 +53,13 @@ router.get("/", (req, res) => {
         model: User,
         through: Attendance,
         as: "attending",
+        attributes: ["id", "username"],
+      },
+      {
+        model: User,
+        through: Invitation,
+        as: "invited",
+        attributes: ["id", "username"],
       },
     ],
   };

@@ -7,6 +7,7 @@ const {
   UserInterest,
   DietaryPref,
   Attendance,
+  Invitation,
 } = require("../models");
 const { sequelize } = require("../models/User");
 const { withAuth } = require("../utils/auth");
@@ -173,23 +174,42 @@ router.get("/activity/new", withAuth, (req, res) => {
   res.render("newActivity", { loggedIn: req.session.loggedIn });
 });
 
-// router.get("/activity/:id", withAuth, (req, res) => {
-//   Activity.findOne({
-//     where: { id: req.params.id },
-//     include: [{ model: User, attributes: ["id", "username"] }],
-//   })
-//     .then((dbActivityData) => {
-//       console.log(dbActivityData.get({ plain: true }));
-//       res.render("activity", {
-//         activity: dbActivityData.get({ plain: true }),
-//         user_id: req.session.user_id,
-//         loggedIn: req.session.loggedIn,
-//       });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
+router.get("/activity/:id", withAuth, (req, res) => {
+  Activity.findOne({
+    where: {
+      id: req.params.id,
+    },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "username"],
+      },
+      {
+        model: User,
+        through: Invitation,
+        attributes: ["id", "username"],
+        as: "invited",
+      },
+      {
+        model: User,
+        through: Attendance,
+        attributes: ["id", "username"],
+        as: "attending",
+      },
+    ],
+  })
+    .then((dbActivityData) => {
+      console.log(dbActivityData.get({ plain: true }));
+      res.render("activity", {
+        activity: dbActivityData.get({ plain: true }),
+        user_id: req.session.user_id,
+        loggedIn: req.session.loggedIn,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 /* 
     GET /activity/edit/:id
@@ -241,25 +261,25 @@ router.get(
   }
 );
 
-router.get("/activity/:id", withAuth, async (req, res) => {
-  try {
-    const dbActivityData = await Activity.findOne({
-      where: { id: req.params.id },
-      include: [{ model: User, attributes: ["id", "username"] }],
-    });
-    const attendances = await Attendance.findAndCountAll({
-      where: [{ activity_id: req.params.id }],
-    });
-    console.log(dbActivityData.get({ plain: true }));
-    res.render("activity", {
-      activity: dbActivityData.get({ plain: true }),
-      user_id: req.session.user_id,
-      loggedIn: req.session.loggedIn,
-      attendances: attendances.count,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
+// router.get("/activity/:id", withAuth, async (req, res) => {
+//   try {
+//     const dbActivityData = await Activity.findOne({
+//       where: { id: req.params.id },
+//       include: [{ model: User, attributes: ["id", "username"] }],
+//     });
+//     const attendances = await Attendance.findAndCountAll({
+//       where: [{ activity_id: req.params.id }],
+//     });
+//     console.log(dbActivityData.get({ plain: true }));
+//     res.render("activity", {
+//       activity: dbActivityData.get({ plain: true }),
+//       user_id: req.session.user_id,
+//       loggedIn: req.session.loggedIn,
+//       attendances: attendances.count,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 module.exports = router;

@@ -56,6 +56,16 @@ User.init(
         );
         return updatedUserData;
       },
+      beforeBulkCreate(newUserData) {
+        newUserData.map((user) => {
+          user.dataValues.password = bcrypt.hashSync(
+            user.dataValues.password,
+            10
+          );
+          return user;
+        });
+        return newUserData;
+      },
     },
     sequelize,
     timestamps: false,
