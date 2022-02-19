@@ -100,6 +100,27 @@ const saveEditInterstsHandler = (event) => {
     .then(() => location.replace("/profile"));
 };
 
+const saveChangePasswordButtonHandler = (event) => {
+  const oldPassword = document.querySelector("#oldPassword").value;
+  const newPassword = document.querySelector("#newPassword").value;
+  const confirmNewPassword = document.querySelector(
+    "#confirmNewPassword"
+  ).value;
+  const email = document.querySelector("#user-email").value;
+
+  console.log(oldPassword, newPassword, confirmNewPassword);
+
+  if (!oldPassword && !newPassword && !confirmNewPassword) {
+    console.log("all required");
+  }
+  fetch("/api/users/login", {
+    method: "POST",
+    body: JSON.stringify({ email, oldPassword }),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const $editBasicInfoModal = document.querySelector("#edit-basic-info-modal");
   const $editDietaryPreferencesModal = document.querySelector(
@@ -107,6 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const $editInterestsModal = document.querySelector("#edit-interests-modal");
   const $changePasswordModal = document.querySelector("#changePasswordModal");
+  const $saveChangePasswordButton = document.querySelector(
+    "#saveChangePassword"
+  );
 
   M.Modal.init($editBasicInfoModal, {
     onOpenStart: () => {
@@ -172,4 +196,8 @@ document.addEventListener("DOMContentLoaded", () => {
     saveEditDietaryPreferencesHandler
   );
   $saveEditInterestsButton.addEventListener("click", saveEditInterstsHandler);
+  $saveChangePasswordButton.addEventListener(
+    "click",
+    saveChangePasswordButtonHandler
+  );
 });
