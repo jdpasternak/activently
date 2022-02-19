@@ -149,13 +149,13 @@ Activity.belongsTo(Interest, {
 */
 User.belongsToMany(Activity, {
   through: Invitation,
-  as: "invitations",
+  as: "invited",
   foreignKey: "user_id",
 });
 
 Activity.belongsToMany(User, {
   through: Invitation,
-  as: "invitations",
+  as: "invited",
   foreignKey: "activity_id",
 });
 
