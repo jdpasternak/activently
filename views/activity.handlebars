@@ -23,7 +23,11 @@
               data-target="confirm-delete-modal"
             >Delete</button>
           {{else}}
-            <a class="btn" href="#">Attend</a>
+            <button id="attendButton">
+              <a class="btn" href="#">Attend</a>
+            </button>
+            <span class="black-text">{{attendances}}
+              people attending</span>
           {{/if}}
         </div>
       </div>
@@ -66,3 +70,4 @@
 </div>
 
 <script src="/javascript/delete-activity.js"></script>
+<script src="/javascript/attend.js"></script>

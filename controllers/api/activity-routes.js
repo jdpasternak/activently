@@ -128,6 +128,7 @@ router.post("/", (req, res) => {
 
 // add attending parties to an activity
 // POST route for attending an activity
+
 // POST /api/activity/attend
 router.post("/attend", (req, res) => {
   Attendance.create({
