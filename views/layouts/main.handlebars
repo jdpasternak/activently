@@ -29,10 +29,10 @@
     <header class="navbar-fixed">
       <nav class="teal lighten-1">
         <div class="nav-wrapper">
+          <ul id="nav-mobile" class="right">
           {{#if loggedIn}}
-            <a href="#" id="logout" class="waves-effect waves-light align-middle btn-flat">Logout</a>
+            <li><a href="#" id="logout" class="waves-effect waves-light align-middle">Logout</a></li>
           {{else}}
-            <ul id="nav-mobile" class="right">
               <li><a
               href="/login"
               class="waves-effect waves-light align-middle"
