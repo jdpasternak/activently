@@ -40,13 +40,15 @@
                   <a class="btn" href="#">Decline</a>
                 {{else}}
                   <a class="btn" href="#">Attend</a>
+                  <span class="">{{count}} attending</span>
                 {{/if}}
               {{/if}}
             {{else}}
               {{#if (is_attending user_id activity.attending)}}
-                <a class="btn" href="#">Decline</a>
+                <a class="btn" id="attendButton" href="#">Decline</a>
               {{else}}
-                <a class="btn" href="#">Attend</a>
+                <a class="btn" id="attendButton" href="#">Attend</a>
+                <span class="">{{count}} attending</span>
                {{/if}}
             {{/if}}
           {{/if}}
@@ -93,13 +95,8 @@
       </div>
     </div>
   {{/if}}
-
-<<<<<<< HEAD
-<script src="/javascript/delete-activity.js"></script>
 <script src="/javascript/attend.js"></script>
-=======
 {{#if (is_organizer user_id activity.user.id)}}
   <script src="/javascript/delete-activity.js"></script>
   <script src="/javascript/invite.js"></script>
 {{/if}}
->>>>>>> main

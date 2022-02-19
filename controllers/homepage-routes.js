@@ -204,6 +204,7 @@ router.get("/activity/:id", withAuth, (req, res) => {
         activity: dbActivityData.get({ plain: true }),
         user_id: req.session.user_id,
         loggedIn: req.session.loggedIn,
+        count: dbActivityData.attending.length,
       });
     })
     .catch((err) => {
