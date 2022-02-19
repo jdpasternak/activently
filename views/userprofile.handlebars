@@ -158,5 +158,37 @@
   </div>
 </div>
 
+<!-- Change Password Modal -->
+<div id="changePasswordModal" class="modal">
+  <div class="modal-content">
+    <h4>Change Password</h4>
+    <form>
+      <div class="input-field">
+        <label for="oldPassword">Old password</label>
+        <input type="password" name="oldPassword" id="oldPassword" />
+      </div>
+      <div class="input-field">
+        <label for="newPassword">New password</label>
+        <input type="password" name="newPassword" id="newPassword" />
+      </div>
+      <div class="input-field">
+        <label for="confirmNewPassword">Confirm new password</label>
+        <input
+          type="password"
+          name="confirmNewPassword"
+          id="confirmNewPassword"
+        />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a
+      id="saveChangePassword"
+      class="modal-close waves-effect waves-green btn-flat"
+    >Save</a>
+    <a href="#!" class="modal-close waves-effect red btn">Cancel</a>
+  </div>
+</div>
+
 <script src="/javascript/profile.js"></script>
 <!-- TODO: bottom: a bar with 'upcoming', 'past', 'host' taps and cards show at the bottom-->
