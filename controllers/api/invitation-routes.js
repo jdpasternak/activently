@@ -64,7 +64,7 @@ router.get("/:id", (req, res) => {
 */
 router.post("/", (req, res) => {
   Invitation.create({
-    user_id: req.session.user_id || req.body.user_id,
+    user_id: req.body.user_id,
     activity_id: req.body.activity_id,
   })
     .then((dbInvitationData) => {
