@@ -30,6 +30,11 @@ const confirmAttendButtonHandler = async (event) => {
   }
 };
 const attendButton = document.querySelector("#attendButton");
+
 if (attendButton) {
-  attendButton.addEventListener("click", confirmAttendButtonHandler);
+  const seatsAvailable = attendButton.getAttribute("data-seats");
+  console.log(typeof seatsAvailable, seatsAvailable);
+  if (seatsAvailable === "true") {
+    attendButton.addEventListener("click", confirmAttendButtonHandler);
+  } else attendButton.setAttribute("disabled", "");
 }

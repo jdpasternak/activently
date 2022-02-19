@@ -205,6 +205,7 @@ router.get("/activity/:id", withAuth, (req, res) => {
         user_id: req.session.user_id,
         loggedIn: req.session.loggedIn,
         count: dbActivityData.attending.length,
+        seatsAvailable: dbActivityData.seats > dbActivityData.attending.length,
       });
     })
     .catch((err) => {

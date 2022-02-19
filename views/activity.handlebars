@@ -37,23 +37,20 @@
               {{/unless}}
               {{#if (is_invited user_id activity.invited)}}
                 {{#if (is_attending user_id activity.attending)}}
-                  <a class="btn" id="declineButton" href="#">Decline</a>
-                  <span class="">{{count}} attending</span>
+                  <button class="btn"  id="declineButton">Decline</button>
                 {{else}}
-                  <a class="btn" id="attendButton" href="#">Attend</a>
-                  <span class="">{{count}} attending</span>
+                  <button class="btn" id="attendButton" data-seats={{seatsAvailable}}>Attend</button>
                 {{/if}}
               {{/if}}
             {{else}}
               {{#if (is_attending user_id activity.attending)}}
-                <a class="btn" id="declineButton" href="#">Decline</a>
-                <span class="">{{count}} attending</span>
+                <button class="btn" id="declineButton">Decline</button> 
               {{else}}
-                <a class="btn" id="attendButton" href="#">Attend</a>
-                <span class="">{{count}} attending</span>
-               {{/if}}
+                <button class="btn" id="attendButton" data-seats={{seatsAvailable}}>Attend</button>
+              {{/if}}
             {{/if}}
           {{/if}}
+          <span class="">{{count}} attending</span>
         </div>
       </div>
     </div>
