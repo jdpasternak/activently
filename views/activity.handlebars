@@ -37,7 +37,8 @@
               {{/unless}}
               {{#if (is_invited user_id activity.invited)}}
                 {{#if (is_attending user_id activity.attending)}}
-                  <a class="btn" href="#">Decline</a>
+                  <a class="btn" id="declineButton" href="#">Decline</a>
+                  <span class="">{{count}} attending</span>
                 {{else}}
                   <a class="btn" id="attendButton" href="#">Attend</a>
                   <span class="">{{count}} attending</span>
@@ -45,7 +46,8 @@
               {{/if}}
             {{else}}
               {{#if (is_attending user_id activity.attending)}}
-                <a class="btn"  href="#">Decline</a>
+                <a class="btn" id="declineButton" href="#">Decline</a>
+                <span class="">{{count}} attending</span>
               {{else}}
                 <a class="btn" id="attendButton" href="#">Attend</a>
                 <span class="">{{count}} attending</span>
@@ -96,6 +98,7 @@
     </div>
   {{/if}}
 <script src="/javascript/attend.js"></script>
+<script src="/javascript/decline.js"></script>
 {{#if (is_organizer user_id activity.user.id)}}
   <script src="/javascript/delete-activity.js"></script>
   <script src="/javascript/invite.js"></script>

@@ -148,19 +148,19 @@ router.post("/", (req, res) => {
 // POST route for attending an activity
 
 // POST /api/activity/attend
-router.post("/attend", (req, res) => {
-  Attendance.create({
-    user_id: req.session.user_id,
-    activity_id: req.body.activity_id,
-  })
-    .then(() => {
-      res.render("activity");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+// router.post("/attend", (req, res) => {
+//   Attendance.create({
+//     user_id: req.session.user_id,
+//     activity_id: req.body.activity_id,
+//   })
+//     .then(() => {
+//       res.render("activity");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json(err);
+//     });
+// });
 
 /* 
     UPDATE Activity
