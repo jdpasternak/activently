@@ -32,15 +32,17 @@
           {{#if loggedIn}}
             <a href="#" id="logout" class="waves-effect waves-light align-middle btn-flat">Logout</a>
           {{else}}
-            <a
+            <ul id="nav-mobile" class="right">
+              <li><a
               href="/login"
-              class="waves-effect waves-light align-middle btn-flat right"
-            >Log In</a>
+              class="waves-effect waves-light align-middle"
+            >Log In</a></li>
             <!-- add padding in between these two button-->
-            <a
+            <li><a
               href="/signup"
-              class="waves-effect waves-light align-middle btn-flat right"
-            >Sign Up</a>
+              class="waves-effect waves-light align-middle"
+            >Sign Up</a></li>
+            </ul>
           {{/if}}
           <a href="/" class="brand-logo left">ACTIVENTLY</a>
         <!-- BUG: initialize is not working -->
