@@ -31,8 +31,23 @@
               data-target="inviteModal"
             >Invite</button>
           {{else}}
-            {{#if activity.is_private}}<span>This activity is private.</span>{{else}}
-              <a class="btn" href="#">Attend</a>
+            {{#if activity.is_private}}
+              {{#unless (is_invited user_id activity.invited)}}
+                <span>This activity is private.</span>
+              {{/unless}}
+              {{#if (is_invited user_id activity.invited)}}
+                {{#if (is_attending user_id activity.attending)}}
+                  <a class="btn" href="#">Decline</a>
+                {{else}}
+                  <a class="btn" href="#">Attend</a>
+                {{/if}}
+              {{/if}}
+            {{else}}
+              {{#if (is_attending user_id activity.attending)}}
+                <a class="btn" href="#">Decline</a>
+              {{else}}
+                <a class="btn" href="#">Attend</a>
+               {{/if}}
             {{/if}}
           {{/if}}
         </div>
