@@ -6,6 +6,7 @@ const UserInterest = require("./UserInterest");
 const Activity = require("./Activity");
 const Attendance = require("./Attendance");
 const Comment = require("./Comment");
+const Invitation = require("./Invitation");
 
 /* 
     User - Dietary Preference
@@ -72,7 +73,7 @@ Interest.hasMany(UserInterest, {
 */
 User.hasMany(Activity, {
   foreignKey: "organizer_id",
-  as: "organizing"
+  as: "organizing",
 });
 
 Activity.belongsTo(User, {
@@ -143,6 +144,37 @@ Activity.belongsTo(Interest, {
   foreignKey: "interest_id",
 });
 
+/* 
+    Activty - User (invitation) 
+*/
+User.belongsToMany(Activity, {
+  through: Invitation,
+  as: "invited",
+  foreignKey: "user_id",
+});
+
+Activity.belongsToMany(User, {
+  through: Invitation,
+  as: "invited",
+  foreignKey: "activity_id",
+});
+
+Invitation.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
+Invitation.belongsTo(Activity, {
+  foreignKey: "activity_id",
+});
+
+User.hasMany(Invitation, {
+  foreignKey: "user_id",
+});
+
+Activity.hasMany(Invitation, {
+  foreignKey: "user_id",
+});
+
 module.exports = {
   User,
   Activity,
@@ -152,4 +184,5 @@ module.exports = {
   UserInterest,
   DietaryPref,
   UserDietaryPref,
+  Invitation,
 };

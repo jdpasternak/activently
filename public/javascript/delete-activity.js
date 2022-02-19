@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const $modals = document.querySelectorAll(".modal");
+  const $modals = document.querySelectorAll("#confirm-delete-modal");
   const modalInsts = M.Modal.init($modals);
 });
 
