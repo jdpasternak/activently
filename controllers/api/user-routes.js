@@ -80,14 +80,7 @@ router.get("/:id", (req, res) => {
         return;
       }
 
-      // res.json(dbUserData);
-      res.render("userprofile", {
-        name: dbUserData.username,
-        Email: dbUserData.email,
-        ZipCode: dbUserData.zip,
-        Diet: dbUserData.dietary_preferences[0].name,
-        hobby: dbUserData.interests[0].name,
-      });
+      res.json(dbUserData);
     })
     .catch((err) => {
       console.log(err);
