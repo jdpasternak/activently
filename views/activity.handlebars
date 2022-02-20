@@ -39,7 +39,7 @@
                 {{#if (is_attending user_id activity.attending)}}
                   <button class="btn"  id="declineButton">Decline</button>
                 {{else}}
-                  <button class="btn" id="attendButton" data-seats={{seatsAvailable}}>Attend</button>
+                  <button class="btn" id="attendButton" data-seats={{seatsAvailable}}>Attend</button>  
                 {{/if}}
               {{/if}}
             {{else}}
@@ -47,10 +47,11 @@
                 <button class="btn" id="declineButton">Decline</button> 
               {{else}}
                 <button class="btn" id="attendButton" data-seats={{seatsAvailable}}>Attend</button>
+                
               {{/if}}
             {{/if}}
           {{/if}}
-          <span class="">{{count}} attending</span>
+          <span class="">{{activity.attending_count}} attending</span>
         </div>
       </div>
     </div>
