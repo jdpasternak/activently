@@ -30,19 +30,19 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: DietaryPref,
-        attributes: ["name"],
+        attributes: ["id", "name"],
         through: UserDietaryPref,
         as: "dietary_preferences",
       },
       {
         model: Interest,
-        attributes: ["name"],
+        attributes: ["id", "name"],
         through: UserInterest,
         as: "interests",
       },
       {
         model: Activity,
-        attributes: ["title"],
+        attributes: ["id", "title"],
         through: Attendance,
         as: "attending",
       },
@@ -52,7 +52,7 @@ router.get("/:id", (req, res) => {
         include: [
           {
             model: Activity,
-            attributes: ["title"],
+            attributes: ["id", "title"],
           },
         ],
       },
