@@ -166,10 +166,20 @@
       <div class="input-field">
         <label for="oldPassword">Old password</label>
         <input type="password" name="oldPassword" id="oldPassword" />
+        <span
+          id="oldPasswordHelperText"
+          class="helper-text"
+          data-error="Invalid password"
+        ></span>
       </div>
       <div class="input-field">
         <label for="newPassword">New password</label>
         <input type="password" name="newPassword" id="newPassword" />
+        <span
+          id="newPasswordHelperText"
+          class="helper-text"
+          data-error="Passwords do not match"
+        ></span>
       </div>
       <div class="input-field">
         <label for="confirmNewPassword">Confirm new password</label>
@@ -178,13 +188,18 @@
           name="confirmNewPassword"
           id="confirmNewPassword"
         />
+        <span
+          id="confirmNewPasswordHelperText"
+          class="helper-text"
+          data-error="Passwords do not match"
+        ></span>
       </div>
     </form>
   </div>
   <div class="modal-footer">
     <a
       id="saveChangePassword"
-      class="modal-close waves-effect waves-green btn-flat"
+      class="waves-effect waves-green btn-flat"
     >Save</a>
     <a href="#!" class="modal-close waves-effect red btn">Cancel</a>
   </div>

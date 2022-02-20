@@ -17,8 +17,17 @@ const $saveEditInterestsButton = document.querySelector(
 const $usernameInput = document.querySelector("#edit-username");
 const $zipCodeInput = document.querySelector("#edit-zip");
 
+const $editBasicInfoModal = document.querySelector("#edit-basic-info-modal");
+const $editDietaryPreferencesModal = document.querySelector(
+  "#edit-dietary-preferences-modal"
+);
+const $editInterestsModal = document.querySelector("#edit-interests-modal");
+const $changePasswordModal = document.querySelector("#changePasswordModal");
+const $saveChangePasswordButton = document.querySelector("#saveChangePassword");
+
 let $dietaryPrefSelectInstance;
 let $interestSelectInstance;
+let $changePasswordModalInstance;
 
 /* 
     Handle button on edit basic info modal to save info
@@ -101,37 +110,99 @@ const saveEditInterstsHandler = (event) => {
 };
 
 const saveChangePasswordButtonHandler = (event) => {
-  const oldPassword = document.querySelector("#oldPassword").value;
-  const newPassword = document.querySelector("#newPassword").value;
-  const confirmNewPassword = document.querySelector(
-    "#confirmNewPassword"
-  ).value;
-  const email = document.querySelector("#user-email").value;
+  const $oldPassword = document.querySelector("#oldPassword");
+  const $newPassword = document.querySelector("#newPassword");
+  const $confirmNewPassword = document.querySelector("#confirmNewPassword");
+  const $oldPasswordHelperText = document.querySelector(
+    "#oldPasswordHelperText"
+  );
+  const $newPasswordHelperText = document.querySelector(
+    "#newPasswordHelperText"
+  );
+  const $confirmNewPasswordHelperText = document.querySelector(
+    "#confirmNewPasswordHelperText"
+  );
+  const oldPassword = $oldPassword.value;
+  const newPassword = $newPassword.value;
+  const confirmNewPassword = $confirmNewPassword.value;
+  const email = document.querySelector("#user-email").textContent.split(" ")[1];
 
   console.log(oldPassword, newPassword, confirmNewPassword);
 
-  if (!oldPassword && !newPassword && !confirmNewPassword) {
-    console.log("all required");
+  [$oldPassword, $newPassword, $confirmNewPassword].forEach((i) => {
+    i.classList.remove("invalid");
+  });
+
+  // Displays a toast if any form field is empty
+  if (!oldPassword || !newPassword || !confirmNewPassword) {
+    M.toast({
+      html: '<span class="gray-text text-darken-2">All fields required</span>',
+      classes: "rounded orange",
+    });
+    return;
   }
+
+  // Checks if user's old password is valid
   fetch("/api/users/login", {
     method: "POST",
-    body: JSON.stringify({ email, oldPassword }),
+    body: JSON.stringify({ email, password: oldPassword }),
+    headers: { "Content-Type": "application/json" },
   })
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      // Displays a toast if the password was invalid
+      if (!data.user) {
+        M.toast({
+          html: `<span class="gray-text text-darken-4">Old password invalid</span>`,
+          classes: "rounded orange lighten-2 gray-text text-darken-4",
+        });
+        $oldPassword.classList = "invalid";
+        throw { message: "Login failed" };
+      }
+    })
+    .then(() => {
+      // Checks if the new password meets minimum length requirements
+      if (newPassword.length < 6) {
+        $newPasswordHelperText.dataset.error = "Password too short";
+        $newPassword.classList = "invalid";
+        return;
+        // Checks if new password and its confirmation match
+      } else if (newPassword !== confirmNewPassword) {
+        $newPasswordHelperText.dataset.error = "Passwords do not match";
+        [$confirmNewPassword, $newPassword].forEach(
+          (i) => (i.classList = "invalid")
+        );
+      } else {
+        fetch("/api/users", {
+          method: "PUT",
+          body: JSON.stringify({ password: newPassword }),
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data[0]) {
+              [$oldPassword, $newPassword, $confirmNewPassword].forEach((i) => {
+                i.classList.remove("invalid");
+                i.value = "";
+              });
+              M.toast({
+                html: "<span>Password updated successfully</span>",
+                completeCallback: () => {
+                  $changePasswordModalInstance.close();
+                },
+                classes: "rounded green accent-3",
+              });
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const $editBasicInfoModal = document.querySelector("#edit-basic-info-modal");
-  const $editDietaryPreferencesModal = document.querySelector(
-    "#edit-dietary-preferences-modal"
-  );
-  const $editInterestsModal = document.querySelector("#edit-interests-modal");
-  const $changePasswordModal = document.querySelector("#changePasswordModal");
-  const $saveChangePasswordButton = document.querySelector(
-    "#saveChangePassword"
-  );
-
   M.Modal.init($editBasicInfoModal, {
     onOpenStart: () => {
       const userUsername = document
@@ -188,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  M.Modal.init($changePasswordModal);
+  $changePasswordModalInstance = M.Modal.init($changePasswordModal);
 
   $saveEditBasicInfoButton.addEventListener("click", saveEditBasicInfoHandler);
   $saveEditDietaryPreferencesButton.addEventListener(
