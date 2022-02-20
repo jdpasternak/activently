@@ -132,19 +132,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const $dietaryPrefSelect = document.querySelector("#dietary-pref-select");
 
   M.Modal.init($editDietaryPreferencesModal, {
-    onOpenStart: async () => {
-      const response = await fetch("/api/dietaryPrefs")
-        .then((apiDietaryPrefData) => apiDietaryPrefData.json())
-        .then((data) => {
-          data.forEach((i) => {
-            console.log(i);
-            let $option = document.createElement("option");
-            $option.value = i.id;
-            $option.textContent = i.name;
-            $dietaryPrefSelect.appendChild($option);
-          });
+    onOpenStart: () => {
+      let userDietaryPrefs;
+      fetch(`/api/users/${document.querySelector("#user-id").dataset.userId}`)
+        .then((response) => response.json())
+        .then((data) => (userDietaryPrefs = data.dietary_preferences))
+        .then(() => {
+          fetch("/api/dietaryPrefs")
+            .then((apiDietaryPrefData) => apiDietaryPrefData.json())
+            .then((data) => {
+              $dietaryPrefSelect.innerHTML = `<option disabled selected>Select your interests</option>`;
+              data.forEach((dietaryPref) => {
+                console.log(dietaryPref);
+                let $option = document.createElement("option");
+                $option.value = dietaryPref.id;
+                $option.textContent = dietaryPref.name;
+
+                if (userDietaryPrefs.find((i) => i.id === dietaryPref.id)) {
+                  document
+                    .querySelector(
+                      "#edit-dietary-preferences-form option[disabled]"
+                    )
+                    .removeAttribute("selected");
+                  $option.setAttribute("selected", "");
+                }
+
+                $dietaryPrefSelect.appendChild($option);
+              });
+              $dietaryPrefSelectInstance =
+                M.FormSelect.init($dietaryPrefSelect);
+            });
         });
-      $dietaryPrefSelectInstance = M.FormSelect.init($dietaryPrefSelect);
     },
   });
 
@@ -179,9 +197,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 $interestsSelect.appendChild($option);
               });
+              $interestSelectInstance = M.FormSelect.init($interestsSelect);
             });
         });
-      $interestSelectInstance = M.FormSelect.init($interestsSelect);
     },
   });
 
