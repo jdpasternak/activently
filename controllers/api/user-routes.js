@@ -147,6 +147,7 @@ router.delete("/interests", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+  console.log(req.body);
   User.findOne({
     where: {
       email: req.body.email,
@@ -186,11 +187,11 @@ router.post("/logout", (req, res) => {
   }
 });
 
-router.put("/:id", (req, res) => {
+router.put("/", (req, res) => {
   User.update(req.body, {
     individualHooks: true,
     where: {
-      id: req.params.id,
+      id: req.session.user_id,
     },
   })
     .then((dbUserData) => {
