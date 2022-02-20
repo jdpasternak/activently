@@ -197,7 +197,15 @@ const saveChangePasswordButtonHandler = (event) => {
     });
 };
 
+/* 
+    DOMContentLoaded
+*/
 document.addEventListener("DOMContentLoaded", () => {
+  const $editBasicInfoModal = document.querySelector("#edit-basic-info-modal");
+  const $editDietaryPreferencesModal = document.querySelector(
+    "#edit-dietary-preferences-modal"
+  );
+
   M.Modal.init($editBasicInfoModal, {
     onOpenStart: () => {
       const userUsername = document
@@ -220,36 +228,74 @@ document.addEventListener("DOMContentLoaded", () => {
   const $dietaryPrefSelect = document.querySelector("#dietary-pref-select");
 
   M.Modal.init($editDietaryPreferencesModal, {
-    onOpenStart: async () => {
-      const response = await fetch("/api/dietaryPrefs")
-        .then((apiDietaryPrefData) => apiDietaryPrefData.json())
-        .then((data) => {
-          data.forEach((i) => {
-            let $option = document.createElement("option");
-            $option.value = i.id;
-            $option.textContent = i.name;
-            $dietaryPrefSelect.appendChild($option);
-          });
+    onOpenStart: () => {
+      let userDietaryPrefs;
+      fetch(`/api/users/${document.querySelector("#user-id").dataset.userId}`)
+        .then((response) => response.json())
+        .then((data) => (userDietaryPrefs = data.dietary_preferences))
+        .then(() => {
+          fetch("/api/dietaryPrefs")
+            .then((apiDietaryPrefData) => apiDietaryPrefData.json())
+            .then((data) => {
+              $dietaryPrefSelect.innerHTML = `<option disabled selected>Select your interests</option>`;
+              data.forEach((dietaryPref) => {
+                console.log(dietaryPref);
+                let $option = document.createElement("option");
+                $option.value = dietaryPref.id;
+                $option.textContent = dietaryPref.name;
+
+                if (userDietaryPrefs.find((i) => i.id === dietaryPref.id)) {
+                  document
+                    .querySelector(
+                      "#edit-dietary-preferences-form option[disabled]"
+                    )
+                    .removeAttribute("selected");
+                  $option.setAttribute("selected", "");
+                }
+
+                $dietaryPrefSelect.appendChild($option);
+              });
+              $dietaryPrefSelectInstance =
+                M.FormSelect.init($dietaryPrefSelect);
+            });
         });
-      $dietaryPrefSelectInstance = M.FormSelect.init($dietaryPrefSelect);
     },
   });
 
   const $interestsSelect = document.querySelector("#interests-select");
 
   M.Modal.init($editInterestsModal, {
-    onOpenStart: async () => {
-      const response = await fetch("/api/interests")
-        .then((apiInterestData) => apiInterestData.json())
-        .then((data) => {
-          data.forEach((interest) => {
-            let $option = document.createElement("option");
-            $option.value = interest.id;
-            $option.textContent = interest.name;
-            $interestsSelect.appendChild($option);
-          });
+    onOpenStart: () => {
+      let userInterests;
+      fetch(`/api/users/${document.querySelector("#user-id").dataset.userId}`)
+        .then((response) => response.json())
+        .then((data) => (userInterests = data.interests))
+        .then(() => {
+          fetch("/api/interests")
+            .then((apiInterestData) => apiInterestData.json())
+            .then((data) => {
+              $interestsSelect.innerHTML = `<option disabled selected>Select your interests</option>`;
+              data.forEach((interest) => {
+                let $option = document.createElement("option");
+                $option.value = interest.id;
+                $option.textContent = interest.name;
+                console.log(
+                  userInterests.id,
+                  interest.id,
+                  userInterests.find((i) => i.id === interest.id)
+                );
+
+                if (userInterests.find((i) => i.id === interest.id)) {
+                  document
+                    .querySelector("#edit-interests-form option[disabled]")
+                    .removeAttribute("selected");
+                  $option.setAttribute("selected", "");
+                }
+                $interestsSelect.appendChild($option);
+              });
+              $interestSelectInstance = M.FormSelect.init($interestsSelect);
+            });
         });
-      $interestSelectInstance = M.FormSelect.init($interestsSelect);
     },
   });
 
