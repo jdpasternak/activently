@@ -1,3 +1,5 @@
+let selectInst;
+
 document.addEventListener("DOMContentLoaded", () => {
   $interestSelect = document.querySelector("#interestSelect");
   const elems = document.querySelectorAll(".datepicker");
@@ -9,22 +11,43 @@ document.addEventListener("DOMContentLoaded", () => {
   const timepickers = document.querySelectorAll(".timepicker");
   const timepickerInst = M.Timepicker.init(timepickers, {});
 
-  fetch("/api/interests")
+  let relatedInterest;
+  const activityId =
+    location.pathname.split("/")[location.pathname.split("/").length - 2];
+
+  fetch(`/api/activities/${activityId}`)
     .then((response) => response.json())
-    .then((apiInterestData) => {
-      console.log(apiInterestData);
-      apiInterestData.forEach((interest) => {
-        let $option = document.createElement("option");
-        $option.value = interest.id;
-        $option.textContent = interest.name;
-        $interestSelect.appendChild($option);
-      });
+    .then((data) => {
+      console.log(data);
+      relatedInterest = data.interest;
     })
     .then(() => {
-      // [ ] TODO make the activities's related interest the selected value
-      const interestSelect = document.querySelector("select");
-      const selectInst = M.FormSelect.init(interestSelect);
-    });
+      fetch("/api/interests")
+        .then((response) => response.json())
+        .then((apiInterestData) => {
+          apiInterestData.forEach((interest) => {
+            let $option = document.createElement("option");
+            $option.value = interest.id;
+            $option.textContent = interest.name;
+
+            // Checks if the option is the related interest of the event and selects it is true
+            console.log(relatedInterest.id, interest.id);
+            if (relatedInterest.id === interest.id) {
+              document
+                .querySelector("option[selected]")
+                .attributes.removeNamedItem("selected");
+              $option.setAttribute("selected", "");
+            }
+            $interestSelect.appendChild($option);
+          });
+        })
+        .then(() => {
+          // [ ] TODO make the activities's related interest the selected value
+          const interestSelect = document.querySelector("select");
+          selectInst = M.FormSelect.init(interestSelect);
+        });
+    })
+    .catch((err) => console.log(err));
 });
 
 const updateActivity = async (event) => {
@@ -34,7 +57,7 @@ const updateActivity = async (event) => {
     .querySelector('input[name="activity-title"]')
     .value.trim();
   const description = document.querySelector("#description").value;
-  const interest_id = $interestSelect.value;
+  const interest_id = selectInst.getSelectedValues()[0];
   const location = document.querySelector("#zipCode").value;
   const occurrence = document.querySelector("#dateOfEvent").value;
   const seats = document.querySelector("#seats").value;
@@ -81,58 +104,3 @@ const updateActivity = async (event) => {
 document
   .querySelector("#edit-activity-form")
   .addEventListener("submit", updateActivity);
-
-// const updateActivity = async (event) => {
-//   event.preventDefault();
-//   const title = document
-//     .querySelector('input[name="activity-title"]')
-//     .value.trim();
-//   const description = document
-//     .querySelector('input[name="activity-title"]')
-//     .value.trim();
-//   const location = document
-//     .querySelector('input[name="activity-title"]')
-//     .value.trim();
-//   const occurrence = document
-//     .querySelector('input[name="activity-title"]')
-//     .value.trim();
-//   const organizer_id = document
-//     .querySelector('input[name="activity-title"]')
-//     .value.trim();
-//   const is_private = document
-//     .querySelector('input[name="activity-title"]')
-//     .value.trim();
-//   const seats = document
-//     .querySelector('input[name="activity-title"]')
-//     .value.trim();
-
-//   // COMMENT this can be made to get the ID from req.session.user_id since only logged in users should be able to make changes and only to their own profiles.
-//   const id = window.sessionStorage.user_id;
-
-//   const response = await fetch(`/api/activities/${id}`, {
-//     method: "PUT",
-//     body: JSON.stringify({
-//       title,
-//       description,
-//       location,
-//       occurrence,
-//       organizer_id,
-//       is_private,
-//       seats,
-//     }),
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-
-//   if (response.ok) {
-//     document.location.replace("/browsing/");
-//   } else {
-//     // [ ] TODO change browser alert to modal
-//     alert(response.statusText);
-//   }
-// };
-
-// document
-//   .querySelector(".edit-activity-form")
-//   .addEventListener("submit", updateActivities);
