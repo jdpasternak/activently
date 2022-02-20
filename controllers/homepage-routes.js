@@ -271,7 +271,7 @@ router.get(
       });
   }
 );
-router.post("/", (req, res) => {
+router.post("/activities/attend", (req, res) => {
   Attendance.create({
     user_id: req.session.user_id,
     activity_id: req.body.activity_id,
