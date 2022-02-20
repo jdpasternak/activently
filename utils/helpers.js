@@ -1,3 +1,5 @@
+const markdown = require("markdown-js");
+
 //function to procces the date and the plurals.
 module.exports = {
   format_date: (date) => {
@@ -24,5 +26,8 @@ module.exports = {
       return false;
     }
     return attending.find((i) => i.id === user_id);
+  },
+  markdown_to_html: (markdownText) => {
+    return markdown.makeHtml(markdownText);
   },
 };
