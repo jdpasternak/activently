@@ -93,11 +93,12 @@ router.get("/:id", (req, res) => {
       "created_at",
       [
         sequelize.literal(
-          "(SELECT COUNT(*) FROM attending WHERE activity.id = attending.activity_id)"
+          "(SELECT COUNT(*) FROM attendance WHERE activity.id = attendance.activity_id)"
         ),
-        "attending_count",
+        "attendance_count",
       ],
     ],
+    order: [["occurrence", "ASC"]],
     include: [
       {
         model: Comment,
@@ -115,7 +116,19 @@ router.get("/:id", (req, res) => {
       },
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["id", "username"],
+      },
+      {
+        model: User,
+        through: Attendance,
+        as: "attending",
+        attributes: ["id", "username"],
+      },
+      {
+        model: User,
+        through: Invitation,
+        as: "invited",
+        attributes: ["id", "username"],
       },
     ],
   })
