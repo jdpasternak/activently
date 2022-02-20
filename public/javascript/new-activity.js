@@ -36,7 +36,9 @@ const createActivity = async (event) => {
   const description = document.querySelector("#description").value;
   const interest_id = $interestSelect.value;
   const location = document.querySelector("#zipCode").value;
-  const occurrence = document.querySelector("#dateOfEvent").value;
+  const occurrence = `${document.querySelector("#dateOfEvent").value} ${
+    document.querySelector(".timepicker").value
+  }`;
   const seats = document.querySelector("#seats").value;
   const is_private = document.querySelector('input[name="is-private"]').checked;
   const req_dietary_pref = document.querySelector(
