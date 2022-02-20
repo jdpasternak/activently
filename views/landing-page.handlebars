@@ -48,7 +48,7 @@
         <div class="card black-text">
           <span class="card-title">{{activity.title}}</span>
           <div class="card-content">
-            <p>{{activity.description}}</p>
+            <p>{{markdown_to_html activity.description}}</p>
           </div>
           <div class="card-action">
             {{#if loggedIn}}
