@@ -41,8 +41,6 @@ const saveEditBasicInfoHandler = async (event) => {
   const updatedUsername = $usernameInput.value.trim();
   const updatedZipCode = $zipCodeInput.value.trim();
 
-  console.log(updatedUsername, updatedZipCode);
-
   const response = await fetch(`/api/users/${user_id}`, {
     method: "PUT",
     body: JSON.stringify({ username: updatedUsername, zip: updatedZipCode }),
@@ -60,7 +58,6 @@ const saveEditDietaryPreferencesHandler = (event) => {
   event.preventDefault();
 
   const values = $dietaryPrefSelectInstance.getSelectedValues();
-  console.log(values);
 
   fetch("/api/users/dietaryPrefs", {
     method: "DELETE",
@@ -126,8 +123,6 @@ const saveChangePasswordButtonHandler = (event) => {
   const newPassword = $newPassword.value;
   const confirmNewPassword = $confirmNewPassword.value;
   const email = document.querySelector("#user-email").textContent.split(" ")[1];
-
-  console.log(oldPassword, newPassword, confirmNewPassword);
 
   [$oldPassword, $newPassword, $confirmNewPassword].forEach((i) => {
     i.classList.remove("invalid");
@@ -230,7 +225,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((apiDietaryPrefData) => apiDietaryPrefData.json())
         .then((data) => {
           data.forEach((i) => {
-            console.log(i);
             let $option = document.createElement("option");
             $option.value = i.id;
             $option.textContent = i.name;
