@@ -6,6 +6,7 @@ const {
   Comment,
   Attendance,
   Invitation,
+  Interest,
 } = require("../../models");
 const { withAuth } = require("../../utils/auth");
 
@@ -113,6 +114,10 @@ router.get("/:id", (req, res) => {
           model: User,
           attributes: ["username"],
         },
+      },
+      {
+        model: Interest,
+        attributes: ["id", "name"],
       },
       {
         model: User,
