@@ -179,14 +179,6 @@ router.get("/activity/:id", withAuth, (req, res) => {
     where: {
       id: req.params.id,
     },
-    // attributes: [
-    //   [
-    //     sequelize.literal(
-    //       "(SELECT COUNT(*) FROM attending WHERE activity.id = attending.activity_id)"
-    //     ),
-    //     "attending_count",
-    //   ],
-    // ],
 
     include: [
       {
@@ -208,7 +200,6 @@ router.get("/activity/:id", withAuth, (req, res) => {
     ],
   })
     .then((dbActivityData) => {
-      console.log(dbActivityData.get({ plain: true }), "HEY HO");
       res.render("activity", {
         activity: dbActivityData.get({ plain: true }),
         user_id: req.session.user_id,
