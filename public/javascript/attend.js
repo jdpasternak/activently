@@ -10,12 +10,10 @@ const confirmAttendButtonHandler = async (event) => {
     window.location.pathname.split("/")[
       window.location.pathname.split("/").length - 1
     ];
-
-  const userId = window.sessionStorage.user_id;
+    
   const response = await fetch("/api/activities/attend", {
     method: "POST",
     body: JSON.stringify({
-      user_id: userId,
       activity_id: activityId,
     }),
     headers: {
