@@ -40,31 +40,45 @@
     <header class="d-flex flex-row">
       <nav>
         <div class="nav-wrapper">
+          <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i
+              class="material-icons"
+            >menu</i></a>
           {{#if loggedIn}}
-            <a href="#" id="logout" class="m-1 waves-effect waves-light btn align-middle">Logout</a>
+            <a
+              href="#"
+              id="logout"
+              class="m-1 waves-effect waves-light btn align-middle"
+            >Logout</a>
           {{else}}
             <a
               href="/login"
-              class="m-1 waves-effect waves-light btn align-middle"
+              class="m-1 waves-effect waves-light btn align-middle hide-on-med-and-down"
             >Log In</a>
             <a
               href="/signup"
-              class="m-1 waves-effect waves-light btn align-middle"
+              class="m-1 waves-effect waves-light btn align-middle hide-on-med-and-down"
             >Sign Up</a>
           {{/if}}
           <a href="/" class="brand-logo center">ACTIVENTLY</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <ul id="nav-mobile" class="sidenav">
             {{#if loggedIn}}
-            <li><a href="/homepage">Home</a></li>
-            <li><a href="/profile">Profile</a>
-            <li><a href="/browsing">Browse Events</a>
-            <li><a href="/activity/new">New Activity</a></li>
+              <li><a href="/homepage">Home</a></li>
+              <li><a href="/profile">Profile</a></li>
+              <li><a href="/browsing">Browse Events</a></li>
+              <li><a href="/activity/new">New Activity</a></li>
             {{/if}}
           </ul>
         </div>
       </nav>
+      <ul class="sidenav" id="mobileNav">
+        {{#if loggedIn}}
+          <li><a href="/homepage">Home</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/browsing">Browse Events</a></li>
+          <li><a href="/activity/new">New Activity</a></li>
+        {{/if}}
+      </ul>
     </header>
-
 
     <main class="d-flex m-1">
       {{{body}}}
@@ -95,7 +109,10 @@
         <div class="container">© 2022 Copyright | All rights reserved.</div>
       </div>
     </footer>
-    <script src="/javascript/logout.js"></script>
+    {{#if loggedIn}}
+      <script src="/javascript/logout.js"></script>
+    {{/if}}
+    <script src="/javascript/mobile-nav.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
     ></script>
