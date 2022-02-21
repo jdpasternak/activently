@@ -1,27 +1,27 @@
-# project-2-full-stack-web-application
+# Activently
 
-## Open Roles
+## Description
 
-- Front End Developer - 2 openings
-  - A Front End Developer is proficient in the following: semantic HTML; CSS and OOP frameworks; JavaScript logic, Promises, API fetch requests, and OOP.
-- API Developer - 1 opening
-  - For this project, an API developer will need to present the following: understanding of RESTful APIs; Sequelize Model methods (findAll(), findOne(), create(), destroy()) and their Promise structure; request and response objects (req, res).
-- Database Administrator - 1 opening
-  - A Database Administrator should be proficient in the following: creating databases and tables; associations between table data (one-to-many, many-to-many relationships); querying related data from multiple linked tables; and implementing JawsDB on Heroku;
-- Back End Developer - 2 openings
-  - A Back End Developer should be proficient in the following: setting up and configuring an Express web server; the Express Router; Express middleware; session management with Express; and user authentication;
+Activently is a tool for organizing and managing activities related to specific hobbies.  
 
-## Requirements
+- set up a tennis match at a local
+- send out invitations to a private dinner party
+- open your activities up to the public and have people RSVP to attend
 
-- Use Node.js and Express.js to create RESTful APIs (GET and POST routes, API keys)
-- Templating Engine: Handlebars.js
-- Database: MySQL
-- ORM: Sequelize
-- Hosting Provider: Heroku
-- Authentication/Session Management: express-session and cookies
-- One additional library not discussed in class
-- Polished, responsive, interactive UI
-- Folder structure meets MVC paradigm (`models`, `views`, `controllers`)
-- Use environment variables to protect sensitive information
-- Clean repository
-- Quality README
+## Installation
+
+**Pre-Requisites**
+
+- MySQL server installed and running
+
+1. Download or clone this repository.
+2. On your local machine, open a terminal in the top level directory of the code.
+3. On the command line, run `npm install` to install dependencies.
+4. Edit the `.env` file in the top level directory.
+5. Enter your username in `DB_USER` and password in `DB_PW` for MySQL, then save the file
+6. On the command line, run `npm run schema`. When prompted for a password, end your MySQL password. You will need to edit `package.json` if your username is not `root`.
+7. Run `npm run start` to start the server.
+
+## Usage
+
+
