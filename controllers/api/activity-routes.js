@@ -1,6 +1,14 @@
 const sequelize = require("../../config/connection");
 const router = require("express").Router();
-const { Activity, User, Comment, Attendance } = require("../../models");
+const {
+  Activity,
+  User,
+  Comment,
+  Attendance,
+  Invitation,
+  Interest,
+} = require("../../models");
+const { withAuth } = require("../../utils/auth");
 
 /* 
     READ Activity (all)
@@ -40,7 +48,19 @@ router.get("/", (req, res) => {
       },
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["id", "username"],
+      },
+      {
+        model: User,
+        through: Attendance,
+        as: "attending",
+        attributes: ["id", "username"],
+      },
+      {
+        model: User,
+        through: Invitation,
+        as: "invited",
+        attributes: ["id", "username"],
       },
     ],
   };
@@ -74,11 +94,12 @@ router.get("/:id", (req, res) => {
       "created_at",
       [
         sequelize.literal(
-          "(SELECT COUNT(*) FROM attending WHERE activity.id = attending.activity_id)"
+          "(SELECT COUNT(*) FROM attendance WHERE activity.id = attendance.activity_id)"
         ),
-        "attending_count",
+        "attendance_count",
       ],
     ],
+    order: [["occurrence", "ASC"]],
     include: [
       {
         model: Comment,
@@ -95,8 +116,24 @@ router.get("/:id", (req, res) => {
         },
       },
       {
+        model: Interest,
+        attributes: ["id", "name"],
+      },
+      {
         model: User,
-        attributes: ["username"],
+        attributes: ["id", "username"],
+      },
+      {
+        model: User,
+        through: Attendance,
+        as: "attending",
+        attributes: ["id", "username"],
+      },
+      {
+        model: User,
+        through: Invitation,
+        as: "invited",
+        attributes: ["id", "username"],
       },
     ],
   })
@@ -117,7 +154,7 @@ router.get("/:id", (req, res) => {
     CREATE Activity
 */
 router.post("/", (req, res) => {
-  Activity.create(req.body)
+  Activity.create({ ...req.body, organizer_id: req.session.user_id })
     .then((dbActivityData) => res.json(dbActivityData))
     .catch((err) => {
       console.log(err);
@@ -127,18 +164,21 @@ router.post("/", (req, res) => {
 
 // add attending parties to an activity
 // POST route for attending an activity
+
 // POST /api/activity/attend
-router.post("/attend", (req, res) => {
-  Attendance.create({
-    user_id: req.session.user_id,
-    activity_id: req.body.activity_id,
-  })
-    .then((dbActivityData) => dbActivityData)
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+// router.post("/attend", (req, res) => {
+//   Attendance.create({
+//     user_id: req.session.user_id,
+//     activity_id: req.body.activity_id,
+//   })
+//     .then(() => {
+//       res.render("activity");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json(err);
+//     });
+// });
 
 /* 
     UPDATE Activity

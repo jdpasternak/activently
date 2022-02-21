@@ -1,21 +1,24 @@
-function signupFormHandler(event) {
+const $signupForm = document.querySelector(".signup-form");
+
+const signupFormhandler = async (event) => {
   event.preventDefault();
 
-  const username = document.querySelector("#username-signup").value.trim();
-  const email = document.querySelector("#email-signup").value.trim();
-  const password = document.querySelector("#password-signup").value.trim();
+  const username = $signupForm.querySelector("#username-signup").value.trim();
+  const email = $signupForm.querySelector("#email-signup").value.trim();
+  const password = $signupForm.querySelector("#password-signup").value;
+  const zip = $signupForm.querySelector("#zipcode-signup").value.trim();
 
-  if (username && email && password) {
-    fetch("/api/users", {
-      method: "post",
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
-      headers: { "Content-Type": "application/json" },
-    }).then((response) => {
-      console.log(response);
-    });
+  const response = await fetch("/api/users", {
+    method: "POST",
+    body: JSON.stringify({ username, email, password, zip }),
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    location.replace("/homepage");
+  } else {
+    alert(response.statusText);
   }
-}
+};
+
+$signupForm.addEventListener("submit", signupFormhandler);

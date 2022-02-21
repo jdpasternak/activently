@@ -29,7 +29,7 @@ User.init(
       },
     },
     zip: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [5],
@@ -55,6 +55,16 @@ User.init(
           10
         );
         return updatedUserData;
+      },
+      beforeBulkCreate(newUserData) {
+        newUserData.map((user) => {
+          user.dataValues.password = bcrypt.hashSync(
+            user.dataValues.password,
+            10
+          );
+          return user;
+        });
+        return newUserData;
       },
     },
     sequelize,

@@ -4,7 +4,7 @@ const activityData = [
   {
     title: "Activity 1",
     description: "Act 1 Description",
-    location: "The Town",
+    location: "93449",
     occurrence: new Date("02-14-2022"),
     organizer_id: 1,
     is_private: false,
@@ -14,7 +14,7 @@ const activityData = [
   {
     title: "Activity 2",
     description: "Act 2 Description",
-    location: "The Pier",
+    location: "93449",
     occurrence: new Date("02-16-2022"),
     organizer_id: 2,
     is_private: false,

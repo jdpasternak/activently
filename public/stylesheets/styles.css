@@ -1,13 +1,29 @@
-span {
+/* span {
   text-shadow: 0 0 0 whitesmoke;
   animation: smoky 5s;
-}
+} */
 
-@keyframes smoky {
+/* @keyframes smoky {
   to {
     transform: translate3d(200px, -80px, 0) rotate(-40deg) skewX(70deg)
       scale(1.5);
     text-shadow: 0 0 20px whitesmoke;
     opacity: 0;
   }
+}*/
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+div.scroll {
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

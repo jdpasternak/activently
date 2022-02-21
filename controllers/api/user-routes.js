@@ -30,19 +30,19 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: DietaryPref,
-        attributes: ["name"],
+        attributes: ["id", "name"],
         through: UserDietaryPref,
         as: "dietary_preferences",
       },
       {
         model: Interest,
-        attributes: ["name"],
+        attributes: ["id", "name"],
         through: UserInterest,
         as: "interests",
       },
       {
         model: Activity,
-        attributes: ["title"],
+        attributes: ["id", "title"],
         through: Attendance,
         as: "attending",
       },
@@ -52,7 +52,7 @@ router.get("/:id", (req, res) => {
         include: [
           {
             model: Activity,
-            attributes: ["title"],
+            attributes: ["id", "title"],
           },
         ],
       },
@@ -80,14 +80,7 @@ router.get("/:id", (req, res) => {
         return;
       }
 
-      // res.json(dbUserData);
-      res.render('userprofile', {
-        name : dbUserData.username,
-        Email : dbUserData.email,
-        ZipCode : dbUserData.zip, 
-        Diet : dbUserData.dietary_preferences[0].name,
-        hobby : dbUserData.interests[0].name,
-      });
+      res.json(dbUserData);
     })
     .catch((err) => {
       console.log(err);
@@ -101,49 +94,80 @@ router.post("/", (req, res) => {
     email: req.body.email,
     zip: req.body.zip,
     password: req.body.password,
-  }).then((dbUserData) => {
-    req.session
-      .save(() => {
-        res.session.user_id = dbUserData.id;
+  })
+    .then((dbUserData) => {
+      req.session.save(() => {
+        req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
         req.session.loggedIn = true;
-        res.json(dbUserData);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
+        res.json({ dbUserData: dbUserData, message: "You are now logged in" });
       });
-  });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.delete("/dietaryPrefs", (req, res) => {
+  UserDietaryPref.destroy({
+    where: {
+      user_id: req.session.user_id,
+    },
+  })
+    .then((dbUserDietaryPrefData) => {
+      res.json(dbUserDietaryPrefData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.delete("/interests", (req, res) => {
+  UserInterest.destroy({
+    where: {
+      user_id: req.session.user_id,
+    },
+  })
+    .then((dbUserInterestData) => {
+      res.json(dbUserInterestData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.post("/login", (req, res) => {
+  console.log(req.body);
   User.findOne({
     where: {
       email: req.body.email,
     },
-  }).then((dbUserData) => {
-    if (!dbUserData) {
-      res.status(400).json({ message: "No user with that email address!" });
-      return;
-    }
-    const validPassword = dbUserData.checkPassword(req.body.password);
-    if (!validPassword) {
-      res.status(400).json({ message: "Incorrect password!" });
-      return;
-    }
-    req.session
-      .save(() => {
+  })
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(400).json({ message: "No user with that email address!" });
+        return;
+      }
+      const validPassword = dbUserData.checkPassword(req.body.password);
+      if (!validPassword) {
+        res.status(400).json({ message: "Incorrect password!" });
+        return;
+      }
+      req.session.save(() => {
         req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
-        req.session.loggedin = true;
+        req.session.loggedIn = true;
 
-        res.json({ user: dbUserData, message: "You are now logged in!" });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(err);
+        return res.json({ user: dbUserData, message: "You are now logged in!" });
       });
-  });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 router.post("/logout", (req, res) => {
@@ -156,11 +180,11 @@ router.post("/logout", (req, res) => {
   }
 });
 
-router.put("/:id", (req, res) => {
+router.put("/", (req, res) => {
   User.update(req.body, {
     individualHooks: true,
     where: {
-      id: req.params.id,
+      id: req.session.user_id,
     },
   })
     .then((dbUserData) => {
