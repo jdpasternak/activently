@@ -13,7 +13,7 @@ www.activently.com
 
 Activently is a tool for organizing activities, gathering RSVPs, coordinating dietary restrictions, and more. 
 
-![](/assets/images/activently.jpg)
+![Activently](https://user-images.githubusercontent.com/92696470/154897209-fcee7f48-ffdb-4dc7-ae19-4da7c017726d.JPG)
 
 ## Installation:
 
