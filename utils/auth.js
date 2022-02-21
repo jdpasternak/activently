@@ -1,3 +1,5 @@
+const { redirect } = require("statuses");
+
 const withAuth = (req, res, next) => {
   if (!req.session.user_id) {
     res.redirect("/login");
@@ -11,12 +13,11 @@ const withAuth = (req, res, next) => {
 
 const withOwned = (req, res, next) => {
   if (
-    (!req.session.user_id, req.session.activity_id === activity.organizer_id)
+    (!req.session.user_id === req.activity.organizer_id)
   ) {
-    res.redirect("/homepage");
-  } else {
-    next();
+   next()
   }
+  res.redirect("/homepage");
 };
 
 module.exports = { withAuth, withOwned };
