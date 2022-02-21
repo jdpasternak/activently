@@ -3,12 +3,11 @@ const { Attendance } = require("../../models");
 // POST /api/activity/attend
 router.post("/", (req, res) => {
   Attendance.create({
-    where: {
       user_id: req.session.user_id,
       activity_id: req.body.activity_id,
-    },
   })
     .then((dbActivityData) => {
+      console.log(dbActivityData);
       res.json(dbActivityData);
     })
     .catch((err) => {
