@@ -219,10 +219,19 @@ router.get("/activity/:id", withAuth, (req, res) => {
 */
 router.get("/activity/:id/edit", withAuth, (req, res) => {
   Activity.findOne({
-    where: { id: req.params.id },
+    where: { id: req.params.id, organizer_id: req.session.user_id },
     include: [{ model: User, attributes: ["id", "username"] }],
   })
     .then((dbActivityData) => {
+      if (!dbActivityData) {
+        req.res.redirect(
+          req.url
+            .split("/")
+            .splice(0, req.url.split("/").length - 1)
+            .join("/")
+        );
+        return;
+      }
       res.render("edit-activity", {
         activity: dbActivityData.get({ plain: true }),
         loggedIn: req.session.loggedIn,
