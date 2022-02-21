@@ -1,0 +1,105 @@
+<section class="container">
+  <h2>Edit Activity</h2>
+  <form id="edit-activity-form">
+    <div class="input-field">
+      <label for="activityTitle">Title</label>
+      <input
+        type="text"
+        name="activity-title"
+        id="activityTitle"
+        required
+        value="{{activity.title}}"
+      />
+    </div>
+    <div class="input-field">
+      <label for="description">Description</label>
+      <textarea
+        name="description"
+        id="description"
+        class="materialize-textarea"
+      >{{activity.description}}</textarea>
+      <span class="helper-text">Accepts <a href="https://www.markdownguide.org/" target="_blank">markdown</a></span>
+    </div>
+    <div class="input-field">
+      <select id="interestSelect" required>
+        <option value="" disabled selected>Select a related interest</option>
+      </select>
+      <label>Related Interest</label>
+    </div>
+    <div class="input-field">
+      <label for="zipCode">Zip Code</label>
+      <input
+        type="text"
+        name="location"
+        id="zipCode"
+        required
+        value="{{activity.location}}"
+      />
+    </div>
+    <div class="input-field">
+      <label for="dateOfEvent">Date of Event</label>
+      <input
+        type="text"
+        name="date-of-event"
+        id="dateOfEvent"
+        class="datepicker"
+        required
+        value="{{format_date activity.occurrence}}"
+      />
+    </div>
+    <div class="input-field">
+      <label for="timeOfEvent">Time of Event</label>
+      <input
+        type="text"
+        name="time-of-event"
+        id="timeOfEvent"
+        class="timepicker"
+        value="{{format_time activity.occurrence}}"
+        required
+      />
+    </div>
+    <div class="input-field">
+      <label for="seats">Number of Seats</label>
+      <input
+        type="number"
+        name="seats"
+        id="seats"
+        required
+        value="{{activity.seats}}"
+      />
+    </div>
+    <p>
+      <label>
+        <input type="checkbox" name="is-private" id="isPrivate" {{#if activity.is_private}}checked{{/if}} />
+        <span>Private activity</span>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input
+          type="checkbox"
+          name="dietary-pref-req"
+          id="dietaryPrefRequired"
+          {{#if activity.req_dietary_pref}}
+          checked
+          {{/if}}
+        />
+        <span>Dietary preferences required</span>
+      </label>
+    </p>
+    <div class="input-field">
+      <textarea id="rules" name="rules" class="materialize-textarea">{{activity.rules}}</textarea>
+      <label for="rules">Rules</label>
+      <span class="helper-text">House rules, guidelines, housekeeping, etc. Accepts <a href="https://www.markdownguide.org/" target="_blank">markdown</a></span>
+    </div>
+    <div class="input-field">
+      <label for="pricePerSeat">Price per Seat</label>
+      <input type="number" id="pricePerSeat" required value={{activity.price}} />
+    </div>
+    <div class="input-field">
+      <input type="submit" class="btn" value="Update Activity" required />
+    </div>
+  </form>
+</section>
+
+<script src="/javascript/update-activity.js"></script>

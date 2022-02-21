@@ -1,6 +1,6 @@
 {{! create an event button}}
 {{! floating at bottom right? }}
-<div>
+<!-- <div>
   <button
     class="btn waves-effect waves-light"
     type="submit"
@@ -8,9 +8,10 @@
   >Create my event
     <i class="material-icons right">send</i>
   </button>
-</div>
+</div> -->
 
-{{! TODO: create a search bar which includes 'options' and 'location' }}
+<!-- [ ] TODO: create a search bar which includes 'options' and 'location' -->
+<!--
 <div class="input-field">
   <input id="search" type="search" required />
   <label class="label-icon" for="search"><i
@@ -18,40 +19,30 @@
     >search</i></label>
   <i class="material-icons">close</i>
 </div>
+-->
 
-<div class="progress">
+{{! <div class="progress">
   <div class="indeterminate"></div>
-</div>
+</div> }}
 
 {{! TODO: event cards }}
 <!-- maybe 3 - 4 events each 'page'?-->
-<div class="row">
-  <div class="col s12 m7">
-    <div class="card">
-      <div class="card-image">
-        <img src="{{event image}}" />
-        <span class="card-title">{{Event Title}}</span>
-      </div>
-      <div class="card-content">
-        <p>{{description of the event}}</p>
-      </div>
-      <div class="card-action">
-        <a href="#">Learn more!</a>
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      {{#each activities as |activity|}}
+        <div class="card black-text center-align">
+
+          <a href="/activity/{{id}}"><span
+              class="card-title black-text center-align"
+            >{{activity.title}}</span>
+          </a>
+          <div class="card-content left-align">
+            <p>{{markdown_to_html activity.description}}</p>
+          </div>
+
+        </div>
+      {{/each}}
     </div>
   </div>
 </div>
-
-<ul class="pagination">
-  <li class="disabled"><a href="#!"><i
-        class="material-icons"
-      >chevron_left</i></a></li>
-  <li class="active"><a href="#!">1</a></li>
-  <li class="waves-effect"><a href="#!">2</a></li>
-  <li class="waves-effect"><a href="#!">3</a></li>
-  <li class="waves-effect"><a href="#!">4</a></li>
-  <li class="waves-effect"><a href="#!">5</a></li>
-  <li class="waves-effect"><a href="#!"><i
-        class="material-icons"
-      >chevron_right</i></a></li>
-</ul>

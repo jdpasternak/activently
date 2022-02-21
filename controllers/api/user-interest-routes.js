@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Interest, UserInterest } = require("../../models");
+const{ User, Interest, UserInterest } = require("../../models");
 
 router.get("/", (req, res) => {
   UserInterest.findAll({
@@ -23,6 +23,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  console.log(req.body);
   UserInterest.create(req.body)
     .then((dbUserInterestData) => res.json(dbUserInterestData))
     .catch((err) => {
