@@ -1,27 +1,75 @@
-# project-2-full-stack-web-application
+# ACTIVENTLY
+www.activently.com
 
-## Open Roles
+## Table of Contents:  
+[1. Description](#Description)  
+[2. Installation](#Installation)  
+[3. App Usage](#App-Usage)  
+[4. License Details](#License-Details)  
+[5. List of Contributors](#List-of-Contributors)  
+[6. Questions](#Questions)
 
-- Front End Developer - 2 openings
-  - A Front End Developer is proficient in the following: semantic HTML; CSS and OOP frameworks; JavaScript logic, Promises, API fetch requests, and OOP.
-- API Developer - 1 opening
-  - For this project, an API developer will need to present the following: understanding of RESTful APIs; Sequelize Model methods (findAll(), findOne(), create(), destroy()) and their Promise structure; request and response objects (req, res).
-- Database Administrator - 1 opening
-  - A Database Administrator should be proficient in the following: creating databases and tables; associations between table data (one-to-many, many-to-many relationships); querying related data from multiple linked tables; and implementing JawsDB on Heroku;
-- Back End Developer - 2 openings
-  - A Back End Developer should be proficient in the following: setting up and configuring an Express web server; the Express Router; Express middleware; session management with Express; and user authentication;
+## Description:
 
-## Requirements
+Activently is a tool for organizing activities, gathering RSVPs, coordinating dietary restrictions, and more. 
 
-- Use Node.js and Express.js to create RESTful APIs (GET and POST routes, API keys)
-- Templating Engine: Handlebars.js
-- Database: MySQL
-- ORM: Sequelize
-- Hosting Provider: Heroku
-- Authentication/Session Management: express-session and cookies
-- One additional library not discussed in class
-- Polished, responsive, interactive UI
-- Folder structure meets MVC paradigm (`models`, `views`, `controllers`)
-- Use environment variables to protect sensitive information
-- Clean repository
-- Quality README
+![](/assets/images/activently.jpg)
+
+## Installation:
+
+Download/clone the github repo and install dependencies:
+
+- Nodejs
+- bcrypt
+- bootstrap
+- connect-session-sequelize
+- dotenv
+- express
+- express-handlebars
+- express-session
+- markdown-js
+- materialize-css
+- mysql2
+- sequelize
+
+## App Usage:
+
+npm start
+
+## License Details:
+
+MIT License
+
+Copyright (c) 2022 Jake Pasternak
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## List of Contributors:
+
+Jake Pasternak
+Naomi Lounsbury
+Jovial Chan
+Justin Choy
+Alik Margaryan
+Mark Horsfall
+
+## Questions:
+
+Link to github:  
+https://github.com/jdpasternak 
