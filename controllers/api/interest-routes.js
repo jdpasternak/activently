@@ -17,4 +17,17 @@ router.get("/", (req, res) => {
     });
 });
 
+/* 
+    POST /api/intersts
+    CREATE an interest
+*/
+router.post("/", (req, res) => {
+  Interest.create({ name: req.body.name })
+    .then((dbCommentData) => res.json(dbCommentData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;
