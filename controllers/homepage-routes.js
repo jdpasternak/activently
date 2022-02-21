@@ -273,17 +273,4 @@ router.get(
       });
   }
 );
-router.post("/activities/attend", (req, res) => {
-  Attendance.create({
-    user_id: req.session.user_id,
-    activity_id: req.body.activity_id,
-  })
-    .then(() => {
-      res.render("activity");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
 module.exports = router;
