@@ -27,3 +27,7 @@ div.scroll {
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+blockquote {
+  border-color: teal;
+}
