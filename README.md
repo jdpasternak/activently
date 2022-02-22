@@ -1,27 +1,75 @@
-# Activently
+# ACTIVENTLY
+www.activently.com
 
-## Description
+## Table of Contents:  
+[1. Description](#Description)  
+[2. Installation](#Installation)  
+[3. App Usage](#App-Usage)  
+[4. License Details](#License-Details)  
+[5. List of Contributors](#List-of-Contributors)  
+[6. Questions](#Questions)
 
-Activently is a tool for organizing and managing activities related to specific hobbies.  
+## Description:
 
-- set up a tennis match at a local
-- send out invitations to a private dinner party
-- open your activities up to the public and have people RSVP to attend
+Activently is a tool for organizing activities, gathering RSVPs, coordinating dietary restrictions, and more. 
 
-## Installation
+![Activently](https://user-images.githubusercontent.com/92696470/154897209-fcee7f48-ffdb-4dc7-ae19-4da7c017726d.JPG)
 
-**Pre-Requisites**
+## Installation:
 
-- MySQL server installed and running
+Download/clone the github repo and install dependencies:
 
-1. Download or clone this repository.
-2. On your local machine, open a terminal in the top level directory of the code.
-3. On the command line, run `npm install` to install dependencies.
-4. Edit the `.env` file in the top level directory.
-5. Enter your username in `DB_USER` and password in `DB_PW` for MySQL, then save the file
-6. On the command line, run `npm run schema`. When prompted for a password, end your MySQL password. You will need to edit `package.json` if your username is not `root`.
-7. Run `npm run start` to start the server.
+- Nodejs
+- bcrypt
+- bootstrap
+- connect-session-sequelize
+- dotenv
+- express
+- express-handlebars
+- express-session
+- markdown-js
+- materialize-css
+- mysql2
+- sequelize
 
-## Usage
+## App Usage:
 
+npm start
 
+## License Details:
+
+MIT License
+
+Copyright (c) 2022 Jake Pasternak
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## List of Contributors:
+
+Jake Pasternak
+Naomi Lounsbury
+Jovial Chan
+Justin Choy
+Alik Margaryan
+Mark Horsfall
+
+## Questions:
+
+Link to github:  
+https://github.com/jdpasternak 
