@@ -1,0 +1,33 @@
+<section class="container">
+  <h2>Admin Panel</h2>
+  <div class="row">
+    <h3>Manage Users</h3>
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <table>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Zip</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr data-user-id="1">
+                <td>jake</td>
+                <td>jake@example.com</td>
+                <td>96797</td>
+                <td><a href="/admin/users/{{user.id}}">View</a></td>
+                <td><a href="/admin/users/{{user.id}}">Edit</a></td>
+                <td><a href="/admin/users/{{user.id}}">Delete</a></td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
