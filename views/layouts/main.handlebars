@@ -43,22 +43,31 @@
           <a href="#" data-target="mobileNav" class="sidenav-trigger"><i
               class="material-icons"
             >menu</i></a>
-          {{#if loggedIn}}
-            <a
-              href="#"
-              id="logout"
-              class="m-1 waves-effect waves-light btn align-middle"
-            >Logout</a>
-          {{else}}
-            <a
-              href="/login"
-              class="m-1 waves-effect waves-light btn align-middle hide-on-med-and-down"
-            >Log In</a>
-            <a
-              href="/signup"
-              class="m-1 waves-effect waves-light btn align-middle hide-on-med-and-down"
-            >Sign Up</a>
-          {{/if}}
+          <ul class="left hide-on-med-and-down">
+            {{#if loggedIn}}
+              <li>
+                <a
+                  href="#"
+                  id="logout"
+                  class="m-1 waves-effect waves-light align-middle"
+                >Logout</a>
+              </li>
+            {{else}}
+              <li>
+                <a
+                  href="/login"
+                  class="m-1 waves-effect waves-light align-middle"
+                >Log In</a>
+              </li>
+              <li>
+                <a
+                  href="/signup"
+                  class="m-1 waves-effect waves-light align-middle"
+                >Sign Up</a>
+              </li>
+            {{/if}}
+          </ul>
+
           <a href="/" class="brand-logo center">ACTIVENTLY</a>
           <ul class="right hide-on-med-and-down">
             {{#if loggedIn}}
