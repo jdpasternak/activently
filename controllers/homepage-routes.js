@@ -170,6 +170,10 @@ router.get("/profile", withAuth, (req, res) => {
     });
 });
 
+router.get("/admin", (req, res) => {
+  res.render("admin");
+});
+
 router.get("/activity/new", withAuth, (req, res) => {
   res.render("newActivity", { loggedIn: req.session.loggedIn });
 });
