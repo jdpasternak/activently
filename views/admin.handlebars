@@ -1,33 +1,174 @@
 <section class="container">
-  <h2>Admin Panel</h2>
   <div class="row">
-    <h3>Manage Users</h3>
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <table>
-            <thead>
-              <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Zip</th>
-              </tr>
-            </thead>
-            <tbody>
-
-              <tr data-user-id="1">
-                <td>jake</td>
-                <td>jake@example.com</td>
-                <td>96797</td>
-                <td><a href="/admin/users/{{user.id}}">View</a></td>
-                <td><a href="/admin/users/{{user.id}}">Edit</a></td>
-                <td><a href="/admin/users/{{user.id}}">Delete</a></td>
-
-              </tr>
-            </tbody>
-          </table>
+    <div class="col s12 m9 l10">
+      <h2>Admin Panel</h2>
+      <div class="row section scrollspy" id="manageUsers">
+        <h3>Manage Users</h3>
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Zip</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each users as |user|}}
+                    <tr data-user-id="1">
+                      <td>{{user.username}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.zip}}</td>
+                      <td class="d-flex justify-around"><a
+                          class="btn blue viewBtn"
+                          href="/admin/users/{{user.id}}"
+                        >View</a>
+                        <a
+                          class="btn editBtn"
+                          href="/admin/users/{{user.id}}"
+                        >Edit</a>
+                        <a
+                          class="btn red delBtn"
+                          href="/admin/users/{{user.id}}"
+                        >Delete</a>
+                      </td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row section scrollspy" id="manageInterests">
+        <h3>Manage Interests</h3>
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each interests as |interest|}}
+                    <tr data-interest-id="">
+                      <td>{{interest.name}}</td>
+                      <td>{{interest.dsecription}}</td>
+                      <td class="d-flex justify-around"><a
+                          class="btn blue viewBtn"
+                          href="/admin/users/{{user.id}}"
+                        >View</a>
+                        <a
+                          class="btn editBtn"
+                          href="/admin/users/{{user.id}}"
+                        >Edit</a>
+                        <a
+                          class="btn red delBtn"
+                          href="/admin/users/{{user.id}}"
+                        >Delete</a>
+                      </td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row section scrollspy" id="manageDietaryPrefs">
+        <h3>Manage Dietary Preferences</h3>
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each dietaryPrefs as |dietaryPref|}}
+                    <tr data-dietaryPref-id="">
+                      <td>{{dietaryPref.name}}</td>
+                      <td>{{dietaryPref.dsecription}}</td>
+                      <td class="d-flex justify-around"><a
+                          class="btn blue viewBtn"
+                          href="/admin/dietaryPref/{{dietaryPref.id}}"
+                        >View</a>
+                        <a
+                          class="btn editBtn"
+                          href="/admin/dietaryPref/{{dietaryPref.id}}"
+                        >Edit</a>
+                        <a
+                          class="btn red delBtn"
+                          href="/admin/dietaryPref/{{dietaryPref.id}}"
+                        >Delete</a>
+                      </td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row section scrollspy" id="manageActivities">
+        <h3>Manage Activities</h3>
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each activities as |activity|}}
+                    <tr data-activity-id="">
+                      <td>{{activity.title}}</td>
+                      <td>{{activity.location}}</td>
+                      <td>{{format_date activity.occurrence}}</td>
+                      <td>{{format_time activity.occurrence}}</td>
+                      <td class="d-flex justify-around"><a
+                          class="btn blue viewBtn"
+                          href="/admin/activity/{{activity.id}}"
+                        >View</a>
+                        <a
+                          class="btn editBtn"
+                          href="/admin/activity/{{activity.id}}"
+                        >Edit</a>
+                        <a
+                          class="btn red delBtn"
+                          href="/admin/activity/{{activity.id}}"
+                        >Delete</a>
+                      </td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <div class="col hide-on-small-only m2 l1 offset-m1 offset-l1">
+      <ul class="section table-of-contents">
+        <li><a href="#manageUsers">Manage Users</a></li>
+        <li><a href="#manageInterests">Manage Interests</a></li>
+        <li><a href="#manageDietaryPrefs">Manage Dietary Preferences</a></li>
+        <li><a href="#manageActivities">Manage Activities</a></li>
+      </ul>
+    </div>
   </div>
 </section>
+<script src="/javascript/scrollspy.js"></script>
