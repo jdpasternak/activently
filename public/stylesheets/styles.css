@@ -31,3 +31,28 @@ div.scroll {
 blockquote {
   border-color: teal;
 }
+
+.table-of-contents a.active,
+.table-of-contents a:hover {
+  border-color: teal;
+}
+
+.table-of-contents {
+  position: fixed;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
