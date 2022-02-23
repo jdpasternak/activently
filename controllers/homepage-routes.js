@@ -171,7 +171,60 @@ router.get("/profile", withAuth, (req, res) => {
 });
 
 router.get("/admin", (req, res) => {
-  res.render("admin");
+  let data = {};
+
+  User.findAll()
+    .then((apiUserData) => {
+      const users = apiUserData.map((user) => user.get({ plain: true }));
+      data.users = users;
+    })
+    .then(() => {
+      Interest.findAll()
+        .then((apiInterestData) => {
+          const interests = apiInterestData.map((interest) =>
+            interest.get({ plain: true })
+          );
+          data.interests = interests;
+        })
+        .then(() => {
+          DietaryPref.findAll()
+            .then((apiDietaryPrefData) => {
+              const dietaryPrefs = apiDietaryPrefData.map((dietaryPref) =>
+                dietaryPref.get({ plain: true })
+              );
+              data.dietaryPrefs = dietaryPrefs;
+            })
+            .then(() => {
+              Activity.findAll()
+                .then((apiActivityData) => {
+                  const activities = apiActivityData.map((activity) =>
+                    activity.get({ plain: true })
+                  );
+                  data.activities = activities;
+                })
+                .then(() => {
+                  res.render("admin", data);
+                })
+                .catch((err) => {
+                  console.log(err);
+                  res.status(500).json(err);
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(500).json(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+  // res.render("admin", { users: apiUserData });
 });
 
 router.get("/activity/new", withAuth, (req, res) => {
